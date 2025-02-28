@@ -11,7 +11,5 @@
   lang: "zh",
 )
 
-
-
 #include "chap1.typ"
 
