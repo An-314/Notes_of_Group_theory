@@ -1,4 +1,4 @@
-#import "@local/scripst:1.1.0": *
+#import "@preview/scripst:1.1.0": *
 
 #show: scripst.with(
   template: "book",
@@ -6,8 +6,8 @@
   author: ("Anzreww",),
   time: "甲辰秋冬于清华园",
   contents: true,
-  content_depth: 3,
-  matheq_depth: 2,
+  content-depth: 3,
+  matheq-depth: 2,
   lang: "zh",
 )
 

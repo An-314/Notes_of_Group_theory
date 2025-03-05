@@ -1,4 +1,4 @@
-#import "@local/scripst:1.1.0": *
+#import "@preview/scripst:1.1.0": *
 #import "@preview/tablex:0.0.9": tablex, gridx, hlinex, vlinex, colspanx, rowspanx
 #import "@preview/fletcher:0.5.5" as fletcher: diagram, node, edge
 
