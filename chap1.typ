@@ -119,6 +119,7 @@
       [],
       [],
     ),
+    numbering: none,
   )
 
   每个元素在乘法表中的每行每列都会出现一次。
@@ -527,12 +528,12 @@ $
 
 为了研究子群和母群之间的联系，引入陪集的概念。
 
-#definition(subname: [*左陪集*], lab: "陪集性质")[
+#definition(subname: [*左陪集*])[
 
   对于群$cal(G)$和子群$cal(H)$，取$cal(G)$中不属于$cal(H)$的$u$，$cal(G)$的*左陪集*是$cal(G)$的子集$u cal(H) = {u h | h in cal(H)}$，记作$u cal(H)$。
 ]
 
-#proposition(subname: [陪集的性质])[
+#proposition(subname: [陪集的性质], lab: "陪集性质")[
 
   1. 陪集与子群的阶相同
   $
@@ -594,12 +595,12 @@ $
   初等数论里的 *Fermat小定理*, *Euler定理* 是Lagrange定理的一个特例。
 ]
 
-#note(count: false, subname: [Lagrange逆定理成立吗])[
+#remark(subname: [Lagrange逆定理成立吗])[
 
   12阶的 $T$ 没有6阶子群。
 ]
 
-#proposition(subname: [Langrange定理的推论])[
+#corollary(subname: [Langrange定理的推论])[
 
   阶为素数的群一定是循环群。
 ]
@@ -608,7 +609,7 @@ $
 
   在子群里任取一个非单位元$g$，$g$的阶是$m$，$m$是$cal(G)=p$的因子，$m=p$，所以$g$是生成元。
 ]
-#proposition(subname: [Langrange定理的推论])[
+#corollary(subname: [Langrange定理的推论])[
 
   群元素的阶是群的阶的因子。
 ]
@@ -645,6 +646,16 @@ $
 ]
 共轭是一个等价关系。
 
+#note(count: false)[
+
+  我门可以定义其他的等价关系，例如
+  $
+    K u H = {k u h | k in K, h in H}
+  $
+  若$v = k u h$，称$v tilde u$，这也是个*等价关系*。特别地，$H u H$就是共轭关系。
+]
+
+
 #definition(subname: [*类*])[
 
   所有相互共轭的元素构成一个类。包含群元素$g$的类记作$K_g$，其元素为
@@ -675,7 +686,7 @@ $
 
 #proposition(subname: [类的性质])[
 
-  类的元素的阶相同，即 $g_alpha tilde g_beta, exists x in cal(G), g_beta = x g_alpha x^(-1)$，则 $abs(g_alpha) = abs(g_beta)$。
+  同类的元素的阶相同，即 $g_alpha tilde g_beta, exists x in cal(G), g_beta = x g_alpha x^(-1)$，则 $abs(g_alpha) = abs(g_beta)$。
 ]
 
 #proof[
@@ -692,8 +703,6 @@ $
   由$abs(g_alpha)=n$知$m>=n$。
 ]
 
-// 有两类阶相同吗？
-
 #proposition(subname: [类的性质])[
 
   不同的类没有共同的元素。
@@ -702,6 +711,11 @@ $
 #proposition(subname: [类的性质])[
 
   一个类的逆也是一个类。
+]
+
+#proof[
+
+  由$g_alpha tilde g_beta$，存在$x in cal(G)$使得$g_beta = x g_alpha x^(-1)$，则$g_beta^(-1) = (x g_alpha x^(-1))^(-1) = x g_alpha^(-1) x^(-1)$。
 ]
 
 #theorem(subname: [类定理])[
@@ -714,7 +728,8 @@ $
   ```
   "子群" -> "陪集" -> "Lagrange" -> "因子"
   ```
-  对于$f in cal(G)$取共轭到自己的元素$h$构成的集合
+  #newpara()
+  对于$f in cal(G)$，取共轭到自己的元素$h$构成的集合
   $
     cal(H)_f = { h in cal(G) | h f h^(-1) = f }
   $
@@ -732,12 +747,201 @@ $
     cal(H)_f, g_alpha cal(H)_f, g_beta cal(H)_f, ...
   $
   #newpara()
-  *下面证明：*任意两个元素作 $f$ 的共轭运算给出 $cal(K)_f$ 类中的同一个元素的充要条件是：这两个元素属于 $H_f$ 的同一个陪集。
+  下面证明一个引理
+  #lemma[
 
-  $forall g_alpha, g_beta in.not cal(H)_f$
+    任意两个元素作 $f$ 的共轭运算给出 $cal(K)_f$ 类中的同一个元素的*充要条件是*：这两个元素属于 $H_f$ 的同一个陪集。
+  ]
+
+
+  $forall g_alpha, g_beta in.not cal(H)_f$有
   $
-    g_alpha f g_alpha^(-1) = g_beta f g_beta^(-1) <=> f (g_alpha^(-1) g_beta) = g_alpha^(-1) g_beta f <=> g_alpha^(-1) g_beta in cal(H)_f <=> g_beta in g_alpha cal(H)_f
+    g_alpha f g_alpha^(-1) = g_beta f g_beta^(-1) <=> f = (g_alpha^(-1) g_beta) f (g_alpha^(-1) g_beta)^(-1)<=> g_alpha^(-1) g_beta in cal(H)_f <=> g_beta in g_alpha cal(H)_f
   $
-  且该类的元素个数是$cal(H)_f/cal(G)$。
+  这就意味着，类中的每一个元素都对应着一个陪集，且这些陪集的元素个数相同，这些陪集的元素个数是$cal(G)/cal(H)_f$，也就是类的元素个数是$cal(G)/cal(H)_f$，是$cal(G)$的阶的因子。
 ]
 
+== 不变子群
+
+下面我们考虑对子群做共轭运算。
+
+#definition(subname: [*共轭子群*])[
+
+  对于群$cal(G)$和子群$cal(H)$，取一个群元素$x in cal(G), x in.not cal(H)$，可以证明$cal(H)$的共轭
+  $
+    cal(F) = cal(H)_x = {x h x^(-1) | h in cal(H)}
+  $
+  是$cal(G)$的一个子群，称为$cal(H)$的*共轭子群*，记作$cal(H) tilde cal(F)$。
+]
+
+#proof[
+
+  - 封闭性：$x h_1 x^(-1) x h_2 x^(-1) = x h_1 h_2 x^(-1)$
+  - 单位元：$x e x^(-1) = e$
+  - 逆元：$x h x^(-1) x h^(-1) x^(-1) = e$
+]
+
+#proposition(subname: [共轭子群的性质])[
+
+  若$cal(H) tilde cal(F)$，则
+  - 子群 $cal(F)$ 的阶与 $cal(H)$ 的阶相等
+  - $cal(F)$ 与 $cal(H)$ 是互为共轭子群
+]
+
+#definition(subname: [不变子群])[
+
+  对于群$cal(G)$和子群$cal(H)$，若对任意群元素$g in cal(G)$，有
+  $
+    g cal(H) g^(-1) = cal(H)
+  $
+  则称$cal(H)$是$cal(G)$的*不变子群*。
+]
+
+#proposition(subname: [不变子群的性质])[
+
+  - 任意群元素$u in.not cal(H)$所生成的左右陪集相同$u cal(H) = cal(H) u$。
+  - 如果$cal(H)$中包含了元素$h$，则一定包含了$h$的完整类$K_h$。
+]
+
+#remark[
+  这两条性质和定义，任意一个都可以作为不变子群的定义。
+]
+
+#example(subname: [$D_3$的不变子群])[
+
+  $D_3$的不变子群是
+  $
+    d_3 = {e, d, f}
+  $
+]
+
+利用不变子群的概念，可以对群进行分类：
+
+#definition(subname: [*单群与半单群*])[
+
+  - 如果群$cal(G)$不含不变子群，则称$cal(G)$是*单群*。
+  - 如果群$cal(G)$不含Abel不变子群，则称$cal(G)$是*半单群*。
+]
+
+== 商群
+
+不变子群可以构造陪集串。设$cal(H)$是$cal(G)$的不变子群，$cal(H)$的陪集串
+$
+  cal(H), u_1 cal(H), u_2 cal(H), ..., u_(j-1) cal(H)
+$
+考虑两个陪集相乘
+$
+  u_i cal(H) dot u_j cal(H) = (u_i u_j) (u_j^(-1) cal(H) u_j) cal(H) = u_i u_j cal(H) = u_l cal(H)
+$
+还是一个陪集。这样就构成了一个群，称为*商群*。
+
+#definition(subname: [*商群*])[
+
+  如果把$cal(H)$的陪集串
+  $
+    cal(H), u_1 cal(H), u_2 cal(H), ..., u_(j-1) cal(H)
+  $
+  中的每个陪集看成一个元素，那么该陪集串在陪集乘法
+  $
+    u_i cal(H) dot u_j cal(H) = u_i u_j cal(H) = u_l cal(H)
+  $
+  下构成一个群，称为$cal(G)$关于$cal(H)$的*商群*，记作$cal(G)\/cal(H)$。
+]
+
+#proof[
+
+  - 封闭性：$u_i u_j cal(H) = u_l cal(H)$
+  - 结合率：$(u_i cal(H)) ((u_j cal(H)) (u_k cal(H))) = (u_i u_j u_k) cal(H) = (u_i (u_j u_k)) cal(H) = ((u_i u_j) u_k) cal(H) = ((u_i cal(H)) (u_j cal(H))) (u_k cal(H))$
+    - 用到了群元素的结合率：$u_i (u_j u_k) = (u_i u_j) u_k$
+    - 以及性质 $cal(H)^n = cal(H)$
+  - 单位元：$cal(H)$
+  - 逆元：$u_i cal(H) u_i^(-1) cal(H) = cal(H)$
+]
+#note(count: false)[
+
+  其实，其乘法的封闭性并不显然，需要说明：
+  - $u_i,u'_i in u_i cal(H), u_j,u'_j in u_j cal(H)$，
+    $
+      u_i u_j cal(H) = u'_i u'_j cal(H)
+    $
+    这个用不变性质说明
+    $
+      u_i u_j cal(H) = u_i (u_j cal(H)) = u_i (cal(H) u_j) = u_i (cal(H) u'_j)= (u_i cal(H)) u'_j = u'_i u'_j cal(H)
+    $
+  - $u_i u_j in.not cal(H), u_i u_j in.not u_i cal(H), u_i u_j in.not u_j cal(H)$
+]
+#proposition(subname: [商群的性质])[
+
+  商群的阶是
+  $
+    abs(cal(G)\/cal(H)) = abs(cal(G)) / abs(cal(H))
+  $
+]
+
+商群$cal(G)\/cal(H)$的元素是$cal(H)$的陪集，$cal(G)\/cal(H)$的阶是$abs(cal(G)) / abs(cal(H))$同时也是$abs(cal(G))$的因子。
+
+#example(subname: [$D_3$的商群])[
+
+  $D_3$的商群是
+  $
+    D_3\/d_3 = {d_3, a d_3}
+  $
+  阶为2。
+]
+
+#remark[
+
+  1. 子群的阶为母群的阶的一半的群是不变的。
+  2. 对于$cal(G)\/cal(H) = {cal(H), u_1 cal(H), u_2 cal(H), ..., u_(j-1) cal(H)}$，可否一定能诱导出一个群$cal(G)' = {e, u'_1, u'_2, ..., u'_(j-1)}$，$cal(G)'$是$cal(G)$的子群，其中$u'_i$是$u_i cal(H)$的代表元？
+]
+
+#proof[
+
+  1. 可知$a cal(H) = cal(H) a$是唯一的非平凡陪集，从而是不变子群。
+  2. ？？？
+]
+
+== 群的同构
+
+以上讨论的是一个群的内部性质，现讨论两个群之间的联系。
+
+我们先回顾一下映射的一些基本概念。
+
+#proposition(subname: [映射])[
+
+  对于映射$f:A->B$意味着
+  $
+    forall a in A , exists "唯一" b in B, f(a) = b
+  $
+  对于群的映射，有
+  $
+    "Img"(f) = {b in B| exists a in A, f(a) = b}
+  $
+  - 满射（映上）：$"Img"(f) = B$，即$forall b in B, exists a in A, f(a) = b$
+  - 单射（1-1映射）：$forall a_1, a_2 in A, f(a_1) = f(a_2) => a_1 = a_2$或者说$a_1 != a_2 => f(a_1) != f(a_2)$
+  - 双射（一一映上）：这就意味着$f$是一个一一对应的映射
+    $
+      forall b in B, exists "唯一" a in A, f(a) = b
+    $
+    这就意味着存在逆映射$f^(-1):B->A$，使得$f^(-1) f = id_A, f f^(-1) = id_B$
+]
+
+#example(subname: [映射])[
+
+  - $f:ZZ -> ZZ$，$f(x) = 2x$是一个单的，但不是满的
+  - $f:ZZ -> ZZ_e$，$f(x) = 2x$是一个双射
+]
+
+#definition(subname: [*同构*])[
+
+  如果在两个群$cal(G)$和$cal(F)$之间存在一个*双射*$phi: cal(G) -> cal(F), g |-> f$，使得
+  $
+    phi(g_1 g_2) = phi(g_1) phi(g_2)
+  $
+  则称$cal(G)$和$cal(F)$是*同构*的，记作$cal(G) tilde.equiv cal(F)$。
+]
+
+#note(count: false)[
+
+  $phi(g_i g_j) = phi(g_i) phi(g_j)$意味着元素和乘法的对应关系是保持的。
+]
