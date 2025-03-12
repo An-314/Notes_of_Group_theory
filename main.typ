@@ -1,4 +1,4 @@
-#import "@preview/scripst:1.1.0": *
+#import "@preview/scripst:1.1.1": *
 
 #show: scripst.with(
   template: "book",
@@ -7,7 +7,7 @@
   time: "甲辰秋冬于清华园",
   contents: true,
   content-depth: 3,
-  matheq-depth: 2,
+  matheq-depth: 3,
   lang: "zh",
 )
 
