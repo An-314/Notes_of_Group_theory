@@ -794,7 +794,7 @@ $
   $
     g cal(H) g^(-1) = cal(H)
   $
-  则称$cal(H)$是$cal(G)$的*不变子群*。
+  则称$cal(H)$是$cal(G)$的*不变子群*。$cal(H) lt.tri cal(G)$
 ]
 
 #proposition(subname: [不变子群的性质])[
@@ -1103,7 +1103,7 @@ $
   为$phi$的*核*。
 ]
 
-#theorem(subname: [同态核定理])[
+#theorem(subname: [同态核定理/第一同态定理])[
   群$cal(G)$同态于群$cal(F)$，则
   1. $cal(G)$的同态核$H$是$cal(G)$的不变子群。
   2. 商群 $cal(G)\/H$ 与 $cal(F)$ 同构。
@@ -1146,4 +1146,185 @@ $
     - 单射，$psi(g_1 H) = psi(g_2 H) => phi(g_1) = phi(g_2) => phi(g_1 g_2^(-1)) = e => g_1 g_2^(-1) in H => g_1 H = g_2 H$。这也就是说$psi$是单射。
 
     从而$cal(G)\/H$和$cal(F)$同构。
+]
+
+下面研究 $cal(G)\/H$ 的子群和 $cal(G)$ 的子群之间的关系。
+
+$cal(G)\/H$ 的子群 $cal(A)' = {H, a_1 H, a_2 H, ...}$，$cal(A)'$ 的原像 $cal(A) = {e, h_1, ..., a_1, a_1 h_1,..., a_2, a_2 h_2,...}$，$cal(A)$ 是 $cal(G)$ 的子群。
+
+#theorem(subname: [第二同态定理])[
+  群 $cal(G)$ 的子群 $cal(A)$ 含于 $cal(G)$ 的同态核 $H$，则 $cal(G)\/H$ 的子群 $cal(A)'$ 和 $cal(A)$ 同构。并且$H$是$cal(A)$的不变子群，商群$cal(A)\/H$和$cal(A)'$同构。
+
+  对于不同的子群$cal(A)'$，一一对应到不一样的子群$cal(A)$。商群 $cal(G)\/H$ 的所有子群都是这种形式的。
+
+  如果 $A\/H$ 是不变子群，则 $H lt.tri A lt.tri cal(G)$。进一步就有
+  $
+    (cal(G)\/ H) \/ (A\/H) tilde.equiv cal(G)\/A
+  $
+]
+
+== 群的直积
+
+前面讲到子群、陪集、类等概念，它们是将群元素分类，将群分割成一个较小的群或集
+合。
+
+$
+  cal(G) = union.big_i u_i cal(H) = K cal(H), K = {u_1, u_2, ...}
+$
+
+现在讨论群扩大的一种常用方式——群的直积。
+
+=== 子集的乘法
+
+#definition(subname: [*子集的乘法*])[
+
+  对于群$cal(G)$的子集$cal(H), cal(K)$，定义
+  $
+    cal(H) cal(K) = {h k | h in cal(H), k in cal(K)}
+  $
+  为$cal(H)$和$cal(K)$的*乘法*。
+]
+
+#remark(subname: [子集乘法的讨论])[
+
+  - 这个乘法不一定唯一，可能 $h_1 k_1 = h_2 k_2$，但是 $h_1 != h_2, k_1 != k_2$。
+  - 就有 $abs(A B) <= abs(A) abs(B)$。
+  - 一般$A B != B A$
+]
+
+#example(subname: [$D_3$的类的乘法])[
+  例如$D_3$的三个类是 ${e}, {a,b,c}, {d,f}$，则
+  $
+    {d,f} {a,b,c} = {c,a,b,b,c,a} = 2 {a,b,c} = 0 K_e union 0 K_a union 2 K_d
+  $
+]
+
+#proposition(subname: [类的乘法])[
+
+  两个类 $K_i, K_j$ 的乘法是 $K_i K_j = {k_i k_j | k_i in K_i, k_j in K_j}$。则有
+  $
+    K_i K_j = union.big_k c_(i,j,k) K_k
+  $
+  其中 $K_i K_j$ 是完整的类，且 $c_(i,j,k)$ 是次数。
+]
+
+#proof[
+  对 $x f_i f_j x^(-1) , forall x in cal(G)$，有
+  $
+    x f_i f_j x^(-1) = x f_i x^(-1) x f_j x^(-1) = f_i f_j in K_i K_j
+  $
+  从而 $K_i K_j$ 是一个类。
+]
+
+// 类和子群相乘的性质
+
+=== 子群的直积
+
+首先，上面讨论的所有性质都显然满足。
+
+我们希望子群的乘法也是一个群。
+
+#proposition(subname: [子集的乘法])[
+  $cal(H) cal(F)$ 是 $cal(G)$ 的子群，当且仅当 $cal(H) cal(F) = cal(F) cal(H)$。进一步有 $abs(H F) = (abs(H) abs(F))/abs(H inter F)$。
+]
+
+#proof[
+  - 必要性：$cal(H) cal(F) = cal(F) cal(H) => cal(H) cal(F) subset cal(G)$
+    - 封闭性
+      $
+        (cal(H) cal(F))^2 = cal(H) cal(F) cal(H) cal(F) = cal(H) cal(H) cal(F) cal(F) = cal(H) cal(F)
+      $
+    - 逆元
+      $
+        forall h,h^(-1) in cal(H), f,f^(-1) in cal(F), h f in cal(H) cal(F) \
+        => (h f)^(-1) = f^(-1) h^(-1) in cal(F) cal(H) = cal(H) cal(F)
+      $
+  - 充分性：$cal(H) cal(F) subset cal(G) => cal(H) cal(F) = cal(F) cal(H)$
+    $forall h in cal(H), f in cal(F)$
+    $
+      h f in cal(H) cal(F), h^(-1) f^(-1) in cal(H) cal(F) => (h^(-1) f^(-1))^(-1) in cal(H) cal(F) => f h in cal(H) cal(F)
+    $
+    从而
+    $
+      cal(F) cal(H) subset cal(H) cal(F)
+    $
+    再考虑到
+    $
+      f^(-1) h^(-1) = h' f'
+      (f^(-1) h^(-1))^(-1) =f'^(-1) h'^(-1) in cal(F) cal(H)
+    $
+    从而
+    $
+      cal(H) cal(F) subset cal(F) cal(H)
+    $
+    从而
+    $
+      cal(H) cal(F) = cal(F) cal(H)
+    $
+
+  我们知道两个子群的交仍然是一个子群，从而
+  $
+    cal(H) inter cal(F) subset cal(H)
+  $
+  记
+  $
+    cal(A) = cal(H) inter cal(F)
+  $
+  构造陪集串
+  $
+    cal(H) = union.big_(i=1)^n u_i cal(A)
+  $
+  就有
+  $
+    n = abs(H) / abs(A) = abs(H) / abs(H inter F)
+  $
+  进一步
+  $
+    cal(H) cal(F) = union.big_(i=1)^n u_i cal(A) cal(F) = union.big_(i=1)^n u_i cal(F)
+  $
+  // 这里不够严谨
+  从而
+  $
+    abs(H F) = n abs(cal(F))
+  $
+  即
+  $
+    abs(H F) = (abs(H) abs(F)) / abs(H inter F)
+  $
+]
+
+进一步加紧要求，我们希望 $cal(H) inter cal(F) = {e}$，就有$abs(H F) = abs(H) abs(F)$。这就引出了直积的概念。
+
+=== 群的直积
+
+#definition(subname: [*直积*])[
+
+  $cal(G)$的两个子群$cal(G_1), cal(G_2)$的直积是
+  $
+    cal(G_1) times.circle cal(G_2) = {g_1 g_2 | g_1 in cal(G_1), g_2 in cal(G_2)}
+  $
+  若
+  - $forall g_(alpha beta) = g_(1 alpha) g_(2 beta)$都可以唯一地被表示
+  - $g_(1 alpha) g_(2 beta) = g_(2 beta) g_(1 alpha)$
+  则称$cal(G_1) times.circle cal(G_2)$是$cal(G)$的*直积*。
+]
+
+*群是其两个子群的直积*即两个子群撑满了整个群。
+
+#proposition(subname: [直积的性质])[
+  - $cal(G) = cal(G_1) times.circle cal(G_2) = cal(G_2) times.circle cal(G_1)$
+  - $cal(G_1) inter cal(G_2) = {e}$
+  - $cal(G)_1 lt.tri cal(G), cal(G)_2 lt.tri cal(G), cal(G)\/cal(G)_1 tilde.equiv cal(G)_2, cal(G)\/cal(G)_2 tilde.equiv cal(G)_1$
+]
+
+#example(subname: [$D_3$])[
+
+  $D_3 = {e,a,b,c,d,f}$，$D_3 = K_e times.circle K_a$，其中
+  $
+    K_e = {e,d,f}, K_a = {e,a,b,c}
+  $
+]
+
+#definition(subname: [半直积])[
+
 ]
