@@ -1153,7 +1153,7 @@ $
 $cal(G)\/H$ 的子群 $cal(A)' = {H, a_1 H, a_2 H, ...}$，$cal(A)'$ 的原像 $cal(A) = {e, h_1, ..., a_1, a_1 h_1,..., a_2, a_2 h_2,...}$，$cal(A)$ 是 $cal(G)$ 的子群。
 
 #theorem(subname: [第二同态定理])[
-  群 $cal(G)$ 的子群 $cal(A)$ 含于 $cal(G)$ 的同态核 $H$，则 $cal(G)\/H$ 的子群 $cal(A)'$ 和 $cal(A)$ 同构。并且$H$是$cal(A)$的不变子群，商群$cal(A)\/H$和$cal(A)'$同构。
+  群 $cal(G)$ 的子群 $cal(A)$ 包含 $cal(G)$ 的同态核 $H$，则 $cal(G)\/H$ 的子群 $cal(A)'$ 和 $cal(A)$ 同构。并且$H$是$cal(A)$的不变子群，商群$cal(A)\/H$和$cal(A)'$同构。
 
   对于不同的子群$cal(A)'$，一一对应到不一样的子群$cal(A)$。商群 $cal(G)\/H$ 的所有子群都是这种形式的。
 
@@ -1161,6 +1161,21 @@ $cal(G)\/H$ 的子群 $cal(A)' = {H, a_1 H, a_2 H, ...}$，$cal(A)'$ 的原像 $
   $
     (cal(G)\/ H) \/ (A\/H) tilde.equiv cal(G)\/A
   $
+]
+
+#proof[
+
+  第一句话是显然的，这是可以由定义直接得到的。进而直接推出第二句话。
+
+  第三句话也是自然直接的。
+]
+
+#example(subname: [$D_3$的同构与同态])[
+  群$D_3={e,a,b,c,d,f}$，$d_3={e,d,f}$是$D_3$的不变子群，$D_3\/d_3={d_3,a d_3}$是$D_3$的商群，与$K={e,I}$同构。从而有一个同态$D_3 -> K$。同态方式如下
+  $
+    mat(e;d;f) -> e, mat(a;b;c) -> I
+  $
+  其中$d_3$是同态核。
 ]
 
 == 群的直积
@@ -1187,8 +1202,8 @@ $
 
 #remark(subname: [子集乘法的讨论])[
 
-  - 这个乘法不一定唯一，可能 $h_1 k_1 = h_2 k_2$，但是 $h_1 != h_2, k_1 != k_2$。
-  - 就有 $abs(A B) <= abs(A) abs(B)$。
+  - 这个乘法不一定唯一，可能 $h_1 k_1 = h_2 k_2$，但是 $h_1 != h_2, k_1 != k_2$
+  - 就有 $abs(A B) <= abs(A) abs(B)$
   - 一般$A B != B A$
 ]
 
@@ -1209,16 +1224,16 @@ $
 ]
 
 #proof[
-  对 $x f_i f_j x^(-1) , forall x in cal(G)$，有
+  对 $x k_i k_j x^(-1) , forall x in cal(G)$，有
   $
-    x f_i f_j x^(-1) = x f_i x^(-1) x f_j x^(-1) = f_i f_j in K_i K_j
+    x k_i k_j x^(-1) = x k_i x^(-1) x k_j x^(-1) = k'_i k'_j in K_i K_j
   $
   从而 $K_i K_j$ 是一个类。
 ]
 
 // 类和子群相乘的性质
 
-=== 子群的直积
+=== 子群的乘法
 
 首先，上面讨论的所有性质都显然满足。
 
@@ -1293,6 +1308,7 @@ $
   $
 ]
 
+
 进一步加紧要求，我们希望 $cal(H) inter cal(F) = {e}$，就有$abs(H F) = abs(H) abs(F)$。这就引出了直积的概念。
 
 === 群的直积
@@ -1304,7 +1320,7 @@ $
     cal(G_1) times.circle cal(G_2) = {g_1 g_2 | g_1 in cal(G_1), g_2 in cal(G_2)}
   $
   若
-  - $forall g_(alpha beta) = g_(1 alpha) g_(2 beta)$都可以唯一地被表示
+  - $forall g_(alpha beta)$都可以唯一地被表示$g_(alpha beta) = g_(1 alpha) g_(2 beta)$，其中$g_(1 alpha) in cal(G_1), g_(2 beta) in cal(G_2)$
   - $g_(1 alpha) g_(2 beta) = g_(2 beta) g_(1 alpha)$
   则称$cal(G_1) times.circle cal(G_2)$是$cal(G)$的*直积*。
 ]
@@ -1317,7 +1333,43 @@ $
   - $cal(G)_1 lt.tri cal(G), cal(G)_2 lt.tri cal(G), cal(G)\/cal(G)_1 tilde.equiv cal(G)_2, cal(G)\/cal(G)_2 tilde.equiv cal(G)_1$
 ]
 
-#example(subname: [$D_3$])[
+#proof[
+
+  我们只对第三条性质进行证明。
+
+  取$g_(1 gamma) g_(2 delta) in cal(G)$，则
+  $
+    (g_(1 gamma) g_(2 delta)) g_(1 alpha) (g_(1 gamma) g_(2 delta))^(-1) = g_(1 gamma) g_(2 delta) g_(1 alpha) g_(2 delta)^(-1) g_(1 gamma)^(-1) \
+    = g_(1 gamma) g_(1 alpha) g_(2 delta) g_(2 delta)^(-1) g_(1 gamma)^(-1) = g_(1 gamma) g_(1 alpha) g_(1 gamma)^(-1) in cal(G)_1
+  $
+  从而
+  $
+    cal(G)_1 lt.tri cal(G)
+  $
+  同理
+  $
+    cal(G)_2 lt.tri cal(G)
+  $
+  下面说明商群的同构，$cal(G)_2$是$cal(G)$的不变子群，取$cal(G)_1$构造其陪集串
+  $
+    {cal(G)_2, g_(11) cal(G)_2, g_(12) cal(G)_2, ...}
+  $
+  该陪集串能够把$cal(G)$完全分割，这是因为$g_(1i) != g_(1j) => g_(1i) cal(G)_2 != g_(1j) cal(G)_2$。从而
+  $
+    cal(G)\/cal(G)_2 = {cal(G)_2, g_(11) cal(G)_2, g_(12) cal(G)_2, ...}
+  $
+  从而
+  $
+    cal(G)\/cal(G)_2 tilde.equiv cal(G)_1
+  $
+  同理
+  $
+    cal(G)\/cal(G)_1 tilde.equiv cal(G)_2
+  $
+
+]
+
+#example(subname: [$D_3$的直积分解])[
 
   $D_3 = {e,a,b,c,d,f}$，$D_3 = K_e times.circle K_a$，其中
   $
@@ -1325,6 +1377,41 @@ $
   $
 ]
 
-#definition(subname: [半直积])[
+#example(subname: [六阶循环群的直积分解])[
 
+  六阶循环群$C^6$是$C^2 times.circle C^3$，其中
+  $
+    C^2 = {e,a^3}, C^3 = {e,a,a^2}
+  $
+]
+
+#example(subname: [$D_3$的两个子群的乘积])[
+
+  考虑$D_3$的两个子群$cal(G)_1 = {e,a}, cal(G)_2 = {e,d,f}$，有$D_3$的任意元素$g_(alpha beta)$都可以唯一地表示成$g_(alpha beta) = g_(1 alpha) g_(2 beta)$的形式，但是$g_(1 alpha) g_(2 beta) != g_(2 beta) g_(1 alpha)$，所以$cal(G)_1 cal(G)_2$不是$D_3$的直积。
+
+  事实上$cal(G)_1$不是$D_3$的不变子群。
+]
+
+注意，对$cal(H),cal(F) subset cal(G)$有
+- 乘积：0个不变子群
+- 直积：2个不变子群 $g_(1 alpha) g_(2 beta) = g_(2 beta) g_(1 alpha)$
+- 半直积：1个不变子群 $g_(1 alpha) F = F g_(1 alpha)$
+
+#definition(subname: [半直积])[
+  $cal(G)_1$的自同构群$"Aut"(cal(G)_1)$，对$vu in "Aut"(cal(G)_1)$，，如果存在一个把$cal(G)_2$映射到$"Aut"(cal(G)_1)$的同态映射
+  $
+    phi: cal(G)_2 -> "Aut"(cal(G)_1), g_(2 beta) |-> v_g_(2 beta)
+  $
+  可以定义半直积群$cal(G)$
+  $
+    cal(G) = cal(G)_1 times.circle_s cal(G)_2
+  $
+  $cal(G)$中的元素$g_(alpha beta)$可以唯一地表示成
+  $
+    g_(alpha beta) = g_(1 alpha) g_(2 beta)
+  $
+  这是有序的乘法，$cal(G)$中的乘法定义为
+  $
+    g_(alpha beta) g_(alpha' beta') = (g_(1 alpha) v_(2 beta)) (g_(1 alpha') g_(2 beta)) = g_(1 alpha) v_g_(2 beta) (g_(1 alpha')) g_(2 beta) g_(2 beta')
+  $
 ]
