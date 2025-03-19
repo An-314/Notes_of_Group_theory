@@ -1066,6 +1066,10 @@ $
   $
 ]
 
+#definition(subname: [自同构群])[
+  群 $cal(G)$ 到自身的同构关系构成一个群，称为 $cal(G)$ 的自同构群，记作 $"Aut"(cal(G))$。
+]
+
 == 群的同态
 
 #definition(subname: [*同态*])[
@@ -1398,7 +1402,7 @@ $
 - 半直积：1个不变子群 $g_(1 alpha) F = F g_(1 alpha)$
 
 #definition(subname: [半直积])[
-  $cal(G)_1$的自同构群$"Aut"(cal(G)_1)$，对$vu in "Aut"(cal(G)_1)$，，如果存在一个把$cal(G)_2$映射到$"Aut"(cal(G)_1)$的同态映射
+  $cal(G)_1$的自同构群$"Aut"(cal(G)_1)$，对$v in "Aut"(cal(G)_1)$，如果存在一个把$cal(G)_2$映射到$"Aut"(cal(G)_1)$的同态映射
   $
     phi: cal(G)_2 -> "Aut"(cal(G)_1), g_(2 beta) |-> v_g_(2 beta)
   $
@@ -1415,3 +1419,150 @@ $
     g_(alpha beta) g_(alpha' beta') = (g_(1 alpha) v_(2 beta)) (g_(1 alpha') g_(2 beta)) = g_(1 alpha) v_g_(2 beta) (g_(1 alpha')) g_(2 beta) g_(2 beta')
   $
 ]
+
+我们说如果认为视直积运算后的元素$(g_1 g_2)$为一个对
+$
+  (g_a g_b)(g'_a g'_b) = (g_a g_b g'_a g'_b) = (g_a g'_a g_b g'_b) = (g''_a g''_b)
+$
+这个对对原来的运算是封闭的，还是一个群。我们可以用这样的“张量”的方式理解直积。同样的方式理解半直积。
+$
+  angle.l g_a g_b angle.r angle.l g'_a g'_b angle.r &= angle.l g_a g_b g'_a g'_b angle.r cal(G)_1"对"cal(G)_2"的保证群结构的作用"\
+  &= angle.l g_a nu(g'_a) g_b g'_b angle.r = angle.l g_a nu(g'_a) angle.r angle.l g_b g'_b angle.r\
+$
+为了交换，所以$nu$是一个在自己上的映射；该封闭性保证了乘法的合法性。映射$phi$意味着$nu$是由$g_b$所调控的，而非任意的。这样自同构的保乘关系和$phi$的保乘关系即
+$
+  nu_(g_b) (g_a g'_a) = nu_(g_b) (g_a) nu_(g_b) (g'_a) \
+  nu_(g_b g'_b) (g_a) = nu_(g_b) nu_(g'_b) (g_a)
+$
+再加上这两个保乘关系才能验证半直积的结果是群。这样的定义可以推广到两个群的半直积，而不再仅限于两个子群的半直积。
+
+#note[
+  半直积也可以这么定义：
+  $cal(G)$有一个不变子群$cal(G)_1$，子群$cal(G)_2$；$forall g_(alpha beta), g = g_(1 alpha) g_(2 beta)$表示方法唯一。
+]
+
+#example(subname: [$D_3$群的半直积分解])[
+
+  $D_3$不能写成两个不变子群的直积，但是可以写成半直积。
+
+  $
+    D_3 = {e,d,f} times.circle_s {e,a}
+  $
+]
+
+#example(subname: [$D_(2n)$的半直积分解])[
+  $D_(2n)$是$ZZ_n$和$Z_2$的半直积。
+
+  $
+    D_(2n) = ZZ_n times.circle_s Z_2
+  $
+  其中 $ZZ_n$ 是 $n$ 阶旋转群，$Z_2$ 是反射群。
+]
+
+#example(subname: [空间群])[
+  $
+    S = T times.circle_s P
+  $
+  其中 $T$ 是平移群，$P$ 是点群。
+]
+
+#example(subname: [Euclid群])[
+  $
+    "空间" cases(
+      "均匀" &-> "平移对称性",
+      "各向同性" &-> "旋转对称性"
+    )
+  $
+
+  - 平移群
+    $
+      T_vb(a) : vb(r) |-> vb(r) + vb(a)\
+      T_vb(a) + T_vb(b) = T_vb(a + b)
+    $
+  - 旋转群
+    $
+      "SO"(3) = {R_(theta,phi,psi)}
+    $
+  就有分解
+  $
+    E(3) = T times.circle_s "SO"(3)
+  $
+]
+
+#example(subname: [Poincaré群$M^4$])[
+  $
+    mat(x';y';z';t') = L mat(x;y;z;t) + mat(a_1;a_2;a_3;a_4)
+  $
+  其中齐次Lorentz群$"SO"(3,1)$是
+  $
+    "SO"(3,1) = {L_(alpha,beta,gamma,delta)}
+  $
+  以及平移群$T_a$，就有
+  $
+    P = T_a times.circle_s "SO"(3,1)
+  $
+
+  Poincaré群也被称为非齐次Lorentz群。
+]
+
+=== 两个群的（半）直积
+
+#definition(subname: [直积])[
+  对于两个群$cal(G)_1, cal(G)_2$，定义
+  $
+    cal(G) = cal(G)_1 times.circle cal(G)_2 = {g_(1 alpha) g_(2 beta) | g_(1 alpha) in cal(G)_1, g_(2 beta) in cal(G)_2}
+  $
+  为$cal(G)_1$和$cal(G)_2$的*直积*。其中
+  - $cal(G)_1$与$cal(G)_2$最多有一个共同元表示$e$
+  - $g_(1 alpha) g_(2 beta) = g_(2 beta) g_(1 alpha)$
+]
+
+事实上这个定义和前面的定义是等价的。
+
+$forall g, g = h f$和分解是一致的。而*表法唯一和*
+$
+  H inter F = {e}
+$
+*是等价的*。
+
+#example(subname: [物理中的直积])[
+  - 原子物理的轨道与自旋
+  $
+    "SO"(2l + 1) times.circle "SU"(2)
+  $
+  前面的是轨道，后面的是自旋。
+  - 核物理中的同位旋
+  $
+    "SU"(2) times.circle "SU"(2)
+  $
+  其中第一个$"SU"(2)$是同位旋，第二个$"SU"(2)$是自旋。如果一个抽象群作用在两不同对象上时，可以看作是两个不同的群，那么这两个群的素必可对易，就可以定义这两个群的直积。
+  - 电弱统一
+  $
+    "SU"(2) times.circle "U"(1)
+  $
+  其中前者为弱规范群，后者为电磁规范群(abel的)。
+]
+
+#example(subname: [Poincaré群的乘法])[
+  Poincaré群的乘法是
+  $
+    (L,a)(L',a') = (L L', L' a + a')
+  $
+  这是非Abel的，这是因为平移群和Lorentz群不对易。
+
+  事实上$"SO"(3,1)$是作用子群，作用在不变子群$T_a$上。
+
+  #proposition(subname: [半直积的性质])[
+    对于不变子群$cal(G)_1$, 和子群$cal(G)_2$，也有
+    $
+      cal(G)\/cal(G)_1 tilde.equiv cal(G)_2
+    $
+  ]
+
+  $
+    P\/T_a tilde.equiv "SO"(3,1)
+  $
+  我们从物理上理解这个含义：$L' a + a' = tilde(a) + a'$意味着旋转作用在平移上，还是平移，这便是“作用”的意义。
+  // 什么是不变？什么是作用？
+]
+

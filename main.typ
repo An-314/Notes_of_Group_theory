@@ -13,3 +13,6 @@
 
 #include "chap1.typ"
 
+#pagebreak()
+
+#include "chap2.typ"
