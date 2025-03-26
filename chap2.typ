@@ -126,8 +126,8 @@ $
   &= sum_i (T x_i) e_i\
   &= sum_i x_i (T e_i)
 $
-- 主动变换$T_a$：坐标变换，基不变
-- 被动变换$T_p$：基变换，坐标不变
+- 主动变换$T_a$：坐标（物体）变换，基不变
+- 被动变换$T_p$：基变换，坐标（物体）不变
 
 有
 $
@@ -213,3 +213,207 @@ $
 $
   G("抽象群") approx A("矩阵群")
 $
+
+这就是表示论的基本思想。
+
+- 抽象：同态
+- 具体：计算出矩阵
+
+下面我们考虑如何求表示
+$
+  hat(T) ->^{e_i} mat(T)
+$
+1. 选空间、基
+  $
+    V = {phi_i}
+  $
+2. 把作用作用在基上，得到矩阵
+  $
+    g_alpha phi_i = sum A(g_alpha)_(i j) phi_j
+  $
+
+可以验证保乘性质
+$
+  g_alpha g_beta phi_i = g_alpha sum_j A(g_beta)_(j i) phi_j = sum_(k,j) A(g_beta)_(j i) A(g_alpha)_(k j) phi_k = sum_k A(g_alpha g_beta)_(k i) phi_k
+$
+
+#newpara()
+
+#example(subname: [欧式空间])[
+  $
+    E^3 = {e_1, e_2, e_3}, braket(e_i, e_j) = delta_(i j)
+  $
+  作用$g$的表示
+  $
+    g e_i = e'_i = sum_j A(g)_(j i) e_j\
+    g ->^"表示" A(g)
+  $
+  对于 $D_3$ 群
+  $
+    g: vb(r) |-> vb(r)' = g vb(r)
+  $
+  有
+  $
+    g vu(e)_i = sum_j A(g)_(j i) vu(e)_j
+  $
+]
+#example(subname: [函数基])[
+  $
+    V = {phi_i (r)| i = 1, 2, ...}
+  $
+  其中$phi_i$是标量且正交归一
+  $
+    braket(phi_i, phi_j) = integral phi_i^* phi_j dd(tau) = delta_(i j)
+  $
+  其表示
+  $
+    g: phi_i (r) |-> phi'_i (r)
+  $
+  其中变量不同，*并且$phi' tilde phi: phi'_i (r') = phi_i (r)$*
+  $
+    phi'_i (r) = phi_i (g^(-1) r) = sum_j B(g)_(j i) phi_j (r)
+  $
+  表示$B$是满足保乘关系的。
+]
+
+从主动和被动变换的观点来看得到的
+$
+  phi'_i (r') = phi_i (r)
+$<text.blue>
+是一致的。可以理解成算符/变换本身部分主动和被动，只有选择了基才能加以区分。
+
+例如$phi(r) = x^2 - y^2$，$A = 1/2 mat(-1,-sqrt(3);sqrt(3),-1)$，$A mat(x;y)=mat(x';y')$，变量代换就是
+$
+  phi(r) &= phi(A^(-1) r') = (-1 / 2 x' + sqrt(3) / 2 y')^2 - (-sqrt(3) / 2 x' - 1 / 2 y')^2 \
+  &= -1 / 2 (x'^2 - y'^2) - sqrt(3) x' y' := phi'(r')
+$
+#newpara()
+
+引入新的记号$P_g$，*定义在以$r$为变量的函数空间内*
+$
+  P_g: phi |-> phi'=P_g phi
+$
+是*函数（形式）变换*的算符，其中$g$是一个变换
+$
+  g: vb(r) |-> vb(r)' = g vb(r)
+$
+$P_g$是由$g$诱导出来的。
+
+有
+$
+  P_g phi_i (r) = phi_i (g^(-1) r) = sum_j B(P_g)_(j i) phi_j (r) = sum_j B(g)_(j i) phi_j (r)
+$
+
+#remark[
+  $P_g$的表示就是$g$的表示。
+]
+
+#proof[
+
+  我们知道
+  $
+    cal(G):{g} tilde.equiv cal(G)_P:{P_g}
+  $
+  这是因为：
+  - 双射是显然的
+  - 保乘性质即
+    $
+      P_(g_alpha) P_(g_beta) = P_(g_alpha g_beta)
+    $
+    这是因为
+    $
+      P_(g_alpha) P_(g_beta) phi(r) &= P_(g_alpha) phi(g_beta^(-1)r) \
+      &= P_(g_alpha) psi(r) = psi(g_alpha^(-1) r) \
+      &= phi(g_beta^(-1) g_alpha^(-1) r) \
+      &= phi((g_alpha g_beta)^(-1) r) = P_(g_alpha g_beta) phi(r)
+    $
+  有了同构关系之后，表示就是一致的。
+]
+
+
+#example(subname: [平移群$T$])[
+  $
+    T: x |-> x' = x + a
+  $
+  对于函数变换有
+  $
+    P_T phi(x) = phi(T^(-1) x) = phi(x - a) \
+    P_T phi(x) = e^(-i a P_x) phi(x)
+  $
+  函数变换$P_T$就是$T$诱导出来的：$e^(-i a dv(,x)) = e^(-i a P_x)$
+]
+
+#example(subname: [Wigner定理])[
+  一个量子系统有本征态集合${ket(kai)}$，在群$cal(G)$的元素$g$的作用下
+  $
+    g: ket(kai) |-> ket(kai)'
+  $
+  则存在一个幺正算符$U(g)$，使得
+  $
+    U(g) ket(kai) = ket(kai)'
+  $
+  按照上面的分析，这几乎是显然的。
+]
+
+#exercise(subname: [$"SO"(2)$的表示])[
+
+  $
+    "SO"(2) = {C_vu(k) (theta)}, C_vu(k)(theta) -> A(C_vu(k) (theta))
+  $
+
+]
+
+#solution[
+
+  对于空间$E^={vu(i),vu(j),vu(k)}$，作用是
+  $
+    C(theta) vu(i) &= vu(i)' = vu(i) cos theta + vu(j) sin theta + vu(k) 0\
+    C(theta) vu(j) &= vu(j)' = vu(i) (-sin theta) + vu(j) cos theta + vu(k) 0\
+    C(theta) vu(k) &= vu(k)' = vu(i) 0 + vu(j) 0 + vu(k) 1
+  $
+  对应的矩阵是
+  $
+    C_k (theta) = mat(cos theta, -sin theta, 0; sin theta, cos theta, 0; 0, 0, 1)
+  $
+  或者考虑坐标变换
+  $
+    mat(x;y;z) = mat(r cos theta; r sin theta;z)
+  $
+  则
+  $
+    C(theta) mat(x; y;z) = mat(x'; y';z') = mat(r cos (theta + phi); r sin (theta + phi);z) = mat(cos phi, -sin phi, 0; sin phi, cos phi, 0; 0, 0, 1) mat(x; y;z)
+  $
+  上面两个都是主动观点，现在考虑被动观点
+  $
+    mat(x;y;z) = mat(r cos theta; r sin theta;z), mat(x';y';z) = mat(r cos (theta - phi); r sin (theta - phi);z)
+  $
+  得到的矩阵是
+  $
+    mat(cos phi, sin phi, 0; -sin phi, cos phi, 0; 0, 0, 1) = mat(cos phi, -sin phi, 0; sin phi, cos phi, 0; 0, 0, 1)^(-1)
+  $
+]
+
+#exercise(subname: [$D_3$的表示])[
+  $
+    D_3 = {e,d,f,a,b,c}
+  $
+]
+
+#solution[
+
+  表示空间是$E^3={vu(i),vu(j),vu(k)}$，考虑$D_3$的生成元$a,b$，对于$b$
+  $
+    b vu(i) &= vu(i)' = vu(i) 1 / 2 + vu(j) sqrt(3) / 2 + vu(k) 0\
+    b vu(j) &= vu(j)' = vu(i) sqrt(3) / 2 + vu(j)(- 1 / 2) + vu(k) 0\
+    b vu(k) &= vu(k)' = vu(i) 0 + vu(j) 0 + vu(k) (- 1)
+  $
+  对应的矩阵是
+  $
+    A(b) = mat(1 / 2, sqrt(3) / 2, 0; sqrt(3) / 2, - 1 / 2, 0; 0, 0, - 1)
+  $
+  对于函数的变换，表示空间是$V={phi_i}$，对于$b$
+  $
+    P_b phi_i (r) = phi_i (b^(-1) r) = phi_i (A(b)^(-1) mat(x;y;z)) = sum_j B(b)_(j i) phi_j (r)
+  $
+
+]
