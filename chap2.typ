@@ -1,4 +1,5 @@
 #import "@preview/scripst:1.1.1": *
+#import "@preview/fletcher:0.5.5" as fletcher: diagram, node, edge
 
 = (有限)群的表示论
 
@@ -137,13 +138,21 @@ $
 #newpara()
 
 线性变换和矩阵是一一对应的。
-$
-  hat(T) cases(
-  ->^{e_i}
-  ->_{e'_i}
-  )
-$
-// S, S^(-1) T S
+
+#figure(
+  diagram(
+    node((0, 0), $hat(T)$),
+    node((1, -1), $mat(T)$),
+    node((1, 1), $mat(T')$),
+
+    edge((0, 0), (1, -1), "-|>", ${e_i}$),
+    edge((0, 0), (1, 1), "-|>", ${e'_i}$, label-pos: 50%, label-side: right),
+    edge((0.5, 0.5), (0.5, -0.5), "<|-|>", $e' = S e$, label-pos: 30%, label-side: right),
+    edge((1, 1), (1, -1), "<|-|>", $T' = S^dagger T S$, label-pos: 60%, label-side: right),
+  ),
+  caption: [线性变换和矩阵的关系],
+)<基选择>
+
 #definition(subname: [共轭变换])[
   设$T$是线性变换，$T^*$是$T$的共轭变换，如果
   $
@@ -159,14 +168,14 @@ $
 子空间的直和可以推广到两个线性空间的直和
 
 #definition(subname: [线性空间的直和])[
-  设$V_1$和$V_2$是线性空间，找其中的基V_1 = {e_i}, V_2 = {f_i}，定义$V_1$和$V_2$的*直和*为
+  设$V_1$和$V_2$是线性空间，找其中的基$V_1 = {e_i}, V_2 = {f_i}$，定义$V_1$和$V_2$的*直和*为
   $
     V_1 plus.circle V_2 = {e_i, f_i}_(n_1+n_2)
   $
 ]
 
 #definition(subname: [线性空间的直积])[
-  设$V_1$和$V_2$是线性空间，找其中的基V_1 = {e_i}, V_2 = {f_i}，定义$V_1$和$V_2$的*直积*为
+  设$V_1$和$V_2$是线性空间，找其中的基$V_1 = {e_i}, V_2 = {f_i}$，定义$V_1$和$V_2$的*直积*为
   $
     V_1 times.circle V_2 = {e_i dot f_j}_(n_1 n_2)
   $
@@ -210,6 +219,8 @@ $
 
 #newpara()
 
+== 群的表示
+
 $
   G("抽象群") approx A("矩阵群")
 $
@@ -243,7 +254,7 @@ $
   $
     E^3 = {e_1, e_2, e_3}, braket(e_i, e_j) = delta_(i j)
   $
-  作用$g$的表示
+  作用$g$的*自然表示*
   $
     g e_i = e'_i = sum_j A(g)_(j i) e_j\
     g ->^"表示" A(g)
@@ -365,7 +376,7 @@ $
 
 #solution[
 
-  对于空间$E^={vu(i),vu(j),vu(k)}$，作用是
+  对于空间$E^3={vu(i),vu(j),vu(k)}$，作用是
   $
     C(theta) vu(i) &= vu(i)' = vu(i) cos theta + vu(j) sin theta + vu(k) 0\
     C(theta) vu(j) &= vu(j)' = vu(i) (-sin theta) + vu(j) cos theta + vu(k) 0\
@@ -417,3 +428,141 @@ $
   $
 
 ]
+
+#note[
+  引入$P_g$只是为了方便讨论，其定义是
+  $
+    P_g phi(r) = phi(g^(-1) r)
+  $
+  可以和$g$的表示联系起来，且
+  $
+    {P_g} tilde.equiv cal(G)
+  $
+  并且这是依赖
+  $
+    phi'(r') = phi(r)
+  $
+  的，其中$r' = g r$，这是一个假设，我们认为在物理中有该式成立。并且
+  $
+    phi(g^(-1) r) in V
+  $
+  也不是一定的，这依赖于
+  - $P_g$是线性的
+  - $phi_i$是完备的
+]
+
+#newpara()
+
+对于一个群，最基本的两个性质是其*结构和表示*。同一个作用，对于不同的空间、基，有不同的表示。
+
+#exercise(subname: [原子$d$轨道的函数])[
+  $V_5$的函数基是：
+  $
+    d_1(vb(r)) = 1 / 2 (x^2-y^2), d_2(vb(r))=x y, \
+    d_3(vb(r)) = x z, d_4(vb(r)) = y z, d_5(vb(r)) = sqrt(3) / 2 (3z^2 - r^2)
+  $
+]
+
+#solution[
+  #note[$V_5$为什么会少一个组合？
+    $
+      d_i (g^(-1) vb(r)) in V_5
+    $
+  ]
+  #note[$V_6 ->^"线性组合" V_4$是否能够构造？]
+  #note[$V_i (i>=7)$如何构造？]
+]
+
+#newpara()
+
+我们用共轭运算$g f g^(-1) = h$给群进行了分类，并给出了共轭子群$g F g^(-1) = H$的概念，共轭是一个等价关系，群就被分成了若干个等价类。我们也可以类似定义等价表示$X A(G) x^(-1) = B(G)$
+
+我们要证明的是这样的$B(G)$也是一个表示，验证其保乘性质即可。
+
+#definition(subname: [等价表示])[
+  对群表示$A(G)$，若存在一个双射$X$，使得
+  $
+    X A(G) X^(-1) = B(G)
+  $
+  则称$A(G)$和$B(G)$是*等价表示*，记作 $A(G) tilde B(G)$
+
+]
+在同一个空间里，在不同的基下的表示是等价的，如 @基选择 所示。
+
+我们下面考虑*表示的可约性*
+$
+  A = mat(C,N;O,B)
+$
+其中$A$是保乘的
+$
+  A(g_alpha) A(g_beta) = A(g_alpha g_beta)
+$
+且$B,C: g->B(g), g->C(G)$都是保乘的
+$
+  B(g_alpha) B(g_beta) = B(g_alpha g_beta)\
+  C(g_alpha) C(g_beta) = C(g_alpha g_beta)
+$
+*就有$C(G) times.circle B(G)$是$G$的一个表示*。
+
+#definition(subname: [不可分表示，可约但不完全可约表示])[
+  设$A(G)$是群$cal(G)$的一个表示，如果$V$存在一个$cal(G)$的不变真子空间$W$，即
+  - $W subset V$
+  - $A(g) W subset.eq W$
+  则称$A(G)$是*可约的*。
+
+  用矩阵表示就是
+  $
+    A(G) tilde A'(G) = mat(C, N; O, B)
+  $
+]
+事实上，$O$块矩阵和线性代数中的不变子空间是对应的。
+
+其中$C$的表示空间是$W$，$B$的表示空间是$V\/W$；意味着$C$在$W$上是封闭的，$B$在$V\/W$上是封闭的，有$dim V\/W = dim macron(W)$。
+
+$
+  mat(C,N;O,B) mat(O;x) = mat(C x;B x) in.not macron(W)
+$
+
+#definition(subname: [完全可约])[
+  设$A(G)$是群$cal(G)$的一个表示，如果存在两个子空间$W$和$macron(W)$，使得
+  - $V = W plus.circle macron(W)$
+    - $W + macron(W) = V$
+    - $W inter macron(W) = {0}$
+  - $A(g) W subset.eq W$
+  - $A(g) macron(W) subset.eq macron(W)$
+  则称$A(G)$是*完全可约的*。
+
+  用矩阵表示就是
+  $
+    A(G) tilde A'(G) = mat(C, O; O, B)
+  $
+]
+有$W$和$macron(W)$都是$cal(G)$不变子空间。
+
+#definition(subname: [不可约表示])[
+  设$A(G)$是群$cal(G)$的一个表示，$A$的表示空间$V$没有$cal(G)$不变的子空间，则称$A(G)$是*不可约的*。
+
+  用矩阵表示就是没有$O$块结构。
+]
+不可约的表示是最本质、最小维数的表示。
+
+先来研究表示的幺正性质（酉性）
+
+#definition(subname: [酉表示，幺正表示])[
+  设$A(G)$是群$cal(G)$的一个表示，如果
+  $
+    A^dagger (g) = A^(-1) (g) = A(g^(-1))
+  $
+  对任意$g in cal(G)$成立，则称$A(G)$是*酉表示*，或称*幺正表示*。
+]
+
+#theorem(subname: [酉定理])[
+  酉表示可约则完全可约。
+]
+
+#proof[
+
+  意味着表示$A(G)$若左下角为$O$块矩阵，则右上角一定是$O$块矩阵；或者$V = W plus.circle macron(W)$，如果$W$是$cal(G)$不变子空间，则$macron(W)$也是$cal(G)$不变子空间；即*酉表示一定不是不可分表示*。
+]
+
+下面我们就要研究$cal(G)$的全部不等价的不可约的酉表示。
