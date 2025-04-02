@@ -560,9 +560,201 @@ $
   酉表示可约则完全可约。
 ]
 
-#proof[
+#note[
 
   意味着表示$A(G)$若左下角为$O$块矩阵，则右上角一定是$O$块矩阵；或者$V = W plus.circle macron(W)$，如果$W$是$cal(G)$不变子空间，则$macron(W)$也是$cal(G)$不变子空间；即*酉表示一定不是不可分表示*。
 ]
 
-下面我们就要研究$cal(G)$的全部不等价的不可约的酉表示。
+#proof[
+
+]
+
+对于一有限群，求其表示的任务可总结为：*全部的、不等价的、不可约的、幺正表示*。
+
+
+#example(subname: [$RR_+$的表示])[
+  - 1-dim 不可约表示
+  $
+    x |-> e^(k x), k in K
+  $
+  有
+  $
+    e^(k(x_1+x_2)) = e^(k x_1) e^(k x_2)
+  $
+  - 2-dim 不可分表示
+  $
+    x |-> mat(1,x;0,1) = A(x)
+  $
+  有
+  $
+    A(x_1 + x_2) = A(x_1) A(x_2)
+  $
+  该表示是可约的，因为$RR_+$的不变子空间$W$，基为
+  $
+    vu(e)_1 = mat(1;0), vb(r) = mat(r;0), A(x) vb(r) = mat(1,x;0,1) mat(r_1;0) in W
+  $
+  但它的互补子空间$macron(W)$不是$RR_+$不变的
+  $
+    macron(vb(r)) = mat(0;r), A(x) macron(vb(r)) = mat(1,x;0,1) mat(0;r) = mat(x;r) in.not macron(W)
+  $
+  因此无限群$RR_+$的表示$A(x)$是一个不可分表示（可约但不完全可约表示）。
+]
+
+
+#example(subname: [$"SO"(2)$的表示])[
+  前面提到过其一个表示为
+  $
+    A(theta) = mat(cos theta, -sin theta; sin theta, cos theta)
+  $
+  取
+  $
+    X = mat(1,i;i,1)
+  $
+  则
+  $
+    x^(-1) A(theta) x = mat(e^(i theta),0;0,e^(-i theta))
+  $
+  是一个完全可约表示。
+]
+
+#proposition[
+  Able 群的不可约表示都是一维的。
+]
+
+#proof[
+  后面给出证明。
+]
+
+#example(subname: [$D_3$的表示])[
+  $D_3$的自然表示为
+  $
+    A(g) = mat(Gamma(g), O;O,A'(g))
+  $
+  其中$A'(g)$是一维的不可约表示，$Gamma(g)$是一个不可约的二维表示。
+
+  事实上，$Gamma$不对易，所以不能同时对角化，所以它不是一个完全可约表示；另外，它是幺正的，所以他不可能是不可分表示，从而它是一个不可约的表示。
+
+  $Gamma$是保距变换，它是幺正的。
+
+  $D_3$的六维表示为
+  $
+    mat(A^*(g),O;O,Gamma(g))
+  $
+  其中$Gamma$是二阶不可分表示；$A^*$是一个四阶表示。
+]
+
+#remark[
+  两个矩阵可以同时对角化当且仅当它们对易。
+]
+
+#corollary[
+  有限维幺正表示可以分解为有限个不可约幺正表示的直和。
+]
+
+
+如果群 $cal(G)$ 的表示空间（酉空间）$V$ 可分解，那么它一定可以分解为有限个不可再分的 $G$ 不变子空间 $W_i$ ，的直和。
+
+
+== 有限群表示
+
+=== Maschke 定理
+
+#theorem(subname: [Maschke 定理])[
+  有限群在内积空间上的任意一个表示都等价于一个幺正表示。
+]
+
+#proof[
+
+  $cal(G)$在内积空间$V$上有一个表示$A(G)$，$V$是有限维的，即给定的$g in cal(G), forall x,y in V$有
+  $
+    (A(g) x|A(g) y) != (x|y)
+  $
+  现在证明： $V$ 上存在一非奇异线性方阵 $X$ ，使得 $A$ 的等价表示 $X^(-1) A X$ 是幺正的。
+
+  定义新内积
+  $
+    braket(x,y) = 1 / n sum_i^n ( A(g_i) x|A(g_i) y )
+  $
+  于是，利用重排定理得
+  $
+    braket(A(g_i) x, A(g_i) y) &= 1 / n sum_j^n ( A(g_j) A(g_i) x|A(g_j) A(g_i) y ) \
+    &= 1 / n sum_k^n ( A(g_k) x|A(g_k) y ) = braket(x,y)
+  $
+  即在新定义的内积下， $A$ 是幺正表示。
+
+  我们找基变换，使得原来的内积成为新定义的内积。设$e = {e_1,...,e_n}$是 V 中在内积 $(dot|dot)$ 下的一组基，$f = {f_1,...,f_n}$是 V 中在内积 $braket(dot)$的一组基。它们都是正交归一的，
+  $
+    (e_i|e_j) = braket(f_i,f_j) = delta_(i j)
+  $
+  设这两组基由一个非奇异线性变换 $X$ 联系起来，
+  $
+    f_i = X e_i
+  $
+  就有
+  $
+    braket(X x, X y) = sum_(i,j) braket(x_i f_i, y_j f_j) = sum_(i,j) x_i^* y_j braket(f_i,f_j) = sum_i x_i^* y_i = (x|y)
+  $
+  从而有
+  $
+    (X^(-1) A(g) X x|X^(-1) A(g) X y) = braket(A(g) X x, A(g) X y) = braket(X x, X y) = (x|y)
+  $
+  故 $A$ 有等价的幺正表示 $X^(-1) A X$。
+]
+
+#note[
+
+  几何意义：在给定的内积空间，如果选择*一组正交归一基*，那么幺正变换 $hat(U)$ 相应的矩阵就是*幺正矩阵*；如果选择一组非正交基，那么幺正变换相应的矩阵就是非幺正的。
+
+  在有限维复内积空间中，由非幺正表示到其幺正表示的变换实际上反映了从一组斜坐标基到正交基的变换。
+]
+
+#remark[
+  上述证明中的基变换矩阵
+  $
+    X = sqrt(sum_i A^*(g_i) A(g_i))
+  $
+]
+
+推论：有限群的幺正表示可约则完全可约。或表述为：有限群的幺正表示要么是不可约的，要么等价于有限个不可约表示的直和。
+
+对有限群求表示的中心任务：寻求全部的不等价的不可约的幺正表示。
+
+=== Schur 引理
+
+Schur引理的目的是给出正交性和完备性的证明。
+
+#lemma(subname: [Schur 引理1], lab: "schur-lem-1")[
+  若一个矩阵 $M$ 与群 $cal(G)$ 的一个不可约表示 $A$ 中的所有表示矩阵对易，
+  $
+    [ M, A(g)] = 0, forall g in cal(G)
+  $<schur1>
+  则 $M$ 是单位矩阵的倍数
+  $
+    M = lambda I
+  $
+  其中 $lambda$ 是一个常数。
+]
+
+#proposition(subname: [不可约表示的判据])[
+  先找到一个满足 @schur1 的矩阵 $M$ ，若 $M$ 恒为一个常数矩阵，那么该表示就是不可约的；若 $M$ 不是一个常数矩阵，那么该表示就是可约的。
+]
+
+#example(subname: [$"SO"(2)$的表示])[
+  利用 @schur-lem-1 ，我们判断
+  $
+    A(theta) = mat(cos theta, -sin theta; sin theta, cos theta)
+  $
+  是可约的。考虑
+  $
+    mat(a,b;c,d) mat(cos theta, -sin theta; sin theta, cos theta) = mat(cos theta, -sin theta; sin theta, cos theta) mat(a,b;c,d)
+  $
+  就有
+  $
+    a=d,b=-c
+  $
+  这说明 $A(theta)$ 是可约的。
+]
+
+#lemma(subname: [Schur 引理2], lab: "schur-lem-2")[
+  设 $A$ 和 $B$ 是群 $cal(G)$ 的两个不等价的不可约表示，它们的维数分别为 $S_A,S_B$，若一个 $S_B times S_A$ 维的矩阵 $M$ 满足：
+]
