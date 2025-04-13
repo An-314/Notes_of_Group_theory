@@ -272,9 +272,9 @@ $
   $
     V = {phi_i}
   $
-2. 把作用作用在基上，得到矩阵
+2. 把作用(群元素)作用在基上，得到矩阵
   $
-    g_alpha phi_i = sum A(g_alpha)_(i j) phi_j
+    g_alpha phi_i = sum_j A(g_alpha)_(j i) phi_j
   $
 
 可以验证保乘性质
@@ -283,6 +283,8 @@ $
 $
 
 #newpara()
+
+按群表示的定义，表示空间及其基的选择都是任意的。在物理应用上，常采用的基有：
 
 #example(subname: [欧式空间])[
   $
@@ -293,7 +295,7 @@ $
     g e_i = e'_i = sum_j A(g)_(j i) e_j\
     g ->^"表示" A(g)
   $
-  对于 $D_3$ 群
+  对于
   $
     g: vb(r) |-> vb(r)' = g vb(r)
   $
@@ -312,9 +314,10 @@ $
   $
   其表示
   $
-    g: phi_i (r) |-> phi'_i (r)
+    g: r |-> r' = g r\
+    g: phi_i (r) |-> phi'_i (r') =g circle.tiny phi_i (r)
   $
-  其中变量不同，*并且$phi' tilde phi: phi'_i (r') = phi_i (r)$*
+  其中变量不同，在物理中我们认为 *$phi' tilde phi: phi'_i (r') = phi_i (r)$* ，即这个$g$是一个变量代换
   $
     phi'_i (r) = phi_i (g^(-1) r) = sum_j B(g)_(j i) phi_j (r)
   $
@@ -323,26 +326,35 @@ $
 
 从主动和被动变换的观点来看得到的
 $
-  phi'_i (r') = phi_i (r)
+  phi'_i (r') = phi_i (r)\
+  phi'_i (r) = phi_i (g^(-1) r)\
 $<text.blue>
-是一致的。可以理解成算符/变换本身部分主动和被动，只有选择了基才能加以区分。
+是一致的。可以理解成算符/变换本身不分主动和被动，只有选择了基才能加以区分。
 
 例如$phi(r) = x^2 - y^2$，$A = 1/2 mat(-1,-sqrt(3);sqrt(3),-1)$，$A mat(x;y)=mat(x';y')$，变量代换就是
 $
   phi(r) &= phi(A^(-1) r') = (-1 / 2 x' + sqrt(3) / 2 y')^2 - (-sqrt(3) / 2 x' - 1 / 2 y')^2 \
   &= -1 / 2 (x'^2 - y'^2) - sqrt(3) x' y' := phi'(r')
 $
-#newpara()
 
-引入新的记号$P_g$，*定义在以$r$为变量的函数空间内*
-$
-  P_g: phi |-> phi'=P_g phi
-$
-是*函数（形式）变换*的算符，其中$g$是一个变换
-$
-  g: vb(r) |-> vb(r)' = g vb(r)
-$
-$P_g$是由$g$诱导出来的。
+#figure(
+  image("pic/2025-04-13-17-31-12.png", width: 20%),
+  numbering: none,
+)
+
+为了看清楚 $phi_i$ 与群元素 g 的依赖关系，引入新的记号$P_g$，*定义在以$r$为变量的函数空间内*的*函数（形式）变换*：
+
+#definition(subname: [函数（形式）变换])[
+  设$phi(r)$是一个函数，$P_g$是一个算符，$P_g$的作用是把函数$phi(r)$变换成在以$r$为变量的函数空间内的另一个函数$phi'(r)$，即
+  $
+    P_g: phi |-> phi' = P_g phi
+  $
+  是*函数（形式）变换*的算符，其中$g$是一个变换
+  $
+    g: vb(r) |-> vb(r)' = g vb(r)
+  $
+  $P_g$是由$g$诱导出来的。
+]
 
 有
 $

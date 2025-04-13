@@ -4,7 +4,7 @@
   template: "book",
   title: [群论],
   author: ("Anzreww",),
-  time: "甲辰秋冬于清华园",
+  time: "乙巳春夏于清华园",
   contents: true,
   content-depth: 3,
   matheq-depth: 3,
