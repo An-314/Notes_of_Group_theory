@@ -230,11 +230,45 @@ $
 - 抽象：同态
 - 具体：计算出矩阵
 
+#definition(subname: [表示])[
+
+  设 $cal(G)={...,g,...}$ 是一个抽象群，$A(cal(G))={...,A(g),...}$ 是线性空间 $R_n$ 上的一个矩阵群。若 $cal(G)$ 同态于 $A(cal(G))$，即 $cal(G) approx A(cal(G))$，则称 $A(cal(G))$ 是群 $cal(G)$ 的一个*矩阵表示*或*线性表示*，简称*表示*。
+
+  同态映射要求保持乘法关系不变，即若 $g_1, g_2 in cal(G)$，则必有
+  $
+    A(g_1) A(g_2) = A(g_1 g_2)
+  $
+  #newpara()
+
+  $A(cal(G))$ 的作用空间 $R_n$ 称为群 $cal(G)$ 的*表示空间*，$R_n$ 的矢量基称为荷载群 $cal(G)$ 的*表示的基*， $R_n$ 的维数称为*表示的维数*。
+]
+
+- 若抽象群 $cal(G)$ 与矩阵群 $A(cal(G))$ 同构，则称 $A(cal(G))$ 是群 $cal(G)$ 个*忠实表示*。此表示能够“精确”地反映群 $cal(G)$ 的结构。
+- 若抽象群 $cal(G)$ 同态于矩阵群 $A(cal(G))$ ，则称 $A(cal(G))$ 是群 $cal(G)$ 个*非忠实表示*。此表示只能够部分地反映群 $cal(G)$ 的结构，或“精确”地反映由群 $cal(G)$ 的同态核 $cal(H)$ 生成的商群 $cal(G)\/cal(H)$ 的结构。
+
+#proposition(subname: [群表示的性质])[
+  - 所有的表示矩阵都是方阵
+  - 群 $cal(G)$ 的单位元 $e$ 对应的表示矩阵 $A(e)$ 一定是个单位矩阵 $I$ ，其阶为表示空间的维数。因为对任意元素 $g in G$ ，均有 $g e = e g = g$ ，与此对应的表示矩阵应满足
+    $
+      A(g) A(e) = A(e) A(g) = A(g)
+    $
+  - 互逆群元素对应的表示矩阵一定是互逆矩阵。设有互逆元素 $g,g^(-1) in cal(G)$，满足$g g^(-1) = g^(-1) g = e$，与此对应的表示矩阵应满足
+    $
+      A(g) A(g^(-1)) = A(g^(-1)) A(g) = A(e) = I
+    $
+    这表明
+    $
+      A(g^(-1)) = [A(g)]^(-1)
+    $
+]
+
+#newpara()
+
 下面我们考虑如何求表示
 $
   hat(T) ->^{e_i} mat(T)
 $
-1. 选空间、基
+1. 选定群 $cal(G)$ 作用的一个表示空间 $V$ ， $V$ 中的一组基。
   $
     V = {phi_i}
   $
@@ -617,7 +651,7 @@ $
   是一个完全可约表示。
 ]
 
-#proposition[
+#proposition(lab: "able-ir")[
   Able 群的不可约表示都是一维的。
 ]
 
@@ -757,4 +791,259 @@ Schur引理的目的是给出正交性和完备性的证明。
 
 #lemma(subname: [Schur 引理2], lab: "schur-lem-2")[
   设 $A$ 和 $B$ 是群 $cal(G)$ 的两个不等价的不可约表示，它们的维数分别为 $S_A,S_B$，若一个 $S_B times S_A$ 维的矩阵 $M$ 满足：
+  $
+    M A(g) = B(g) M, forall g in cal(G)
+  $
+  那么一定有 $M=0$。
 ]
+
+#proof[
+  我们证明 @able-ir ，即 Abel 群的所有不可约表示都是一维的。
+
+  设 $A(cal(G))$ 是 Abel 群 $cal(G)$的一个不可约表示，那么乘法关系保持不变要求对所有 $a, a' in cal(G)$
+  $
+    A(a) A(a') = A(a') A(a)
+  $
+  利用 #ref(<schur-lem-1>) ，我们可以得到
+]
+
+#example(subname: [求二维旋转群$"SO"(2)$的不可约表示])[
+
+  $"SO"(2)$的乘法关系为
+  $
+    C_k (theta_1) C_k (theta_2) = C_k (theta_1 + theta_2)
+  $
+  因为 $"SO"(2)$ 是一个 Abel 群，所以利用 @able-ir 的结论知， $"SO"(2)$ 的所有不可约表示都是一维的。
+
+  设 $"SO"(2)$ 的一个不可约表示为 $A={a(theta)}$ ，并设 $a(theta)$ 是一个复的连续数。若有对应 $C_k (theta) |-> a(theta)$ 乘法关系保持不变要求
+  $
+    a(theta_1) a(theta_2) = a(theta_1 + theta_2)
+  $
+  把上式两边对 $theta_1$ 求导数
+  $
+    a'(theta_1) a(theta_2) + a(theta_1) a'(theta_2) = a'(theta_1 + theta_2)
+  $
+  令 $theta_1=0$，$theta_2=theta$，就有
+  $
+    a'(0) a(theta) = a'(theta)
+  $
+  解为
+  $
+    a(theta) = e^(i m theta)
+  $
+  其中，保证酉性
+  $
+    a'(0) = i m
+  $
+  若考虑周期性边界条件
+  $
+    a(theta + 2 pi) = a(theta)
+  $
+  就有
+  $
+    m in ZZ
+  $
+  最终得到 $"SO"(2)$ 的不可约表示为
+  $
+    A_m = {e^(i m theta)}, m in ZZ
+  $
+  有无穷多不等价不可约酉表示。
+  #note[
+    这是所有的不可约酉表示，目前不给出证明。
+  ]
+]
+
+#note[
+  - 在量子力学中，这是$hat(L)_z$的本征方程，事实上$hat(L)_z$就是$C_k (theta)$。
+  - 如果周期性变成$theta = theta + 4pi$，$m$就是半整数，这是自旋的内禀对称性：
+  $
+    "空间角动量：" &phi ->^(2pi) phi\
+    "自旋角动量：" &phi ->^(2pi) - phi ->^(2pi) phi\
+  $
+  周期性事实上是单值性的要求。
+  - 利用了分析的手段，没有显用“基”；这是因为$"SO"(2)$群的特殊性。
+  - 群平均$1/n sum$事实上就是$dv(,t)integral dd(theta)$。
+]
+
+== 群代数
+
+线性代数是一个集合$R={x,y,z,...}$和数域$KK={alpha,beta,gamma,...}$定义了加法和数乘，在线性空间的定义下，再引入乘法
+$
+  dot : R times R -> R
+$
+就构成了线性*代数*。
+
+所以矩阵就构成了线性代数。
+
+== 群函数
+
+为了更简洁地表述和理解正交性定理和完备性定理，先引入群函数的概念。群代数给出了群函数，由此给出群函数空间（线性空间）的概念，其有正交归一基。由群表示诱导出的群函数就给出了一个群表示函数空间的概念。
+
+*群空间*：对于群元素$g_i$，令其作为$V_G$的“基”，定义
+$
+  x eq.def sum_i^n x_i g_i
+$
+其中$x_i$是复数，$g_i$是群元素，$V_G$是群的表示空间；$x$就是“向量”。之后定义乘法，而给出*群代数*：
+$
+  x y = (sum x_alpha g_alpha)(sum y_beta g_beta) = sum_(gamma)(x y)_gamma g_gamma, (x y)_gamma = x_alpha y_(alpha^(-1) gamma)
+$
+*正则表示*是：
+- 空间 $V_G={g_alpha|alpha=1,2,...}$
+- 作用 $g_i g_alpha$，$L(g_i) g_alpha = g_i g_alpha = g_alpha'$
+之后给出*群函数*
+$
+  phi : G -> CC , g |-> phi(g)
+$
+
+#theorem(subname: [群函数定理])[
+  $n$ 阶有限群只有 $n$ 个线性独立的群函数。
+]
+#proof[
+  考虑
+  $
+    x = sum x_alpha g_alpha = sum x(g_alpha) g_alpha
+  $
+  记在“基”上的“投影”$x(g_alpha)$是群函数，空间中的一个元素$x$和一个群函数$x(g_alpha)$是一一对应的
+  $
+    V_G = {x} = {x(g_alpha)}
+  $
+  在线性空间中，就是线性空间可以用向量表示，也可以在基选择好的情况下，用所有的坐标表示。
+
+  $n$个独立的基给出$n$个独立的群函数。
+]
+群函数为
+$
+  g_j (g_i) = delta_(j i)
+$
+可以写成一个矩阵，其中列是群函数，行是群元素
+$
+  mat(g_j (g_i))_(n times n)
+$
+这是有限域的基本性质。
+
+有了群函数就可以定义内积
+$
+  braket(g_i,g_j) = 1 / n sum_(k=1)^n g_i^* (g_k) g_j (g_k) = 1 / n sum delta_(i j)
+$
+有正交归一基
+$
+  V_G = {sqrt(n) g_i (g_t) | i=1,2,...,n}
+$
+
+#newpara()
+
+我们知道一个群表示可以诱导出一个群函数，若表示 $A(G)$ 的维数为 $S$，那么该表示总共可以产生 $S^2$ 个群函数 $A_(i j) (g_k)$
+$
+  A(g_k) = mat(A_(1 1) (g_k), dots, A_(1 S) (g_k);
+dots.v, dots.down, dots.v;
+A_(S 1) (g_k), dots, A_(S S) (g_k))
+$
+$n$阶群$cal(G)$有$q$个不可约表示$A^((P))$，维度为$S_P$，那么就有 $S_P^2$ 个群函数 $A^((P))_(i j) (g_k)$。这就给出了正交性定理。
+
+#theorem(subname: [(巨)正交性定理])[
+  设 $n$ 阶有限群 $cal(G) = { ..., g_k , ... }$ 有不等价不可约的幺正表示 $A^((p)) (cal(G)), A^((r)) (cal(G))$，它们的维数分别为 $S_p,S_r$。那么由 $A^((p)) (cal(G))$ 产生的群函数 $A^((p))_(mu nu) (g_k)$ 和 $A^((r)) (cal(G))$ 产生的群函数 $A^((r))_(mu' nu;) (g_k)$ 满足
+  $
+    braket(A^((p))_(mu nu) (g_k), A^((r))_(mu' nu') (g_k)) = 1 / n sum_(k=1)^n A^((p)*)_(mu nu) (g_k) A^((r))_(mu' nu') (g_k) = 1 / S_p delta_(p r) delta_(mu mu') delta_(nu nu')
+  $
+]
+
+#theorem(subname: [完备性定理])[
+  有限群 $cal(G)$ 的全部不等价不可约么正表示 $A^((i)), i=1,2,...,q$ 其中$q$是不等价不可约的酉表示个数；其产生的群表示函数集合
+  $
+    {A^(i)_(mu nu) (g_k) | i=1,2,...,q; mu,nu=1,2,...,S_i}
+  $
+  构成了群表示函数空间上的一个完备集。任何群函数$psi(g_k)$可以展开为${A^(i)_(mu nu) (g_k)}$的线性组合，即
+  $
+    psi(g_k) = sum_(i,mu,nu) C_(mu nu)^((i)) A^((i))_(mu nu) (g_k)
+  $
+]
+
+#theorem(subname: [Burnside 定理], lab: "burnside")[
+  有限群的所有不等价不可约表示的维数平方和等于该群的阶，即
+  $
+    sum_i^q S_i^2 = n
+  $
+]
+
+#example(subname: [$D_3$群])[
+  群 $D_3$ 的三维表示，通过表示约化技术知，它是由一个一维不可约表示 $A_1$ 和一个二维不可约表示 $Gamma$ 直和而成。由 @burnside
+  $
+    6 = 2^2 + 1^2 + x
+  $
+  可解出 $x = 1$ 。表明还剩下一个一维表示，即恒等表示。所以 $D_3$ 只有三个不等价不可约的表示。
+]
+@burnside 并没有给出 $q$ 的具体值。
+
+约化是把一个可约表示分解为不可约表示的直和。我们可以把 $D_3$ 的表示 $A(g)$ 写成
+$
+  mat(A) = mat(square,,;,square,;,,square)
+$
+
+== 特征标理论
+
+一个群的的特征是其结构和表示，对于其不可约表示，我们想找到一个标度
+- 与基无关
+- 一一对应
+- 映射到数集
+这就和矩阵中的迹很像。
+
+$
+  A(cal(G)) = {A(g)}, chi^A = {Tr A(g) in CC}
+$
+其中$chi^A (g)$是群函数，但无法张成一个空间$V_chi$，因为其不满足完备性。
+
+#proposition(subname: [性质])[
+  - $chi^A (e)=S_A$
+  - $S tilde S' => chi^A = chi^A'$
+]
+
+#proposition(subname: [特征表的性质])[
+  不可约幺正表示的特征标的模等于 1。
+]
+
+#proof[
+  $
+    braket(chi^((Gamma))) =
+  $
+]
+
+#proposition(subname: [特征表的性质])[
+  不等价的不可约幺正表示的特征标正交，即第 $p$ 个和第 $r$ （ $r != p$）个不可约表
+]
+
+
+#proposition(subname: [特征表的性质])[
+  可约表示的特征标等于它所包含的不可约表示的特征标之和。
+  $
+    A(g_k) = sum_(i=1)^q plus.circle C_p A^((p))\
+    chi^A = sum_p C_p chi^((p))\
+  $
+  其中
+  $
+    C_p = braket(chi^((p)),chi^A)
+  $
+]
+这给出了约化技术$A = sum_p plus.circle C_p A^((p))$的$C_p$的计算。
+
+由此也可以给出
+#corollary(subname: [特征表的性质])[
+  $S tilde S' <=> chi^A = chi^A'$
+]
+
+#proposition(subname: [特征表的性质])[
+  可约表示的特征标的模大于 1。
+]
+
+#proposition(subname: [])[
+  同类元素的特征标相等。
+]
+
+#newpara()
+$chi^A (g)$难以张成一个空间，现在我们可以引入类函数，使之可以张成一个空间。类函数
+$
+  phi: k -> phi(k) in CC
+$
+同 群函数定理 有，$q$个类上只有$q$的独立的类函数。对这个方阵，就可以构造出$chi^A (k)$可以张成一个空间$V_chi$，并且$V_chi$是一个正交归一且完备的空间。其中
+$
+  chi(k_g) = chi(g)
+$
