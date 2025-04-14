@@ -50,7 +50,8 @@ jobs:
               with:
                   tag_name: v${{ github.run_number }}
                   name: "Auto Release #${{ github.run_number }}"
-                  body: ${{ format('📄 This PDF was automatically generated from commit `{0}`', substr(github.sha, 0, 7)) }}
+                  body: |
+                      📄 This PDF was automatically generated from commit `${{ github.sha }}`
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
