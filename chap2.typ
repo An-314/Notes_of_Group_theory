@@ -852,13 +852,7 @@ $
   是一个完全可约表示。表示空间 $V$ 可以分解为三个互补的 $"SO"(2)$ 不变子空间的直和。其空间的基由$mat(vu(i), vu(j), vu(k)) X$给出。
 ]
 
-#proposition(lab: "able-ir")[
-  Able 群的不可约表示都是一维的。
-]
-
-#proof[
-  后面给出证明。
-]
+事实上所有 Able 群的不可约表示都是一维的，后面将给出证明。
 
 #example(subname: [$D_3$的表示])[
   $D_3$的自然表示为
@@ -890,18 +884,49 @@ $
 $
 荷载幺正表示的表示空间应是复内积空间。
 
-#theorem(subname: [酉定理])[
+#theorem(subname: [酉定理], lab: "酉定理")[
   酉表示可约则完全可约。
 ]
+
+#proof[
+  设 $A(G)$是群 $G$ 的一个可约的幺正表示，其表示空间 $V$ 是酉空间。可约性要求 $V$ 存在一个 $G$ 不变的真子空间 $W$，即对任意的 $y in W, g in G$，有 $A(g) y in W$。从而 $V$ 可以分解成 $W$ 何其互补子空间 $macron(W)$ 的直和，即 $V = W plus.circle macron(W)$。
+  $
+    macron(W) = {z in V| braket(z,y)=0, y in W}
+  $
+  我们下面证明 $macron(W)$ 也是 $G$ 不变的。
+  $
+    braket(A(g) z, y) &= braket(z, A^dagger (g) y) = braket(z, A^(-1) (g) y) = braket(z, y') = 0\
+  $
+  这说明 $macron(W)$ 也是 $G$ 不变的。所以按完全可约的定义，可约的幺正表示一定是完全可约的。换句话，幺正表示要么是完全可约的，要么是不可约的，决不可能是不可分表示。
+]
+
 #corollary[
   有限维幺正表示可以分解为有限个不可约幺正表示的直和。
 ]
 
-
-如果群 $cal(G)$ 的表示空间（酉空间）$V$ 可分解，那么它一定可以分解为有限个不可再分的 $G$ 不变子空间 $W_i$ ，的直和。
+如果群 $cal(G)$ 的表示空间（酉空间）$V$ 可分解，那么它一定可以分解为有限个不可再分的 $G$ 不变子空间 $W_i$ 的直和。
+$
+  V = sum_(i=1)^q plus.circle W_i
+$
+相应地，$G$ 在每个 $W_i$ 上的（缩小）表示$ A^((i)) (G)$ 都是不可约的幺正表示。如果在 $V$ 中选择如下排序的基
+$
+  V = { underbrace(e_1\,...\,e_(m_1),W_1), underbrace(e_(m_1+1)\,...\,e_(m_2),W_2), ... , underbrace(e_(m_(q-1)+1)\,...\,e_m,W_q) }
+$
+那么所有群元素的表示矩阵 $A(g)$ 都可以写成如下的块对角矩阵形式
+$
+  A(g) &= mat(A^((1)) (g), ; , A^((2)) (g); ,,dots.down ; , ,,A^((q)) (g))\
+  &= sum_(i=1)^q plus.circle A^((i)) (g)\
+  &= sum_(i=1) plus.circle c_i A^((i)) (g)\
+$
+这表明 $G$ 在 $V$ 上的幺正表示 $A(G)$ 已约化为有限个不等价不可约幺正表示 $A^((i)) (G)$ 的直和。另外约定：若两个不可约表示是等价的，那么视它们相同，并记它们的上标相等 $i = i'$；若两个不可约表示是不等价的，那么它们的上标不相等 $i != i'$。所以，在第三个等式中的系数 $c_i$ 代表相应的 $A^((i)) (G)$ 出现的次数。不难发现，表示 $A(G)$ 的维数 $dim A(G)$ 等于所有不可约表示的维数之和，即
+$
+  n = sum_i c_i dim A^((i)) (G)
+$
 
 
 == 有限群表示
+
+前面所讲内容具有普适性，从本节开始的内容只适用于有限群，但其中有些性质和结论可以有条件地推广到其他群。
 
 === Maschke 定理
 
@@ -928,7 +953,7 @@ $
   $
   即在新定义的内积下， $A$ 是幺正表示。
 
-  我们找基变换，使得原来的内积成为新定义的内积。设$e = {e_1,...,e_n}$是 V 中在内积 $(dot|dot)$ 下的一组基，$f = {f_1,...,f_n}$是 V 中在内积 $braket(dot)$的一组基。它们都是正交归一的，
+  我们找基变换，使得原来的内积成为新定义的内积。设$e = {e_1,...,e_n}$是 V 中在内积 $(dot|dot)$ 下的一组基，*$f = {f_1,...,f_n}$是 V 中在内积 $braket(dot)$的一组基*。它们都是正交归一的，
   $
     (e_i|e_j) = braket(f_i,f_j) = delta_(i j)
   $
@@ -961,9 +986,13 @@ $
   $
 ]
 
-推论：有限群的幺正表示可约则完全可约。或表述为：有限群的幺正表示要么是不可约的，要么等价于有限个不可约表示的直和。
+#corollary(subname: [有限群的表示])[
+  结合 @酉定理：
+  - 有限群在内积空间的表示可约则完全可约
+  - 有限群在内积空间的表示，或不可约，或等价于有限个不可约表示的直和
+]
 
-对有限群求表示的中心任务：寻求全部的不等价的不可约的幺正表示。
+对有限群求表示的中心任务：*寻求全部的不等价的不可约的幺正表示。*
 
 === Schur 引理
 
@@ -979,6 +1008,33 @@ Schur引理的目的是给出正交性和完备性的证明。
     M = lambda I
   $
   其中 $lambda$ 是一个常数。
+]
+
+#proof[
+  复空间线性变换一定有本征向量，设 $M$ 的本征值为 $lambda$，本征向量为 $y$，即
+  $
+    M y = lambda y
+  $
+  考虑 $V$ 的子空间
+  $
+    V_lambda = {y in V| M y = lambda y}
+  $
+  是 $cal(G)$ 不变的，因为
+  $
+    M(A(g_alpha)y) = A(g_alpha) M y = lambda(A(g_alpha)y), A(g_alpha) y in V_lambda\
+  $
+  而表示 $A(g)$ 是不可约的，所以 $V_lambda = V$。这就意味着 $forall x in V$
+  $
+    M x = lambda x
+  $
+  从而
+  $
+    M = lambda I
+  $
+]
+
+#caution[
+  @schur-lem-1 只适用于复表示。
 ]
 
 #proposition(subname: [不可约表示的判据])[
@@ -999,6 +1055,12 @@ Schur引理的目的是给出正交性和完备性的证明。
     a=d,b=-c
   $
   这说明 $A(theta)$ 是可约的。
+
+  事实上该表示和
+  $
+    mat(e^(i theta),0;0,e^(-i theta))
+  $
+  是等价的，后者是完全可约的。
 ]
 
 #lemma(subname: [Schur 引理2], lab: "schur-lem-2")[
@@ -1010,16 +1072,64 @@ Schur引理的目的是给出正交性和完备性的证明。
 ]
 
 #proof[
-  我们证明 @able-ir ，即 Abel 群的所有不可约表示都是一维的。
+  取 $M$ 在 $V_A$ 上的零空间
+  $
+    N = {x in V_A| M x = 0}
+  $
+  $N$ 是 $cal(G)$ 不变的，因为
+  $
+    M A(g) x = B(g) M x = 0, A(g) x in N
+  $
+  从而 $A(g) x in N$。而 $A$ 是不可约的，其不变子空间 $N$ 只能有 $N = V_A$，或者 $N = {0}$。
+
+  - $N = V_A$ ，只能是 $M=0$，是一个零变换。
+  - $M equiv.not 0$时，$N = {0}$，即不变子空间只有零向量；此时$M:V_A->V_B$是一个一一映射。这是因为 $M$ 不能同时把 $V_A$ 中的 $x_1, x_2$ 映到 $V_B$ 中的同一个向量 $y$，否则就有 $M (x_1 - x_2) = y$，这就意味着 $x_1 = x_2$。所以 $M$ 是一个单射。
+
+    设 $R$ 为 $M$ 作用于 $V_A$ 得到的空间
+    $
+      R = {y in V_B| y = M x, x in V_A}
+    $
+    $R$是$V_B$的子空间，且也是$cal(G)$不变的，因为
+    $
+      B(g) y = B(g) M x = M A(g) x = M x' in R, A(g) x in V_A, B(g) y in R
+    $
+    由于表示 $B$ 是不可约的，所以 $R$ 只能是 $V_B$，或者 $R = {0}$。但 $M equiv.not 0$ ， 从而 $R=V_B$。从而 $M : V_A -> V_B$ 是一个满射。这就意味着 $M$ 是一个双射。存在 $M^{-1}$，即 $M$ 是一个可逆的线性变换。
+
+    $
+      B(g) = M A(g) M^(-1)
+    $
+    即不可约表示 $A$ 和 $B$ 是等价的，这与假设矛盾。
+]
+
+#proposition(subname: [等价表示的判据])[
+  在有限维线性空间$V_A, V_B$上的不可约表示$A(g), B(g)$是等价的当且仅当存在一个不恒为0的$M$，使得
+  $
+    M A(g) = B(g) M
+  $
+]
+
+#newpara()
+
+前面说过下面的命题，现在给出证明：
+
+#proposition(lab: "able-ir")[
+  Able 群的所有不可约表示都是一维的。
+]
+
+#proof[
 
   设 $A(cal(G))$ 是 Abel 群 $cal(G)$的一个不可约表示，那么乘法关系保持不变要求对所有 $a, a' in cal(G)$
   $
     A(a) A(a') = A(a') A(a)
   $
-  利用 #ref(<schur-lem-1>) ，我们可以得到
+  利用 #ref(<schur-lem-1>) ，我们可以得到对于每一个 $a' in cal(G)$，都有
+  $
+    A(a') = M(a') I
+  $
+  其中 $M(a')$ 是依赖于 $a'$ 的常复数。因此，若 $A(a)$ 是一个不可约表示，那么 $A(a)$ 只能是一个一维的表示。
 ]
 
-#example(subname: [求二维旋转群$"SO"(2)$的不可约表示])[
+#example(subname: [二维旋转群$"SO"(2)$的不可约表示])[
 
   $"SO"(2)$的乘法关系为
   $
@@ -1079,33 +1189,90 @@ Schur引理的目的是给出正交性和完备性的证明。
 
 == 群代数
 
-线性代数是一个集合$R={x,y,z,...}$和数域$KK={alpha,beta,gamma,...}$定义了加法和数乘，在线性空间的定义下，再引入乘法
-$
-  dot : R times R -> R
-$
-就构成了线性*代数*。
+#definition(subname: [线性代数])[
 
-所以矩阵就构成了线性代数。
+  数域$KK={alpha,beta,gamma,...}$上的线性空间$R={x,y,z,...}$定义了加法和数乘，在线性空间的定义下，再引入乘法
+  $
+    dot : R times R -> R
+  $
+  满足
+  - 封闭性 ：$forall x,y in R, x dot y in R$
+  - 加法分配律：$forall x,y,z in R, (x+y) dot z = x dot z + y dot z$，$x dot (y+z) = x dot y + x dot z$
+  - 数乘结合律：$forall alpha in KK, x,y in R, alpha (x dot y) = (alpha x) dot y = x dot (alpha y)$
+  就称$R$是*线性代数*或*代数*。
+]
+
+所有$n times n$的复矩阵在代数乘法为矩阵乘法的顶定义下，就是$CC$上的线性代数。
+
+当 $(x y)z=z(y z)$时，称为可结合代数或结合代数。
+
+为了更简洁地表述和理解正交性定理和完备性定理，先引入群函数的概念。*群代数*给出了*群函数*，由此给出*群函数空间*（线性空间）的概念，其有正交归一基。由群表示诱导出的群函数就给出了一个*群表示函数空间*的概念。
+
+以群元为基，定义加法和数乘，给出*群空间*的概念：
+#definition(subname: [群空间])[
+  设 $CC$ 为复数域，$cal(G) = {g}$ 是群。群$cal(G)$原来只有乘法运算，若进一步定义加法和数乘，即对任意
+  $
+    x = sum_alpha x_alpha g_alpha, y = sum_alpha y_alpha g_alpha, x_alpha,y_alpha in CC, g_alpha in cal(G)
+  $
+  满足
+  $
+    x + y = sum_alpha (x_alpha + y_alpha) g_alpha\
+    a x = sum_alpha (a x_alpha) g_alpha\
+  $
+  则
+  $
+    x = sum_alpha x_alpha g_alpha
+  $
+  的全体构成一个线性空间 $V_cal(G)$ 称为*群空间*，群元素 $g_alpha$ 称为$V_cal(G)$的*自然基底*。
+]
+
+之后按照与$cal(G)$规则乘法规则一致的原则定义乘法，而给出*群代数*：
+#definition(subname: [群代数])[
+  设 $g_alpha, g_beta, g_gamma in cal(G), g_alpha g_beta = g_gamma$，$x,y in V_cal(G)$，则定义乘法为
+  $
+    x = sum_alpha x_alpha g_alpha, y = sum_beta y_beta g_beta\
+    x y = (sum_alpha x_alpha g_alpha)(sum_beta y_beta g_beta) = sum_(alpha beta) x_alpha y_beta(g_alpha g_beta)= sum_(gamma)(x y)_gamma g_gamma
+  $
+  其中
+  $
+    (x y)_gamma = x_alpha y_(alpha^(-1) gamma)
+  $
+  $y_(alpha^(-1) gamma)$是$y$在$g_alpha^(-1) g_gamma$上的投影。这样定义的乘法，显然满足条件
+  $
+    (a x + y)z = a(x z) + y z\
+    (x y)z = x(y z)\
+  $
+  在以上乘法的定义下，群空间$V_cal(G)$构成一个结合代数，称为群$cal(G)$的*群代*数，记为$R_cal(G)$。
+  $
+    dim R_cal(G) = abs(cal(G))
+  $
+]
+
+由此可以定义*正则表示*：
+
+#definition(subname: [正则表示])[
+  若取群代数$R_cal(G)$为群$cal(G)$的表示空间，任意$g_i in cal(G)$可以映为$R_cal(G)$上的线性变换$L(g_i)$，定义为
+  $
+    L(g_i) g_j = g_i g_j = g_k
+  $
+  则
+  $
+    L(g_i) L(g_j) g_k = L(g_i) g_j g_k = g_i g_j g_k = L(g_i g_j) g_k\
+  $
+  保乘法，则称$L(g_i)$为群$cal(G)$的*正则表示*。维数为$|cal(G)|$。
+]
 
 == 群函数
 
-为了更简洁地表述和理解正交性定理和完备性定理，先引入群函数的概念。群代数给出了群函数，由此给出群函数空间（线性空间）的概念，其有正交归一基。由群表示诱导出的群函数就给出了一个群表示函数空间的概念。
+为了更简洁地表述和理解正交性定理和完备性定理，引入*群函数*
 
-*群空间*：对于群元素$g_i$，令其作为$V_G$的“基”，定义
-$
-  x eq.def sum_i^n x_i g_i
-$
-其中$x_i$是复数，$g_i$是群元素，$V_G$是群的表示空间；$x$就是“向量”。之后定义乘法，而给出*群代数*：
-$
-  x y = (sum x_alpha g_alpha)(sum y_beta g_beta) = sum_(gamma)(x y)_gamma g_gamma, (x y)_gamma = x_alpha y_(alpha^(-1) gamma)
-$
-*正则表示*是：
-- 空间 $V_G={g_alpha|alpha=1,2,...}$
-- 作用 $g_i g_alpha$，$L(g_i) g_alpha = g_i g_alpha = g_alpha'$
-之后给出*群函数*
-$
-  phi : G -> CC , g |-> phi(g)
-$
+#definition(subname: [群函数])[
+  若存在一个从群 $cal(G)$ 到复数域 $CC$ 的映射 $phi$
+  $
+    phi : G -> CC , g |-> phi(g)
+  $
+  称 $phi(g)$ 为群 $cal(G)$ 上的函数，或*群函数*。
+]
 
 #theorem(subname: [群函数定理])[
   $n$ 阶有限群只有 $n$ 个线性独立的群函数。
