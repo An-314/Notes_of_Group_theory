@@ -3,7 +3,7 @@ name: Build and Release Typst PDF
 on:
     push:
         branches:
-            - master # 如果你改成 main，记得同步这里
+            - master
 
 permissions:
     contents: write
@@ -48,12 +48,13 @@ jobs:
               id: create_release
               uses: softprops/action-gh-release@v1
               with:
-                  tag_name: v${{ github.run_number }}
-                  name: "Auto Release #${{ github.run_number }}"
-                  body: |
-                      📄 This PDF was automatically generated from commit `${{ github.sha::7 }}`
+                tag_name: v${{ github.run_number }}
+                name: "Auto Release #${{ github.run_number }}"
+                body: |
+                📄 This PDF was automatically generated from commit `${{ substr(github.sha, 0, 7) }}`
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
             - name: 📎 Upload PDF to Release
               uses: softprops/action-gh-release@v1
