@@ -1,6 +1,6 @@
 MAIN = "main.pdf"
 
-PHONY: all clean
+PHONY: all 
 
 all: $(MAIN)
 
