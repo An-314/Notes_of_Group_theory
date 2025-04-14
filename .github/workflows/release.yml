@@ -28,11 +28,11 @@ jobs:
                   sudo apt-get install -y fonts-cmu fonts-noto-cjk fonts-linuxlibertine ttf-mscorefonts-installer
                   fc-cache -fv
 
-            - name: Install Consolas (Nerd Font)
+            - name: Install Consolas from GitHub
               run: |
+                  git clone https://github.com/pensnarik/consolas-font.git
                   mkdir -p ~/.fonts
-                  curl -L -o consolas.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Consolas.zip
-                  unzip consolas.zip -d ~/.fonts
+                  cp consolas-font/*.ttf ~/.fonts/
                   fc-cache -fv
 
             - name: Compile Typst to PDF
