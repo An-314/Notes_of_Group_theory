@@ -61,7 +61,7 @@
 
 本课程我们研究的重点对象是*群*。
 
-#theorem(subname: [*重排定理*])[
+#theorem(subname: [*重排定理*], lab: "重排定理")[
 
   对群 $cal(G) = {...,g_1,g_2,...}$，对于固定的 $u in cal(G)$，$u dot cal(G) =  {u dot g_1, u dot g_2,...}$，则
   $
