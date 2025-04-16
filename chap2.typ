@@ -1,5 +1,6 @@
 #import "@preview/scripst:1.1.1": *
 #import "@preview/fletcher:0.5.5" as fletcher: diagram, node, edge
+#import "@preview/tablex:0.0.9": tablex, gridx, hlinex, vlinex, colspanx, rowspanx
 
 = (有限)群的表示论
 
@@ -1262,6 +1263,8 @@ Schur引理的目的是给出正交性和完备性的证明。
   保乘法，则称$L(g_i)$为群$cal(G)$的*正则表示*。维数为$|cal(G)|$。
 ]
 
+*正则表示事实上是重排定理的体现。*
+
 == 群函数
 
 === 群函数空间
@@ -1523,6 +1526,8 @@ $
   mat(A) = mat(square,,;,square,;,,square)
 $
 
+我们知道一个不可约表示的群表示函间$V_i$是可约表示的群表示函数空间$V_cal(G)$的不变子空间。从而$V_i$的基可以由$V_cal(G)$的基线性组合得到，这就是后面将要讨论的*投影算符*。
+
 == 特征标理论
 
 在给定的表示空间，群的表示也不是唯一的。选取不同的基，可以得到不同的表示。当然这些表示是等价的，它们可以通过相似变换联系起来。我们希望找出表示中不依赖基的某些固有性质。我们想找到一个标度：
@@ -1612,27 +1617,51 @@ $
 这给出了约化技术$A = sum_p plus.circle C_p A^((p))$的$C_p$的计算。
 
 由此也可以给出
-#proposition(subname: [特征表的第一正交关系])[
+#theorem(subname: [特征表的第一正交关系])[
   $
     braket(chi^((p)), chi^((r))) = delta_(p r) \
   $
 ]
 
+#proposition(subname: [特征表的性质])[
+  可约表示的特征标等于它所包含的不可约表示的特征标之和。
+]
+
+#proof[
+  设 $A$ 是群 $cal(G)$ 的一个可约表示，那么它一定可以约化为 $cal(G)$ 的有限个不等价不可约表示（设为 $q$ 个）的直和，即
+  $
+    A(g) = sum_(i=1)^q plus.circle m_i A^((i)) (g), g in cal(G)
+  $<特征表约化>
+  其中 $m_i$ 是 $A^((i))$ 在 $A$ 中的重数。对上式两边的对角元求和，有
+  $
+    chi^A (g) = sum_(i=1)^q m_i chi^((i)) (g)
+  $
+  其中 $chi^((i)) (g)$ 是 $A^((i))$ 的特征标。由正交关系有
+  $
+    m_i = braket(chi^((i)), chi^A) = 1 / n sum_(k=1)^n chi^((i)*) (g_k) chi^A (g_k)
+  $<特征表约化1>
+]
+注意到 @特征表约化 中的 $m_i$ 可以由 @特征表约化1 给出，这样就知道一个可约表示是由哪些不可约表示直和而成的，随即就完成了表示的约化任务。对于给定的一个表示 $A$ ， $chi^A$ 是确定的，又因为有限群的不可约表示的特征标 $chi^((p))$ 是确定的，所以$m_i$也是唯一确定的。由此说明了*有限群可约表示的约化的唯一性*。
+
+当然，与 $m_i$ 相应的不可约表示 $A^((i))$ 在表示 $A$ 的对角线上的排序是任意的，所以只能确定到等价的块结构。
 
 #corollary(subname: [特征表的性质])[
-  $S tilde S' <=> chi^A = chi^A'$
+  $
+    S tilde S' <=> chi^A = chi^A'
+  $
 ]
+
 
 #proposition(subname: [特征表的性质])[
   可约表示的特征标的模大于 1。
 ]
 
-#proposition(subname: [])[
+#proposition(subname: [特征表的性质])[
   同类元素的特征标相等。
 ]
 
 #newpara()
-$chi^A (g)$难以张成一个空间，现在我们可以引入类函数，使之可以张成一个空间。类函数
+$chi^A (g)$难以张成一个空间，现在我们可以引入*类函数*，使之可以张成一个空间。类函数
 $
   phi: k -> phi(k) in CC
 $
@@ -1641,6 +1670,193 @@ $
   chi(k_g) = chi(g)
 $
 
-#proposition(subname: [特征表的性质])[
-  可约表示的特征标等于它所包含的不可约表示的特征标之和。
+#example(subname: [$D_3$])[]
+
+事实上类函数和群函数本质上没有区别，只是群函数是群元素的函数，而类函数是群类的函数。
+
+利用类函数的性质，特征标的第一正交关系还可以写为
+
+#theorem(subname: [特征标的第一正交关系])[
+  $
+    1 / n sum_(i=1)^q n_i chi^((p)*) (K_i) chi^((r)) (K_i) = delta_(p r)\
+  $
+  其中 $q$ 是 $cal(G)$ 中的类的个数，$n_i$ 是第 $i$ 个类 $K_i$ 中元素的个数，$chi^((p)) (k_i)$ 是第 $p$ 个不可约表示的特征标。
+]
+
+#example(subname: [CG系数])[
+  $
+    sum_(m_1,m_2) braket(j_1 m_1 j_2 m_2, j m) braket(j_1 m_1 j_2 m_2, j' m') = delta_(j j') delta_(m m')\
+    sum_(j,m) braket(j_1 m_1 j_2 m_2, j m) braket(j_1' m_1 j_2 m_2, j' m') = delta_(j_1 j_2) delta_(m_1 m_2)\
+  $
+  事实上对于$chi->F$，$F^dagger F = I$，行列的正交性就是这两个式子。
+]
+
+=== 特征标表
+
+为了把特征标的正交归一性表达更清楚和便于应用，常常将计算出的特征标排成一个表，称为特征标表。
+
+#let tab = (
+  ([$$], vlinex(), [$K_1={e}$], [$K_2$], [$...$], [$K_q$]),
+  hlinex(),
+  ([$Gamma^((1))=S$], [$1$], [$1$], [$...$], [$1$]),
+  ([$Gamma^((2))$], [$S_2$], [$chi^((2)) (K_2)$], [$...$], [$chi^((2)) (K_q)$]),
+  ([$dots.v$], [$...$], [$...$], [$...$], [$...$]),
+  ([$Gamma^((q))$], [$S_q$], [$chi^((2)) (K_2)$], [$...$], [$chi^((q)) (K_q)$]),
+)
+#figure(
+  tablex(columns: 5, align: center, auto-vlines: false, auto-hlines: false, ..tab.flatten()),
+  caption: [特征标表],
+  kind: table,
+)
+表中的第一列 $Gamma^((1)), Gamma^((2)), ... , Gamma^((q))$ 是不可约表示的名称，第二列是它们的维数 $S_1, S_2, ... , S_q$，后面的列是各个类 $K_i$ 的特征标 $chi^((p)) (K_i)$。特征标表的第一行是类的名称，单位元 $e$ 自成一类，排在第一行。
+- 特征标表是一个 $q times q$ 的方阵，因为群的所有不等价不可约表示的个数等于群类的个数。
+- 表的每一行写出的是群的所有类在同一不可约表示中的特征标，而每一列则写出群的某一个类在所有不等价不可约表示中的特征标。
+
+#example(subname: [约化$cal(G)$的正则表示])[
+  - 基：自身${g_i|i=1,...,n}$
+  - 作用：$L(g_i) g_j = g_i g_j = g_k = mat(0;dots.v;0;1;0;dots.v;0)mat(g_1,...,g_k,...,g_n)$
+
+  我们知道
+  $
+    chi^L (g) = cases(
+    n ", " g=e,
+    0 ", " g!=e
+  )
+  $
+  从而
+  $
+    braket(chi^L (g), chi^L (g)) = 1 / n sum_(i=1)^n chi^L (g_i) chi^L (g_i) = n
+  $
+  从而对于$n>1$，该表示是可约的。再利用特征表求约化
+  $
+    L(g) = sum_p plus.circle C_p A^((p)) (g) = sum_p plus.circle braket(chi^((i)), chi^L (g)) A^((i)) (g)
+  $
+  其中
+  $
+    C_p = braket(chi^((p)), chi^L (g)) = 1 / n sum_(i=1)^n chi^((p)*) (g_i) chi^L (g_i) = 1 / n chi^((p)*) (e) chi^L (e) =chi^((p)*) (e) = S_p
+  $
+  *有限群的全部的不等价的不可约的酉表示，它完全由其群结构决定！*
+  $
+    L(g) = sum_p plus.circle S_p A^((p)) (g)
+  $
+  而
+  $
+    sum_p S_p^2 = n
+  $
+  这正是 @burnside Burnside定理。
+
+  *正则表示给出了所有的全部的不等价的不可约的表示。*
+]
+
+#example(subname: [$D_3$的正则表示])[
+  特别地，有$D_3$的正则表示
+  $
+    L = S plus.circle A_1 plus.circle 2 Gamma
+  $
+  这就是完整的三个不等价的不可约表示。
+]
+
+#example(subname: [$D_3$的全部的不等价的不可约的酉表示])[
+  1. 乘法表
+  2. 生成元 ${a,b}$ 和定义关系 $a^2=b^2=(a b)^3=e$
+  3. 类 $q=3, {e}, {d,f}, {a,b,c}$，则有三个不可约表示
+  4. Burnside 定理
+    $
+      S_1^2 + S_2^2 + S_3^2 = 6\
+    $
+    解只能是$(1,1,2)$
+  5. 求三个不可约表示
+    - 1-dim
+      $
+        a -> a, b -> b\
+        a^2 = b^2 = (a b)^3 = 1\
+      $
+      解为
+      $
+        (a,b) = (1,1), (-1,-1)
+      $
+      分别为恒等表示$S$，和一维表示$A_1$
+    - 2-dim
+      $
+        e -> mat(1,0;0,1) , a->(a_11,0;0,a_22), b->(b_11,b_12,b_21,b_22)\
+      $
+      $a$是酉矩阵，不妨是对角的，但是其与$b$不对易，则$b$不设为对角阵。解得二维表示$Gamma$。
+]
+
+== 群表示的直积
+
+#definition(subname: [群表示的直积])[
+  设 $A={A(g)}$ 和 $B={B(g)}$ 是群 $cal(G)$ 的两个表示，$A$ 和 $B$ 的*直积*表示为
+  $
+    A times.circle B = {A(g) times.circle B(g)}\
+  $
+  也是群 $cal(G)$ 的一个表示。它的维数为 $S_A times S_B$，其中 $S_A$ 和 $S_B$ 分别是 $A$ 和 $B$ 的维数。
+]
+
+#proof[
+  我们需要证明这还是个表示
+  $
+    A(g_i g_j) times.circle B(g_i g_j) &= (A(g_i) A(g_j)) times.circle (B(g_i) B(g_j))\
+    &= (A(g_i) times.circle B(g_i)) (A(g_j) times.circle B(g_j))\
+  $
+  即保持乘法关系不变。其中第二个等号是线性代数里的结论。
+]
+
+#proposition(subname: [特征表与直积])[
+  两个表示的直积的特征标等于这两个表示的特征标的乘积，即
+  $
+    chi^(A times.circle B) (g) = chi^A (g) chi^B (g)\
+  $
+]
+
+#proof[
+  利用
+  $
+    tr(A times.circle B) = tr(A) tr(B)\
+  $
+]
+
+群的两个不可约表示的直积表示一般是可约的。对有限群来说，其两个不可约表示的直积如果可约则必完全可约，即分解为该群的不可约表示的直和。
+
+$A^((i))$和$A^((j))$是 $n$ 阶有限群 $cal(G)$ 的两个不可约表示，那么有
+$
+  A^((i)) (g) times.circle A^((j)) (g) = sum_(k=1)^q plus.circle a_(i j k) A^((k)) (g)
+$
+这种分解方式称为 *Clebsch-Gordan 展开*，式中 $a_(i j k)$ 称为*约化系数*，它是非负整数，代表 $A^((k))$ 在直积表示中出现的次数
+$
+  a_(i j k) = braket(chi^((k)), chi^((i) times.circle (j))) = 1 / n sum_(i=1)^n chi^((k)*) (g_i) chi^((i)) (g_i) chi^((j)) (g_i)
+$
+其中$chi^((k))$和$chi^((i)times.circle(j))$ 分别是 $A^((k))$和$A^((i)times.circle(j))$的特征标。上式也可以写成
+$
+  a_(i j k) = 1 / n sum_(l=1)^q n_l chi^((k)*) (K_l) chi^((i)) (K_l) chi^((j)) (K_l)
+$
+其中 $n_l$ 是类 $K_l$ 中的元素的数目。
+
+表示空间的角度来看，设荷载群 $cal(G)$ 的两个不可约表示 $A^((i))$ 和 $A^((j))$ 的基分别为 ${psi_i|i=1,...,S_p}$ 和 ${phi_alpha|alpha=1,...,S_r}$，那么它们的直积表示 $A^((i)) times.circle A^((j))$ 的基为
+$
+  {Phi_(i alpha) = psi_i phi_alpha | i=1,...,S_p; alpha=1,...,S_r}
+$
+其维数是 $S_p times S_r$。这是因为
+$
+  g(psi_i phi_alpha) = (g psi_i) (g phi_alpha)
+$
+此式表明，群元素同时作用到两个表示空间的基分量上。
+
+对于约化，荷载不可约表示 $A^((k))$ 可以由 ${Phi_(i alpha)}$ 线性组合给出
+$
+  phi.alt_m^((k),t) = sum_(i alpha) C_(m, i alpha)^((k),t) Phi_(i alpha) = sum_(i alpha) C_(m, i alpha)^((k),t) psi_i phi_alpha
+$
+其中展开系数 $C_(m, i alpha)^((k),t)$ 称为群 $cal(G)$ 的 *Clebsch—Gordan 系数*。其中
+- $m$ 是基分量的标记，$m=1,...,S_k$
+- 如果在约化中出现了$t_k$个与$A^((k)) (g)$的等价的不可约表示，但但荷载它们的基却是不同的，所以这里用上角标 $t_k$ 来区分它们
+所有约化系数均不超过 1 的约化称为简单可约。
+
+#example(subname: [角动量的CG系数])[
+  $
+    vb(L)_1 times vb(L)_2 = vb(L)
+  $
+  两个 $"SO(3)"$ 的不可约表示 $L_1$ 和 $L_2$ 的直积表示 $L$ 希望展现其对称性（约化为不可约表示的分块对角矩阵）
+  $
+    braket(j_1 m_1 j_2 m_2,j m)
+  $
 ]
