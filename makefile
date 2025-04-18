@@ -1,11 +1,16 @@
-MAIN = "main.pdf"
+MAIN := main.pdf
+HW_SRC := $(wildcard HW/*.typ)
+HW_PDF := $(HW_SRC:.typ=.pdf)
+CHAPS := $(wildcard chap*.typ)
 
-PHONY: all 
+all: $(MAIN) $(HW_PDF)
 
-all: $(MAIN)
+$(MAIN): main.typ $(CHAPS)
+	typst compile main.typ
 
-$(MAIN): main.typ
-	typst compile $< $@
+HW/%.pdf: HW/%.typ
+	typst compile $<
 
 clean:
-	rm -f $(MAIN)
+	rm -f $(MAIN) $(HW_PDF)
+
