@@ -2101,3 +2101,208 @@ $
     braket(j_1 m_1 j_2 m_2,j m)
   $
 ]
+
+#example(subname: [$D_3$群的三个不可约表示的直积])[
+  $
+    Gamma times.circle Gamma
+  $
+  考虑到
+  $
+    a_(Gamma times.circle Gamma, S) &= braket(chi^S,chi^(Gamma times.circle Gamma)) = 1 / 6 sum_(i=1)^3 n_l chi^S (K_l) chi^Gamma (K_l) chi^Gamma (K_l)\
+    &= 1 / 6 (1 times 1 times 2 times 2 + 2 times 1 times (-1) times (-1) + 3 times 1 times 0 times 0)\
+    & = 1
+  $
+  $
+    a_(Gamma times.circle Gamma, A_1) &= braket(chi^A_1,chi^(Gamma times.circle Gamma)) = 1 / 6 sum_(i=1)^3 n_l chi^A_1 (K_l) chi^Gamma (K_l) chi^Gamma (K_l)\
+    & = 1
+  $
+  $
+    a_(Gamma times.circle Gamma, Gamma) &= braket(chi^Gamma,chi^(Gamma times.circle Gamma)) = 1 / 6 sum_(i=1)^3 n_l chi^Gamma (K_l) chi^Gamma (K_l) chi^Gamma (K_l)\
+    & = 1
+  $
+  从而有
+  $
+    Gamma times.circle Gamma = S plus.circle A_1 plus.circle Gamma\
+  $
+]
+不难证明一般性结论：（1）任何表示与恒等表示的直积等于该表示。（2）不可约表示与一维表示的直积仍然是不可约表示。
+
+#note[
+  在物理中，两个角动量的耦合$j_1 times.circle j_2 = abs(j_1 - j_2), abs(j_1 - j_2) + 1, ... , j_1 + j_2$，其中$j_1$和$j_2$是角动量的量子数。事实上这是对称性（量子数）所对应的不可约表示（标记）。
+  $
+    ket(j_1 m_1) ket(j_2 m_2) = sum_(j m) C(j_1 m_1 j_2 m_2, j m) ket(j m)\
+  $
+]
+
+== 直积群的表示
+
+对于两个群直积得到的群
+$
+  cal(G) = cal(G_1) times.circle cal(G_2) = {g_(alpha beta) = g_(1 alpha) g_(2 beta)}\
+$
+其中$cal(G)_1$和$cal(G)_2$是$cal(G)$的不变子群。
+
+下面讨论直积群$cal(G)$的表示与其两个因子群$cal(G)_1$和$cal(G)_2$的表示之间的关系。
+
+#proposition(subname: [直积群的表示])[
+  $A(cal(G)_1) = {A(g_(1 alpha))}$ 和 $A(cal(G)_2) = {A(g_(2 beta))}$分别是$cal(G)_1$和$cal(G)_2$的表示
+  $
+    C(cal(G)) = A(cal(G)_1) times.circle A(cal(G)_2) = {A(g_(1 alpha)) times.circle A(g_(2 beta))} = {C(g_(alpha beta))}\
+  $
+  是直积群$cal(G) = cal(G_1) times.circle cal(G_2)$的表示。它的维数为$S_1 times S_2$，其中$S_1$和$S_2$分别是$A(cal(G)_1)$和$A(cal(G)_2)$的维数。
+]
+
+#proof[
+
+]
+
+同时有
+#proposition(subname: [群直积的特征标])[
+  $
+    chi^(A times.circle B) (cal(G)) = chi^A (cal(G_1)) chi^B (cal(G_2))\
+  $
+]
+
+#proposition(subname: [群直积的可约性])[
+  如果直积群中的因子群的表示都是不可约的，那么该直积群的表示也是不可约的。如果其中一个因子群的表示是可约的，那么该直积群的表示就是可约的。
+]
+#proof[
+
+  利用
+  $
+    braket(chi^((p))) = 1, braket(chi^((r))) = 1\
+  $
+  以及群直积的分解唯一性；我们不难证明
+  $
+    braket(chi^((p) times.circle (r)),chi^((p) times.circle (r))) = 1
+  $
+  这就意味着直积群的两个不可约表示的直积表示是不可约的。
+]
+
+#proposition(subname: [直积群的不可约表示])[
+  - *直积群的类的个数等于其因子群的类的个数之积*，所以，它的不可约表示的个数等于其因子群的不可约表示的个数之积。
+  - 直积群的任意不可约表示都可以由它的两个因子群的不可约表示的直积构成。
+]
+这个结论使得寻求直积群的不可约表示的工作量大为减少，只需要求得每个因子群的不可约表示即可。
+
+直积群的任意表示都可以约化这样一些不可约表示的直和，其中每个表示都是两
+个因子群的不可约表示的直积。总之，*直积群的（不可约）表示完全由其直积因子群的不可约表示决定*。
+
+== 诱导表示
+
+诱导表示是从一个子群的表示出发，构造出整个群的表示。
+
+$cal(G)$有子群$cal(H)$，如果$A$是$cal(G)$的表示，则也是$cal(H)$的缩小表示。
+
+$A^((p))$是$cal(G)$的不可约表示，则$A^((p))$不是$cal(H)$的不可约表示。考虑$Gamma$对$D_3$的$d_3$。
+
+对于母群$cal(G)$的子群$cal(H)$，其荷载$W$上的表示$B$，我们希望用$B$的表示得到母群$cal(G)$的表示$A$。
+
+- 基：$V={f_i|f_i (g_j) in W}$ 选择自身为基的空间
+  $
+    f(h g) = B(h) f(g)
+  $
+
+== 广义投影算符
+
+考虑$D_3$的6维表示
+$
+  mat(A_1,O;O,Gamma)
+$
+6维矩阵不能由$S,A_1,Gamma$直接直积得到，这就引入投影算符的概念。
+
+有限群的可约表示一定可以约化为其不可约表示的直和。从表示空间来看，这个约化过程实际上就是将可约表示空间“分成”不可约表示空间之和，那么如何从荷载可约表示的基中把荷载不可约表示的基挑选出来？广义投影算符是处理此类问题的一个常用方法。
+
+#example(subname: [量子力学中的投影算符])[
+  $
+    P_m = ketbra(m,m)\
+    psi = sum_k C_k ket(k)\
+    P_m psi = sum_k C_k ket(m) braket(m,k) = C_m ket(m)\
+  $
+  且有
+  $
+    P_m^2= P_m
+  $
+]
+
+#example(subname: [双电子的自旋态])[
+  双电子
+  $
+    cases(
+       reverse: #true,
+       alpha(1) alpha(2),
+       beta(1) beta(2),
+       alpha(1) beta(2) + beta(1) alpha(2)
+     ) -> chi_(1 m)\
+    alpha(1) beta(2) - beta(1) alpha(2) -> chi_(0 0)
+  $
+  对称化就得到了不可约表示。定义$P_1,P_3$算子
+  $
+    P_1 &= 1 - vb(sigma)_1 dot vb(sigma)_2\
+    P_3 &= 1 / 4 (1+vb(sigma)_1 dot vb(sigma)_2)
+  $
+  有
+  $
+    P_1 chi_(0 0) = chi_(0 0), P_1 chi_(1 m) = 0\
+    P_3 chi_(0 0) = 0, P_3 chi_(1 m) = chi_(1 m)\
+  $
+  这就说明$P_1$和$P_3$是投影算符。它们的本征值为0和1。
+]
+
+现在我们构造一般的投影算符。
+
+对于群$cal(G)$和不可约表示$A^((p))$及其荷载${psi_i^((p))|i=1,...,S_p}$有
+$
+  P_g psi_i^((p)) (vb(r)) = phi_i^((p)) (g^(-1) vb(r)) = sum_j A_(j i)^((p)) phi_j^((p)) (vb(r))\
+$
+用$A_(k l)^((r)*) (g)$左乘，对$g$求和
+$
+  sum_g A_(k l)^((r)*) (g) P_g psi_i^((p))= sum_g sum_j A_(k l)^((r)*) A_(j i)^((p)) phi_j^((p))\
+  S_r / n sum_g A_(k l)^((r)*) (g) P_g psi_i^((p))= delta_(r p) delta_(l i) phi_k^((p))\
+$
+令
+$
+  P_(k l)^((r)) = S_r / n sum_g A_(k l)^((r)*) (g) P_g\
+$
+则可以写为
+$
+  P_(k l)^((r)) psi_i^((p)) = delta_(r p) delta_(l i) phi_k^((p))\
+$
+就把第$i$个基分量$psi_i^((p))$变成荷载同一个不可约表示$A^((p))$的第$k$个基分量$psi_k^((p))$。我们称$P_(k l)^((p))$为与$A^((p))$相联系的*广义投影算符*或*转移算符*。
+
+一个$S_p$维的不可约表示可以构造出$S_p^2$个广义投影算符，所以$n$阶有限群$cal(G)$一共有$n$个广义投影算符：
+$
+  { P_(m n)^((i)) | i = 1,2,...,q; m,n = 1,2,...,S_i}\
+$
+其中$q$为$cal(G)$的类的个数。
+
+特别地，对$P_(k k)^((p))$是
+$
+  P_(k k)^((p)) psi_k^((p)) = psi_k^((p))\
+  P_(k k)^((p)) psi_i^((p)) = 0, i!=k\
+$
+是*投影算符*。
+
+#proposition(subname: [投影算符的性质])[
+  广义投影算符$P_(k l)^((r))$的并不是Hermitian的
+  $
+    braket(P_(k l)^((p)) Phi, Psi) = braket(Phi, P_(l k)^((p)) Psi)\
+  $
+  但投影算符是Hermitian的
+  $
+    braket(P_(k k)^((p)) Phi, Psi) = braket(Phi, P_(k k)^((p)) Psi)
+  $
+]
+
+#example(subname: [$D_3$的投影算符])[
+  $V={phi_1,phi_2,...,phi_6}$
+  $
+    psi = sum_(i=1)^6 C_i phi_i\
+  $
+  现在希望找到$P_(k k)^((Gamma))$
+  $
+    P_(1 1)^((Gamma)) psi -> psi_1^((Gamma))\
+    P_(2 1)^((Gamma)) phi_1^((Gamma)) -> phi_2^((Gamma))\
+  $
+  就可以给出$V_Gamma$
+]
