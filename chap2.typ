@@ -345,34 +345,34 @@ $
   numbering: none,
 )
 
-为了看清楚 $phi_i$ 与群元素 g 的依赖关系，引入新的记号$P_g$，*定义在以$r$为变量的函数空间内*的*函数（形式）变换*：
+为了看清楚 $phi_i$ 与群元素 g 的依赖关系，引入新的记号$T_g$，*定义在以$r$为变量的函数空间内*的*函数（形式）变换*：
 
 #definition(subname: [函数（形式）变换])[
-  设$phi(r)$是一个函数，$P_g$是一个算符，$P_g$的作用是把函数$phi(r)$变换成在以$r$为变量的函数空间内的另一个函数$phi'(r)$，即
+  设$phi(r)$是一个函数，$T_g$是一个算符，$T_g$的作用是把函数$phi(r)$变换成在以$r$为变量的函数空间内的另一个函数$phi'(r)$，即
   $
-    P_g: phi |-> phi' = P_g phi
+    T_g: phi |-> phi' = T_g phi
   $
   是*函数（形式）变换*的算符，其中$g$是一个变换
   $
     g: vb(r) |-> vb(r)' = g vb(r)
   $
-  $P_g$是由$g$诱导出来的。
+  $T_g$是由$g$诱导出来的。
 ]
 
 有
 $
-  P_g phi_i (r) = phi_i (g^(-1) r) = sum_j B(P_g)_(j i) phi_j (r) = sum_j B(g)_(j i) phi_j (r)
+  T_g phi_i (r) = phi_i (g^(-1) r) = sum_j B(T_g)_(j i) phi_j (r) = sum_j B(g)_(j i) phi_j (r)
 $
 
 #remark[
-  $P_g$的表示就是$g$的表示。
+  $T_g$的表示就是$g$的表示。
 ]
 
 #proof[
 
   我们知道
   $
-    cal(G):{g} tilde.equiv cal(G)_P:{P_g}
+    cal(G):{g} tilde.equiv cal(G)_P:{T_g}
   $
   这是因为：
   - 双射是显然的
@@ -518,7 +518,7 @@ $
   $
   对于$g in cal(G)$：
   $
-    P_g phi_i (r) = phi_i (g^(-1) r) = phi_i (A(g)^(-1) mat(x;y;z)) = sum_j B(g)_(j i) phi_j (r)
+    T_g phi_i (r) = phi_i (g^(-1) r) = phi_i (A(g)^(-1) mat(x;y;z)) = sum_j B(g)_(j i) phi_j (r)
   $
   #newpara()
   对于$a$，变换为
@@ -558,13 +558,13 @@ $
 ]
 
 #note[
-  引入$P_g$只是为了方便讨论，其定义是
+  引入$T_g$只是为了方便讨论，其定义是
   $
-    P_g phi(r) = phi(g^(-1) r)
+    T_g phi(r) = phi(g^(-1) r)
   $
   可以和$g$的表示联系起来，且
   $
-    {P_g} tilde.equiv cal(G)
+    {T_g} tilde.equiv cal(G)
   $
   并且这是依赖
   $
@@ -575,7 +575,7 @@ $
     phi(g^(-1) r) in V
   $
   也不是一定的，这依赖于
-  - $P_g$是线性的
+  - $T_g$是线性的
   - $phi_i$是完备的
 ]
 
@@ -2211,6 +2211,16 @@ $
 $
 6维矩阵不能由$S,A_1,Gamma$直接直积得到，这就引入投影算符的概念。
 
+$
+  A = sum plus.circle C_m A^((m))\
+  V = sum plus.circle C_m V^((m))\
+$
+希望由$V$的基的线性组合得到$V^((m))$的基
+$
+  phi_alpha^((p)t_p) = sum C_(alpha i)^((p)t_p) phi.alt_i
+$
+#newpara()
+
 有限群的可约表示一定可以约化为其不可约表示的直和。从表示空间来看，这个约化过程实际上就是将可约表示空间“分成”不可约表示空间之和，那么如何从荷载可约表示的基中把荷载不可约表示的基挑选出来？广义投影算符是处理此类问题的一个常用方法。
 
 #example(subname: [量子力学中的投影算符])[
@@ -2253,16 +2263,16 @@ $
 
 对于群$cal(G)$和不可约表示$A^((p))$及其荷载${psi_i^((p))|i=1,...,S_p}$有
 $
-  P_g psi_i^((p)) (vb(r)) = phi_i^((p)) (g^(-1) vb(r)) = sum_j A_(j i)^((p)) phi_j^((p)) (vb(r))\
+  T_g psi_i^((p)) (vb(r)) = phi_i^((p)) (g^(-1) vb(r)) = sum_j A_(j i)^((p)) phi_j^((p)) (vb(r))\
 $
 用$A_(k l)^((r)*) (g)$左乘，对$g$求和
 $
-  sum_g A_(k l)^((r)*) (g) P_g psi_i^((p))= sum_g sum_j A_(k l)^((r)*) A_(j i)^((p)) phi_j^((p))\
-  S_r / n sum_g A_(k l)^((r)*) (g) P_g psi_i^((p))= delta_(r p) delta_(l i) phi_k^((p))\
+  sum_g A_(k l)^((r)*) (g) T_g psi_i^((p))= sum_g sum_j A_(k l)^((r)*) A_(j i)^((p)) phi_j^((p))\
+  S_r / n sum_g A_(k l)^((r)*) (g) T_g psi_i^((p))= delta_(r p) delta_(l i) phi_k^((p))\
 $
 令
 $
-  P_(k l)^((r)) = S_r / n sum_g A_(k l)^((r)*) (g) P_g\
+  P_(k l)^((r)) = S_r / n sum_g A_(k l)^((r)*) (g) T_g\
 $
 则可以写为
 $
@@ -2306,3 +2316,73 @@ $
   $
   就可以给出$V_Gamma$
 ]
+
+=== 表示空间的约化
+
++ 构造投影算符
+  - $G$的表示$A^((p)), p=1,2,...,q$
+  $
+    {P_(k l)^((p)) | k,l=1,2,...,S_p}\
+  $
++ 可约表示$A$，$V={phi.alt_i}$，求出$V^((p))={phi_alpha^((p))|alpha=1,2,...,S_p}$
+  $
+    P_(k l)^((p)) = S_p / n sum_g A_(k l)^((p)) (g) T_g\
+  $
++ 构造$Phi=sum phi.alt_i in V$
+  + 找到一个$phi_alpha'^((p))$
+    如果
+    $
+      P_1^((p)) Phi tilde phi_i^((p))
+    $
+    就找到了基分分量，否则有
+    $
+      P_1^((p)) Phi = 0
+    $
+    再用另外的投影算符尝试
+    $
+      P_(n_0)^((p)) Phi = phi_n_0^((p))\
+      P_(n'_0 n_0)^((p)) phi_(n_0^((p)) = phi_n'_0^((p))\
+    $
+
+#example(subname: [$D_3$的6维表示])[
+  $V={phi_1,phi_2,...,phi_6}$投影出荷载$Gamma$的$V^((Gamma))={phi_i^((gamma))|i=1,2}$
+
+  先计算投影算符
+  $
+    P_1^((Gamma)) = 2 / 6 sum Gamma^(*)_(1 1) (g) T_g = 1 / 3(T_e - 1 / 2 T_d - 1 / 2 T_f ...)
+  $
+  $
+    P_(2 1)^((Gamma)) = sqrt(3) / 6 (T_d - T_f + ...)
+  $
+  则有
+  $
+    P_1^((Gamma)) Phi = phi.alt_4 + phi.alt_5 = phi_1^(Gamma)\
+    P_(2 1)^((Gamma)) phi_1^((p)) = 1 / 2(phi_1 - phi_2 - 2phi_6) = phi_2^((Gamma))\
+  $
+  检查
+  $
+    T_b phi_1^((Gamma)) = T_b (phi.alt_4 + phi.alt_5) = 1 / 2 phi_1^((Gamma)) + sqrt(3) / 2 phi_2^((Gamma))\
+  $
+
+  如何找到另一个$Gamma$的基分量？
+
+  事实上
+  $
+    mat(A^*,O;O,Gamma)
+  $
+  的$Gamma$的基直接是$phi.alt_5, phi.alt_6$，可以用$phi.alt_i, i=1,...,4$ 来投影出$A^*$中的$Gamma$。
+
+  $
+    V_4={phi.alt_1,...,phi.alt_4}, Phi' = sum_(i=1)^4 phi.alt_i\
+  $
+  $
+    P_1^((Gamma)) Phi' = phi.alt_4 = phi_1^((Gamma))\
+    P_(2 1)^((Gamma)) phi_1^((p)) = 1 / 2(phi_1 - phi_2) = phi_2^((Gamma))\
+  $
+]
+
+#note[
+  刚才的做法是$Phi=sum phi.alt_i$，其实也可以给其添加系数，也可以用不同的投影算符。核心都是找到投影不为$0$的投影算符。
+]
+
+
