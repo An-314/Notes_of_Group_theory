@@ -259,3 +259,111 @@ $
 $
   (R_u vb(r)) dot vb(sigma) = u (vb(r) dot vb(sigma)) u^dagger
 $
+
+#note[
+  按参数空间看$"SU"(2)$的参数$a=x_1 + x_2 i, b = x_3 + x_4 i$就有$sum_(i=1)^4 x_i^2 = 1$是一个球面；$"O"(3)$的参数分两叶。
+]
+
+$E^3$上：
+$
+  g (alpha, beta, gamma) = g (alpha + 2pi, beta, gamma)
+$
+$CC^2$上：
+$
+  u(alpha, beta, gamma) = - u(alpha + 2pi, beta, gamma) = u(alpha + 4pi, beta, gamma)
+$
+
+== SU(2)群的表示
+
+已知 $"SU"(2)$ 群的任意元素为 2 阶么正方阵
+$
+  u = mat(a,b;-b^*,a^*), abs(a)^2 + abs(b)^2 = 1
+$
+而对于作用空间$CC^2 = {e_1, e_2}, vb(r) in CC^2, vb(r) = sum_i x_i e_i = mat(x_1; x_2)$，作用$u$是
+$
+  u: vb(r) -> vb(r)' = u vb(r) = mat(a,b;-b^*,a^*) mat(x_1;x_2)\
+  mat(e'_1, e'_2) = mat(e_1, e_2) mat(a,b;-b^*,a^*) \
+$
+需要构造负载表示的其它基函数。作为一种选择，取$x_1, x_2$的*齐次单项式*作为$"SU"(2)$群的表示空间的基函数，如
+$
+  V_3 &= {x_1^2, x_1 x_2, x_2^2}\
+  V_4 &= {x_1^3, x_1^2 x_2, x_1 x_2^2, x_2^3}\
+  ... &\
+  V_n &= {x_1^n, x_1^(n-1) x_2, x_1^(n-2) x_2^2, ..., x_2^n}\
+$
+可以验证：$V_i$在$"SU"(2)$作用下是封闭的。而且每个$V_i$不再含有$"SU"(2)$的不变子空间。把$u$作用到$V_i$上，就可得到$"SU"(2)$群的一个$i$维不可约表示。
+
+我们知道$u$是$"SU"(2)$的一个忠实表示
+#note[
+  注意到$D_3$有
+  $
+    Gamma times.circle Gamma = S plus.circle A plus.circle Gamma
+  $
+  可以用一个已知表示$Gamma$的表示来构造出新的表示$S, A$。
+]
+对于紧致Lei群$"SU"(2)$，有
+$
+  u times.circle u = sum plus.circle c_n A^((n))
+$
+事实上这也对应着荷载空间的约化
+$
+  CC^2 times.circle CC^2 = sum plus.circle c_n V^((n))
+$
+注意到
+$
+  mat(x_1, x_2) times.circle mat(x_1, x_2) = mat(x_1^2, x_1 x_2, x_2 x_1, x_2^2) -> {x_1^2, x_1 x_2, x_2^2} = V^((3))
+$
+我们需要说明$V^((3))$是一个封闭的（显然）不可约的空间（不变子空间），从而$V^((3))$为载荷可以给出一个不可约表示。再考虑
+$
+  u times.circle u times.circle u = sum plus.circle c_n V^((n))\
+  CC^2 times.circle CC^2 times.circle CC^2 = sum plus.circle c_n V^((n))\
+$
+这样也能给出一个不可约表示。
+
+#note[
+  事实上
+  $
+    mat(x_1, x_2) times.circle mat(x_1, x_2) = mat(x_1^2, x_1 x_2, x_2 x_1, x_2^2) -> {x_1^2, x_1 x_2, x_2^2} = V^((3))
+  $
+  这一步做了对称化和反对称化
+  $
+    {x_1 times.circle x_1, x_1 times.circle x_2, x_2 times.circle x_1, x_2 times.circle x_2}\
+    x_1 times.circle x_2 plus.minus x_2 times.circle x_1 = cases(2 x_1 x_2, 0)\
+  $
+  投影到函数空间$V^((3))$上时，我们可以只选择一个。
+
+  事实上这是由于这是同一个矢量的张量，反对称化一定是0。事实上对称化就是投影。
+
+  对称化之后给出的基，当然是不可约的。
+]
+一般地，
+$
+  underbrace(u times.circle u times.circle ... times.circle u, k) = sum plus.circle c_n A^((n))\
+  underbrace(u times.circle u times.circle ... times.circle u, k) = sum plus.circle c_n V^((n))\
+$
+事实上，统一的表达式便是$x_1^(j+m) x_2^(j-m)$，为了幺正化
+$
+  f_m^j (x_1, x_2) = (x_1^(j+m) x_2^(j-m)) / sqrt((j+m)! (j-m)!)\
+$
+是一个$2j$次齐次函数，函数基便是
+$
+  f^j (vb(r)) = {f_m^j (x_1, x_2) | m = -j, -j+1, ..., j}
+$
+其中$j$是一个非负整数或半整数，$j=0,1/2,1,3/2,2,...$。
+
+引入函数变换算符$P(u)$，其作用空间是函数空间
+$
+  macron(f^j)(vb(r)) = P(u) f^j (vb(r)) = f^j (u vb(r))\
+$
+保持函数形式不变，而只对其宗量实施变换。
+#note[
+  事实上前面函数形式变换算符
+  $
+    P_g f_i (vb(r)) = f_i (g^(-1) vb(r))\
+  $
+  但在这里
+  $
+    P(u) f^j (vb(r)) = f^j (u vb(r))\
+  $
+
+]
