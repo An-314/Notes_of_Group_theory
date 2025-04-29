@@ -518,7 +518,7 @@ $
   $
   对于$g in cal(G)$：
   $
-    T_g phi_i (r) = phi_i (g^(-1) r) = phi_i (A(g)^(-1) mat(x;y;z)) = sum_j B(g)_(j i) phi_j (r)
+    P_g phi_i (r) = phi_i (g^(-1) r) = phi_i (A(g)^(-1) mat(x;y;z)) = sum_j B(g)_(j i) phi_j (r)
   $
   #newpara()
   对于$a$，变换为
@@ -2050,6 +2050,17 @@ $
 
 群的两个不可约表示的直积表示一般是可约的。对有限群来说，其两个不可约表示的直积如果可约则必完全可约，即分解为该群的不可约表示的直和。
 
+对于
+$
+  braket(chi^A) = 1 / n sum_(i=1)^n chi^A (g_i) chi^A (g_i) = 1\
+  braket(chi^B) = 1 / n sum_(i=1)^n chi^B (g_i) chi^B (g_i) = 1\
+$
+而
+$
+  braket(chi^(A times.circle B)) = 1 / n sum_(i=1)^n chi^(A times.circle B) (g_i) chi^(A times.circle B) (g_i) = 1 / n sum_(i=1)^n chi^(A*) (g_i) chi^(B*) (g_i) chi^(A) (g_i) chi^(B) (g_i)\
+$
+一般不等于1。
+
 #definition(subname: [Clebsch-Gordan 展开])[
   设 $A^((i))$ 和 $A^((j))$ 是 $n$ 阶有限群 $cal(G)$ 的两个不可约表示，那么它们的直积表示 $A^((i)) times.circle A^((j))$ 可以*Clebsch-Gordan 展开*为
   $
@@ -2073,6 +2084,9 @@ $
 $
 其维数是 $S_p times S_r$。这是因为
 $
+  g mat(...,Phi_(i alpha), ...) = mat(..., Phi_(i alpha), ...) mat(A^((p)) (g) times.circle A^((r)) (g))
+$
+$
   g(Phi_(i alpha)) &= g(psi_i phi_alpha)\
   &= sum_(j=1)^S_p sum_(beta=1)^S_r (A^((p)) (g) times.circle A^((r)) (g) psi_i)_(j beta, i alpha) Phi_(j beta)\
   &= (sum_(j=1)^S_p A^((p))_(j i) (g) psi_j) (sum_(beta=1)^S_r A^((r))_(beta alpha) (g) phi_beta)\
@@ -2090,7 +2104,7 @@ $
 其中
 - $m$ 是基分量的标记，$m=1,...,S_k$
 - 如果在约化中出现了$t_k$个与$A^((k)) (g)$的等价的不可约表示，但但荷载它们的基却是不同的，所以这里用上角标 $t_k$ 来区分它们
-所有约化系数均不超过 1 的约化称为简单可约。
+所有约化系数均不超过 1 的约化称为*简单可约*。
 
 #example(subname: [角动量的CG系数])[
   $
@@ -2125,7 +2139,22 @@ $
     Gamma times.circle Gamma = S plus.circle A_1 plus.circle Gamma\
   $
 ]
-不难证明一般性结论：（1）任何表示与恒等表示的直积等于该表示。（2）不可约表示与一维表示的直积仍然是不可约表示。
+不难证明一般性结论：
++ 任何表示与恒等表示的直积等于该表示。
++ 不可约表示与一维表示的直积仍然是不可约表示。
+
+#proposition(subname: [恒等表示与直积])[
+  当且仅当两个互为共轭表示的直积表示中才会出现且只出现一次恒等表示。
+]
+
+#proof[
+  对于有限群的不可约表示$A^((p))$与不可约表示$A^((r))$，计算直和分解中出现恒等表示的次数；考虑特征标即可
+  $
+    a_(p r, S) &= braket(chi^S, chi^((p) times.circle (r)*)) = 1 / n sum_(i=1)^n chi^S (K_i) chi^((p)) (K_i) chi^((r)*) (K_i)\
+    &= 1 / n sum_(i=1)^n chi^((p)) (K_i) chi^((r)) (K_i)\
+    &= braket(chi^((p)), chi^((r))) = delta_(p r)\
+  $
+]
 
 #note[
   在物理中，两个角动量的耦合$j_1 times.circle j_2 = abs(j_1 - j_2), abs(j_1 - j_2) + 1, ... , j_1 + j_2$，其中$j_1$和$j_2$是角动量的量子数。事实上这是对称性（量子数）所对应的不可约表示（标记）。
@@ -2145,18 +2174,32 @@ $
 下面讨论直积群$cal(G)$的表示与其两个因子群$cal(G)_1$和$cal(G)_2$的表示之间的关系。
 
 #proposition(subname: [直积群的表示])[
-  $A(cal(G)_1) = {A(g_(1 alpha))}$ 和 $A(cal(G)_2) = {A(g_(2 beta))}$分别是$cal(G)_1$和$cal(G)_2$的表示
+  $A(cal(G)_1) = {A(g_(1 alpha))}$ 和 $B(cal(G)_2) = {B(g_(2 beta))}$分别是$cal(G)_1$和$cal(G)_2$的表示
   $
-    C(cal(G)) = A(cal(G)_1) times.circle A(cal(G)_2) = {A(g_(1 alpha)) times.circle A(g_(2 beta))} = {C(g_(alpha beta))}\
+    C(cal(G)) = A(cal(G)_1) times.circle B(cal(G)_2) = {A(g_(1 alpha)) times.circle B(g_(2 beta))} = {C(g_(alpha beta))}\
   $
-  是直积群$cal(G) = cal(G_1) times.circle cal(G_2)$的表示。它的维数为$S_1 times S_2$，其中$S_1$和$S_2$分别是$A(cal(G)_1)$和$A(cal(G)_2)$的维数。
+  是直积群$cal(G) = cal(G_1) times.circle cal(G_2)$的表示。它的维数为$S_1 times S_2$，其中$S_1$和$S_2$分别是$A(cal(G)_1)$和$B(cal(G)_2)$的维数。
 ]
 
 #proof[
 
+  只需要验证保持乘法关系不变即可。
+
+  $
+    C(g_(alpha beta)) &= A(g_(1 alpha)) times.circle B(g_(2 beta))\
+    C(g_(alpha' beta')) &= A(g_(1 alpha')) times.circle B(g_(2 beta'))\
+  $
+  则有
+  $
+    C(g_(alpha beta) g_(alpha' beta')) &= A(g_(1 alpha) g_(1 alpha')) times.circle B(g_(2 beta) g_(2 beta'))\
+    &= (A(g_(1 alpha)) A(g_(1 alpha'))) times.circle (B(g_(2 beta)) B(g_(2 beta')))\
+    &= (A(g_(1 alpha) times.circle B(g_(2 beta))) (A(g_(1 alpha')) times.circle B(g_(2 beta')))\
+    &= C(g_(alpha' beta')) C(g_(alpha beta))\
+  $
+
 ]
 
-同时有
+同时有特征标的关系
 #proposition(subname: [群直积的特征标])[
   $
     chi^(A times.circle B) (cal(G)) = chi^A (cal(G_1)) chi^B (cal(G_2))\
@@ -2170,11 +2213,12 @@ $
 
   利用
   $
-    braket(chi^((p))) = 1, braket(chi^((r))) = 1\
+    braket(chi^((p))) = 1 / n sum_(i=1)^n chi^((p)*) (g_i) chi^((p)) (g_i) = 1\
+    braket(chi^((r))) = 1 / m sum_(i=1)^m chi^((r)*) (g_i) chi^((r)) (g_i) = 1\
   $
   以及群直积的分解唯一性；我们不难证明
   $
-    braket(chi^((p) times.circle (r)),chi^((p) times.circle (r))) = 1
+    braket(chi^((p) times.circle (r)),chi^((p) times.circle (r))) = 1 / (m n) sum_(i=1)^n sum_(j=1)^m chi^((p)*) (g_i) chi^((p)) (g_i) chi^((r)*) (g_j) chi^((r)) (g_j) = 1\
   $
   这就意味着直积群的两个不可约表示的直积表示是不可约的。
 ]
@@ -2185,8 +2229,52 @@ $
 ]
 这个结论使得寻求直积群的不可约表示的工作量大为减少，只需要求得每个因子群的不可约表示即可。
 
-直积群的任意表示都可以约化这样一些不可约表示的直和，其中每个表示都是两
-个因子群的不可约表示的直积。总之，*直积群的（不可约）表示完全由其直积因子群的不可约表示决定*。
+直积群的任意表示都可以约化这样一些不可约表示的直和，其中每个表示都是两个因子群的不可约表示的直积。总之，*直积群的（不可约）表示完全由其直积因子群的不可约表示决定*。
+
+表示空间的角度来看，设荷载（不可约）表示$A(cal(G)_1), B(cal(G)_2)$的基分别为${phi_i|i=1,...,S_p}$和${psi_j|j=1,...,S_r}$，那么它们的直积表示$C(cal(G))=A(cal(G)_1) times.circle B(cal(G)_2)$的基为
+$
+  {Theta_(i j) = phi_i psi_j | i=1,...,S_1; j=1,...,S_2}
+$
+其中$S_1$和$S_2$分别是$A(cal(G)_1)$和$B(cal(G)_2)$的维数，$C(cal(G))$的表示是$S_1 times S_2$维的。
+
+把$g_(alpha beta)$作用在基${Theta_(i j)}$上，有
+$
+  g_(alpha beta) Theta_(i j) &= sum_(k=1)^S_1 sum_(l=1)^S_2 C_(k l, i j) (g_(alpha beta)) Theta_(k l)\
+  &= (g_alpha phi_k) (g_beta psi_l)\
+$
+此式表明两个因子群的元素只作用到它们各自表示空间的基分量上。
+
+#example(subname: [直积群])[
+  考虑两个二阶群$cal(G)_1 = {a, a^2=e}$和$cal(G)_2 = {b, b^2=e}$，它们都有一维不可约表示$S_i$和一维表示$A_i$，见下表
+  #grid(columns: (1fr,) * 2, align: center)[
+    #three-line-table[
+      | $cal(G)_1$ | $e$ | $a$ |
+      | --- | --- | --- |
+      | $S_1$ | $1$ | $1$ |
+      | $A_1$ | $1$ | $-1$ |
+    ]
+  ][
+    #three-line-table[
+      | $cal(G)_2$ | $e'$ | $b$ |
+      | --- | --- | --- |
+      | $S_2$ | $1$ | $1$ |
+      | $A_2$ | $1$ | $-1$ |
+    ]
+  ]
+  构造直积群
+  $
+    cal(G) = cal(G)_1 times.circle cal(G)_2 = {e e', e b, a e', a b}
+  $
+  它是一个四阶群。只需要将$cal(G)_1$和$cal(G)_2$的不可约表示按所有可能的直积就可以得到$cal(G)$的不可约表示，见下表
+  #three-line-table[
+    | $cal(G)$ | $e e'$ | $e b$ | $a e'$ | $a b$ |
+    | --- | --- | --- | --- | --- |
+    | $S$ | $1$ | $1$ | $1$ | $1$ |
+    | $A$ | $1$ | $-1$ | $1$ | $-1$ |
+    | $A'$ | $1$ | $1$ | $-1$ | $-1$ |
+    | $A''$ | $1$ | $-1$ | $-1$ | $1$ |
+  ]
+]
 
 == 诱导表示
 
@@ -2261,24 +2349,33 @@ $
 
 现在我们构造一般的投影算符。
 
+=== 广义投影算符
+
 对于群$cal(G)$和不可约表示$A^((p))$及其荷载${psi_i^((p))|i=1,...,S_p}$有
 $
-  T_g psi_i^((p)) (vb(r)) = phi_i^((p)) (g^(-1) vb(r)) = sum_j A_(j i)^((p)) phi_j^((p)) (vb(r))\
+  T_g psi_i^((p)) (vb(r)) = phi_i^((p)) (g^(-1) vb(r)) = sum_j A_(j i)^((p)) psi_j^((p)) (vb(r))\
 $
 用$A_(k l)^((r)*) (g)$左乘，对$g$求和
 $
-  sum_g A_(k l)^((r)*) (g) T_g psi_i^((p))= sum_g sum_j A_(k l)^((r)*) A_(j i)^((p)) phi_j^((p))\
-  S_r / n sum_g A_(k l)^((r)*) (g) T_g psi_i^((p))= delta_(r p) delta_(l i) phi_k^((p))\
+  sum_g A_(k l)^((r)*) (g) T_g psi_i^((p)) &= sum_g sum_j A_(k l)^((r)*) A_(j i)^((p)) psi_j^((p))\
+  &= sum_j n / S_p delta_(r p) delta_(k j) delta_(l i) psi_j^((p))\
+  &= n / S_p delta_(r p) delta_(l i) psi_k^((p))\
 $
-令
+
 $
-  P_(k l)^((r)) = S_r / n sum_g A_(k l)^((r)*) (g) T_g\
+  S_r / n sum_g A_(k l)^((r)*) (g) T_g psi_i^((p))= delta_(r p) delta_(l i) psi_k^((p))\
 $
-则可以写为
-$
-  P_(k l)^((r)) psi_i^((p)) = delta_(r p) delta_(l i) phi_k^((p))\
-$
-就把第$i$个基分量$psi_i^((p))$变成荷载同一个不可约表示$A^((p))$的第$k$个基分量$psi_k^((p))$。我们称$P_(k l)^((p))$为与$A^((p))$相联系的*广义投影算符*或*转移算符*。
+#definition(subname: [*广义投影算符*, *转移算符*])[
+  令
+  $
+    P_(k l)^((r)) = S_r / n sum_g A_(k l)^((r)*) (g) T_g\
+  $
+  则可以写为
+  $
+    P_(k l)^((r)) psi_i^((p)) = delta_(r p) delta_(l i) phi_k^((p))\
+  $
+  就把第$i$个基分量$psi_i^((p))$变成荷载同一个不可约表示$A^((p))$的第$k$个基分量$psi_k^((p))$。我们称$P_(k l)^((p))$为与$A^((p))$相联系的*广义投影算符*或*转移算符*。
+]
 
 一个$S_p$维的不可约表示可以构造出$S_p^2$个广义投影算符，所以$n$阶有限群$cal(G)$一共有$n$个广义投影算符：
 $
@@ -2303,6 +2400,52 @@ $
     braket(P_(k k)^((p)) Phi, Psi) = braket(Phi, P_(k k)^((p)) Psi)
   $
 ]
+
+#proposition[
+  两个广义投影算符满足乘法关系
+  $
+    P_(k l)^((p)) P_(s t)^((r)) = delta_(p r) delta_(l s) P_(k t)^((p))\
+  $
+  特别地，投影算符满足
+  $
+    P_(k)^((p)) P_(s)^((r)) = delta_(p r) delta_(k s) P_(k)^((p))\
+  $
+  进一步有
+  $
+    (P_(k)^((p)))^2 = P_(k)^((p))\
+  $
+  此式正是量子力学中投影算符的定义。具有上述性质的算符也称为*幂等算符*。
+]
+
+#proposition[
+  进一步，$P_(k l)^((p))$作用于载荷$A^((r))$的基分量$psi_i^((p)) (r!=p)$上有
+  $
+    P_(k l)^((p)) psi_i^((r)) = 0
+  $
+  $P_(k l)^((p))$作用于载荷$A^((p))$的基分量$psi_l^((p))$上有
+  $
+    P_(k l)^((p)) psi_l^((p)) = psi_k^((p))\
+  $
+  而作用到其它的基分量$psi_l'^((p))$上有
+  $
+    P_(k l)^((p)) psi_l'^((p)) = 0\
+  $
+  特别地，$P_(k)^((p))$作用于载荷$A^((p))$的基分量$psi_k^((p))$上有
+  $
+    P_(k)^((p)) psi_k^((p)) = psi_k^((p))\
+    P_(k)^((p)) psi_l^((p)) = 0, l!=k\
+  $
+]
+因此，如果已经知道荷载$S_p$维不可约表示$A^((p))$的某基分量，那么可以利用投影算符$P_(k l)^((p))$来得到其它的基分量。
+
+#proposition[
+  表示空间$V$中的任一函数$Psi$可以由荷载所有不可约表示的函数基线性展开，即
+  $
+    Psi = sum_(i=1)^q sum_(j=1)^(S_i) C_(i j) psi_j^((i))\
+  $
+  那么将$P_(k l)^((p))$
+]
+
 
 #example(subname: [$D_3$的投影算符])[
   $V={phi_1,phi_2,...,phi_6}$
