@@ -1,3 +1,7 @@
+(* 
+  HW2最后一题的计算
+*)
+
 (* 定义变换函数 *)
 TransformFunction2D[func_, matrix_, {x_, y_}, {x1_, y1_}] := Module[
   {invMatrix, oldVars},
@@ -58,12 +62,11 @@ finalExprA = Collect[Simplify[Expand[weightedSumA]], {x1, y1}];
 finalExprGamma11 = Collect[Simplify[Expand[weightedSumGamma11]], {x1, y1}];
 
 (* 打印最终结果 *)
-
-(* 打印最终表达式 *)
 Print["Final simplified expression S: ", finalExprS];
 Print["Final simplified expression A: ", finalExprA];
 Print["Final simplified expression Gamma11: ", finalExprGamma11];
 
+(* 转移算符 *)
 phi1 = (-3*x^3)/2 - (3*x*y^2)/2
 results1 = <||>;
 KeyValueMap[
