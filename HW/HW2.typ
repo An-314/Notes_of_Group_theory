@@ -38,16 +38,16 @@
 
     若$(A^TT (g_alpha))^(-1)$是可约的意味着它相似于一个上三角分块矩阵
     $
-      (A^TT (g_alpha))^(-1) tilde mat(P,Q;O,R)
+      (A^TT (g_alpha))^(-1) tilde mat(P, Q; O, R)
     $
     其中$P$和$R$是可逆矩阵，$O$是零矩阵。则有
     $
-      A^TT (g_alpha) tilde mat(P,Q;O,R)^(-1) = mat(P^(-1), -P^(-1) Q R; O, R^(-1))\
+      A^TT (g_alpha) tilde mat(P, Q; O, R)^(-1) = mat(P^(-1), -P^(-1) Q R; O, R^(-1))\
       A (g_alpha) tilde mat(P^(-1 TT), O; (P^(-1) Q R)^(TT), R^(-1 TT))
     $
-    其中$P$是一个$m times m$的矩阵，$R$是一个$n times n$的矩阵，我们$A$表示空间$V$的后$n$个基构成的子空间$V_2$中的向量$vb(x)=mat(O;x)$则有
+    其中$P$是一个$m times m$的矩阵，$R$是一个$n times n$的矩阵，我们$A$表示空间$V$的后$n$个基构成的子空间$V_2$中的向量$vb(x)=mat(O; x)$则有
     $
-      mat(P^(-1 TT), O; (P^(-1) Q R)^(TT), R^(-1 TT)) mat(O;x) = mat(O;R^(-1 TT) x)\
+      mat(P^(-1 TT), O; (P^(-1) Q R)^(TT), R^(-1 TT)) mat(O; x) = mat(O; R^(-1 TT) x)\
     $
     这证明子空间$V_2$是$V$的一个$cal(G)$不变子空间。从而$A$是可约的，矛盾！
 
@@ -163,13 +163,13 @@
   $
   其左正则表示为
   $
-    L(a) = mat(0,0,0,1; 1,0,0,0; 0,1,0,0; 0,0,1,0), L(a^2) = L(a)^2 = mat(0,0,1,0; 0,0,0,1; 1,0,0,0; 0,1,0,0)\
-    L(a^3) = L(a)^3 = mat(0,1,0,0; 0,0,1,0; 0,0,0,1; 1,0,0,0), L(e) = I = mat(1,0,0,0; 0,1,0,0; 0,0,1,0; 0,0,0,1)
+    L(a) = mat(0, 0, 0, 1; 1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0), L(a^2) = L(a)^2 = mat(0, 0, 1, 0; 0, 0, 0, 1; 1, 0, 0, 0; 0, 1, 0, 0)\
+    L(a^3) = L(a)^3 = mat(0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1; 1, 0, 0, 0), L(e) = I = mat(1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
   $
   其右正则表示为
   $
-    R(a) = mat(0,1,0,0; 0,0,1,0; 0,0,0,1; 1,0,0,0), R(a^2) = R(a)^2 = mat(0,0,1,0; 0,0,0,1; 1,0,0,0; 0,1,0,0)\
-    R(a^3) = R(a)^3 = mat(0,0,0,1; 1,0,0,0; 0,1,0,0; 0,0,1,0), R(e) = I = mat(1,0,0,0; 0,1,0,0; 0,0,1,0; 0,0,0,1)
+    R(a) = mat(0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1; 1, 0, 0, 0), R(a^2) = R(a)^2 = mat(0, 0, 1, 0; 0, 0, 0, 1; 1, 0, 0, 0; 0, 1, 0, 0)\
+    R(a^3) = R(a)^3 = mat(0, 0, 0, 1; 1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0), R(e) = I = mat(1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
   $
   其中$L(a)$和$R(a)$分别是左正则表示和右正则表示的矩阵形式。
 ]
@@ -210,7 +210,7 @@
 
 #solution[
 
-  上次作业已经给$D_(2n)$群做出了分类：$n$ 是奇数时，$D_(2n)$ 有 $(n+1)/2 + 1$ 个共轭类，分别是：
+  上次作业已经给$D_(2n)$群做出了分类：$n$ 是奇数时，$D_(2n)$ 有 $(n+1) / 2 + 1$ 个共轭类，分别是：
   - ${a^alpha, a^(n-alpha)}$，$0 <= alpha < n$
   - ${b, a b, a^2 b, ..., a^(n-1) b}$
 
@@ -229,23 +229,23 @@
     $
     有两个表示
     $
-      cases(a=1,b=1),cases(a=1,b=-1)
+      cases(a=1, b=1),cases(a=1, b=-1)
     $
   - 2-dim表示
     $
-      A(a) = mat(e^(( 2 k pi)/n i) ,0; 0, e^(-(2 k pi)/n i)), A(b) = mat(0,1; 1,0), k = 1,...,(n-1) / 2\
+      A(a) = mat(e^(( 2 k pi) / n i), 0; 0, e^(-(2 k pi) / n i)), A(b) = mat(0, 1; 1, 0), k = 1,...,(n-1) / 2\
     $
     可以验证满足乘法
     $
       A(a)^n = I, A(b)^2 = I, A(b)^(-1) A(a) A(b) A(a) = I\
     $
 
-  这一共是$(n+3)/2$个表示，由前面的Burnside定理可知这些表示是完备的：
+  这一共是$(n+3) / 2$个表示，由前面的Burnside定理可知这些表示是完备的：
   - 1-dim表示有$2$个
     - $A_1(a) = 1, A_1(b) = 1$
     - $A_2(a) = 1, A_2(b) = -1$
-  - 2-dim表示有$(n-1)/2$个
-    - $A_3(a) = mat(e^(( 2 k pi)/n i) ,0; 0, e^(-(2 k pi)/n i)), A_3(b) = mat(0,1; 1,0), k = 1,...,n-1$
+  - 2-dim表示有$(n-1) / 2$个
+    - $A_3(a) = mat(e^(( 2 k pi) / n i), 0; 0, e^(-(2 k pi) / n i)), A_3(b) = mat(0, 1; 1, 0), k = 1,...,n-1$
 
 ]
 
@@ -263,42 +263,42 @@
 
   对于$a=a^(-1)$
   $
-    P_a phi_1 (vb(r)) = phi_1 (a^(-1) vb(r)) = phi_1 mat(-x;y) = - phi_1 (vb(r))\
-    P_a phi_2 (vb(r)) = phi_2 (a^(-1) vb(r)) = phi_2 mat(-x;y) = phi_2 (vb(r))\
-    P_a phi_3 (vb(r)) = phi_3 (a^(-1) vb(r)) = phi_3 mat(-x;y) = - phi_3 (vb(r))\
-    P_a phi_4 (vb(r)) = phi_4 (a^(-1) vb(r)) = phi_4 mat(-x;y) = phi_4 (vb(r))\
+    T_a phi_1 (vb(r)) = phi_1 (a^(-1) vb(r)) = phi_1 mat(-x; y) = - phi_1 (vb(r))\
+    T_a phi_2 (vb(r)) = phi_2 (a^(-1) vb(r)) = phi_2 mat(-x; y) = phi_2 (vb(r))\
+    T_a phi_3 (vb(r)) = phi_3 (a^(-1) vb(r)) = phi_3 mat(-x; y) = - phi_3 (vb(r))\
+    T_a phi_4 (vb(r)) = phi_4 (a^(-1) vb(r)) = phi_4 mat(-x; y) = phi_4 (vb(r))\
   $
   从而
   $
-    A(a) = mat(-1,0,0,0; 0,1,0,0; 0,0,-1,0; 0,0,0,1)
+    A(a) = mat(-1, 0, 0, 0; 0, 1, 0, 0; 0, 0, -1, 0; 0, 0, 0, 1)
   $
   以及$b=b^(-1)$
   $
-    P_b phi_1 (vb(r)) &= phi_1 (b^(-1) vb(r)) = phi_1(mat(1/2,sqrt(3)/2;sqrt(3)/2,-1/2) mat(x;y)) = phi_1 mat(1/2x+sqrt(3)/2y; sqrt(3)/2x-1/2y) \
+    T_b phi_1 (vb(r)) &= phi_1 (b^(-1) vb(r)) = phi_1(mat(1 / 2, sqrt(3) / 2; sqrt(3) / 2, -1 / 2) mat(x; y)) = phi_1 mat(1 / 2x+sqrt(3) / 2y; sqrt(3) / 2x-1 / 2y) \
     &= 1 / 8 phi_1(vb(r)) + (3sqrt(3)) / 8 phi_2(vb(r)) + 9 / 8 phi_3(vb(r)) + (3sqrt(3)) / 8 phi_4(vb(r))\
-    P_b phi_2 (vb(r)) &= phi_2 (b^(-1) vb(r)) = phi_2(mat(1/2,sqrt(3)/2;sqrt(3)/2,-1/2) mat(x;y)) = phi_2 mat(1/2x+sqrt(3)/2y; sqrt(3)/2x-1/2y) \
+    T_b phi_2 (vb(r)) &= phi_2 (b^(-1) vb(r)) = phi_2(mat(1 / 2, sqrt(3) / 2; sqrt(3) / 2, -1 / 2) mat(x; y)) = phi_2 mat(1 / 2x+sqrt(3) / 2y; sqrt(3) / 2x-1 / 2y) \
     &= sqrt(3) / 8 phi_1(vb(r)) + 5 / 8 phi_2(vb(r)) + sqrt(3) / 8 phi_3(vb(r)) - 3 / 8 phi_4(vb(r))\
-    P_b phi_3 (vb(r)) &= phi_3 (b^(-1) vb(r)) = phi_3(mat(1/2,sqrt(3)/2;sqrt(3)/2,-1/2) mat(x;y)) = phi_3 mat(1/2x+sqrt(3)/2y; sqrt(3)/2x-1/2y) \
+    T_b phi_3 (vb(r)) &= phi_3 (b^(-1) vb(r)) = phi_3(mat(1 / 2, sqrt(3) / 2; sqrt(3) / 2, -1 / 2) mat(x; y)) = phi_3 mat(1 / 2x+sqrt(3) / 2y; sqrt(3) / 2x-1 / 2y) \
     &= 3 / 8 phi_1(vb(r)) + sqrt(3) / 8 phi_2(vb(r)) - 5 / 8 phi_3(vb(r)) + sqrt(3) / 8 phi_4(vb(r))\
-    P_b phi_4 (vb(r)) &= phi_4 (b^(-1) vb(r)) = phi_4(mat(1/2,sqrt(3)/2;sqrt(3)/2,-1/2) mat(x;y)) = phi_4 mat(1/2x+sqrt(3)/2y; sqrt(3)/2x-1/2y) \
+    T_b phi_4 (vb(r)) &= phi_4 (b^(-1) vb(r)) = phi_4(mat(1 / 2, sqrt(3) / 2; sqrt(3) / 2, -1 / 2) mat(x; y)) = phi_4 mat(1 / 2x+sqrt(3) / 2y; sqrt(3) / 2x-1 / 2y) \
     &= (3sqrt(3)) / 8 phi_1(vb(r)) - 9 / 8 phi_2(vb(r)) + (3 sqrt(3)) / 8 phi_3(vb(r)) - 1 / 8 phi_4(vb(r))\
   $
   从而
   $
-    A(b) = mat(1/8,(3sqrt(3))/8,9/8,(3sqrt(3))/8; sqrt(3)/8,5/8,sqrt(3)/8,-3/8; 3/8,sqrt(3)/8,-5/8,sqrt(3)/8; (3sqrt(3))/8,-9/8,(3sqrt(3))/8,-1/8)^TT
+    A(b) = mat(1 / 8, (3sqrt(3)) / 8, 9 / 8, (3sqrt(3)) / 8; sqrt(3) / 8, 5 / 8, sqrt(3) / 8, -3 / 8; 3 / 8, sqrt(3) / 8, -5 / 8, sqrt(3) / 8; (3sqrt(3)) / 8, -9 / 8, (3sqrt(3)) / 8, -1 / 8)^TT
   $
   另外可以有乘法关系得到剩下的矩阵
   $
-    A(c) = A(b) A(a) A(b) = mat(1/8,-(3sqrt(3))/8,9/8,-(3sqrt(3))/8; -sqrt(3)/8,5/8,-sqrt(3)/8,-3/8; 3/8,-sqrt(3)/8,-5/8,-sqrt(3)/8; -(3sqrt(3))/8,-9/8,-(3sqrt(3))/8,-1/8)^TT
+    A(c) = A(b) A(a) A(b) = mat(1 / 8, -(3sqrt(3)) / 8, 9 / 8, -(3sqrt(3)) / 8; -sqrt(3) / 8, 5 / 8, -sqrt(3) / 8, -3 / 8; 3 / 8, -sqrt(3) / 8, -5 / 8, -sqrt(3) / 8; -(3sqrt(3)) / 8, -9 / 8, -(3sqrt(3)) / 8, -1 / 8)^TT
   $
   $
     A(e) = I
   $
   $
-    A(d) = A(a) A(b) = mat(-1/8,-(3sqrt(3))/8,-9/8,-(3sqrt(3))/8; sqrt(3)/8,5/8,sqrt(3)/8,-3/8; -3/8,-sqrt(3)/8,5/8,-sqrt(3)/8; (3sqrt(3))/8,-9/8,(3sqrt(3))/8,-1/8)^TT
+    A(d) = A(a) A(b) = mat(-1 / 8, -(3sqrt(3)) / 8, -9 / 8, -(3sqrt(3)) / 8; sqrt(3) / 8, 5 / 8, sqrt(3) / 8, -3 / 8; -3 / 8, -sqrt(3) / 8, 5 / 8, -sqrt(3) / 8; (3sqrt(3)) / 8, -9 / 8, (3sqrt(3)) / 8, -1 / 8)^TT
   $
   $
-    A(f) = A(b) A(a) = mat(-1/8,(3sqrt(3))/8,-9/8,(3sqrt(3))/8;- sqrt(3)/8,5/8,-sqrt(3)/8,-3/8; -3/8,sqrt(3)/8,5/8,sqrt(3)/8; -(3sqrt(3))/8,-9/8,-(3sqrt(3))/8,-1/8)^TT
+    A(f) = A(b) A(a) = mat(-1 / 8, (3sqrt(3)) / 8, -9 / 8, (3sqrt(3)) / 8; - sqrt(3) / 8, 5 / 8, -sqrt(3) / 8, -3 / 8; -3 / 8, sqrt(3) / 8, 5 / 8, sqrt(3) / 8; -(3sqrt(3)) / 8, -9 / 8, -(3sqrt(3)) / 8, -1 / 8)^TT
   $
   这就得到了所有的表示。
 
@@ -327,9 +327,45 @@
   $
     A(g) = S(g) plus.circle A_1(g) plus.circle Gamma(g)\
   $
-  这些空间所对应的函数基分别是
-  $
-    V_S = {1}, V_A_1 = {z}, V_Gamma = {x,y}\
-  $
 
+  #newpara()
+  对于
+  $
+    Phi = sum_(i=1)^4 phi_i = x^3 + 3 x^2 y + 3 x y^2 + y^3 in V_4
+  $
+  先给出对$Phi$做函数形式变换
+  $
+    T_a Phi &= T_a (phi_1 + 3 phi_2 + 3 phi_3 + 3 phi_4) = - phi_1 + 3 phi_2 - 3 phi_3 + phi_4\
+    T_b Phi &= T_b (phi_1 + 3 phi_2 + 3 phi_3 + phi_4) = (3sqrt(3) + 5) / 4 phi_1 + (3sqrt(3) + 3) / 4 phi_2 + (3sqrt(3) - 3) / 4 phi_3 + (3sqrt(3) - 5) / 4 phi_4\
+    T_c Phi &= T_c (phi_1 + 3 phi_2 + 3 phi_3 + phi_4) = (-3sqrt(3) + 5) / 4 phi_1 + (-3sqrt(3) + 3) / 4 phi_2 + (-3sqrt(3) - 3) / 4 phi_3 + (-3sqrt(3) - 5) / 4 phi_4\
+    T_e Phi &= T_e (phi_1 + 3 phi_2 + 3 phi_3 + phi_4) = phi_1 + 3 phi_2 + 3 phi_3 + phi_4\
+    T_d Phi &= T_d (phi_1 + phi_2 + phi_3 + phi_4) = (-3sqrt(3) + 5) / 4 phi_1 + (3sqrt(3) + 3) / 4 phi_2 + (-3sqrt(3) + 3) / 4 phi_3 + (3sqrt(3) - 5) / 4 phi_4\
+    T_f Phi &= T_f (phi_1 + phi_2 + phi_3 + phi_4) = (3sqrt(3) - 5) / 4 phi_1 + (-3sqrt(3) + 3) / 4 phi_2 + (3sqrt(3) + 3) / 4 phi_3 + (-3sqrt(3) - 5) / 4 phi_4\
+  $
+  现在利用投影算符约化函数基，先考虑恒等表示$S$
+  $
+    P_1^((S)) = 1 / 6 sum_g T_g\
+    P_1^((S)) Phi = 1 / 6 sum_g T_g Phi = 3 / 2 phi_2 - 1 / 2 phi_4 = psi^((S))
+  $
+  以及一维表示$A_1$
+  $
+    P_1^((A)) = 1 / 6 sum_g A_1(g) T_g\
+    P_1^((S)) Phi = 1 / 6 sum_(g in (e,d,f)) T_g Phi - 1 / 6 sum_(g in (a,b,c)) T_g Phi =-1 / 2 phi_1 + 3 / 2 phi_3 = psi^((A))\
+  $
+  还有二维表示$Gamma$
+  $
+    P_1^((Gamma)) = 2 / 6 sum_g Gamma_11 (g) T_g\
+    P_1^((S)) Phi = 2 / 6 (T_e - 1 / 2 T_d - 1 / 2 T_f - T_a + 1 / 2 T_b + 1 / 2 T_c) Phi = -3 / 2 phi_1 - 3 / 2 phi_3 = psi^((Gamma))_1
+  $
+  以及转移算符
+  $
+    P_(21)^((Gamma)) = 2 / 6 sum_g Gamma_21 (g) T_g = sqrt(3) / 6 (T_b - T_c + T_d - T_f)\
+    P_(21)^((Gamma)) Phi = sqrt(3) / 6 (T_b - T_c + T_d - T_f) Phi = -3 / 2 phi_2 - 3 / 2 phi_4 = psi^((Gamma))_2\
+  $
+  从而基的约化为
+  $
+    {psi^((s))} &= {3 / 2 phi_2 - 1 / 2 phi_4}\
+    {psi^((a))} &= {-1 / 2 phi_1 + 3 / 2 phi_3}\
+    {psi^((Gamma))_1, psi^((Gamma))_2} &= {-3 / 2 phi_1 - 3 / 2 phi_3, -3 / 2 phi_2 - 3 / 2 phi_4}\
+  $
 ]
