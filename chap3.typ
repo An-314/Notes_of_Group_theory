@@ -379,7 +379,7 @@ $
   m = 1, n = -1
 $
 
-#definition(subname: [Cayley-KLien参数])[
+#definition(subname: [Cayley-Klien参数])[
   $U$一般形式是
   $
     U = mat(a, b; -b^*, a^*)
@@ -388,7 +388,7 @@ $
   $
     abs(a)^2 + abs(b)^2 = 1
   $
-  参数$a,b$称为*Cayley-KLien参数*。
+  参数$a,b$称为*Cayley-Klien参数*。
 ]
 
 === SU(2)和SO(3)的同态关系
@@ -442,23 +442,114 @@ $
 $
   R_u in "O"(3)
 $
-现在确定其行列式
+现在确定其行列式：对
+$
+  u = mat(a, b; -b^*, a^*)
+$
+其诱导的变换为
+$
+  R_u = mat(
+    1 / 2(a^2 + a^(*2) - b^2 - b^(*2)), -i / 2(a^2 - a^(*2) + b^2 - b^(*2)), - (a b + a^* b^*);
+    i / 2 (a^2 - a^(*2) - b^2 + b^(*2)), 1 / 2(a^2 + a^(*2) + b^2 + b^(*2)), i(- a b + a^* b^*);
+    (a^* b + a b^*), i (a^* b - a b^*), (abs(a)^2 - abs(b)^2)
+  )
+$
+并且
+$
+  det R_u = f(a,b)
+$
+是连续函数，且取值只能是$1$或$-1$，所以
+$
+  u = 1, det R_u = 1\
+$
+从而
+$
+  R_u in "SO"(3)
+$
+下面说明$phi: R_u -> u$是一个同态映射，考虑
 $
   (R_u vb(r)) dot vb(sigma) = u (vb(r) dot vb(sigma)) u^dagger
 $
+就有
+$
+  (u v) (vb(r) dot vb(sigma)) (u v)^(-1) &= (R_(u v) vb(r)) dot vb(sigma)\
+  &= (R_u R_v vb(r)) dot vb(sigma)\
+$
+从而
+$
+  R_u R_v = R_(u v)
+$
+#proposition(subname: [SU(2)和SO(3)的同态关系])[
+  $
+    "SU"(2) tilde "SO"(3)
+  $
+]
+
+下面我们需要说明其为满射，并考虑其对应关系
+#three-line-table[
+  | 构造 $"SO"(3)$ 群元素的“砖块” | 构造 $"SU"(2)$ 群元素的“砖块” |
+  | --- | --- |
+  | $ R_(u_1) &= mat(cos alpha, -sin alpha, 0; sin alpha, cos alpha, 0; 0, 0, 1) \ &= C_k (alpha) $ | $ u_1 (alpha) = mat(e^(-i alpha / 2), 0; 0, e^(i alpha / 2)) $ |
+  | $ R_(u_2) &= mat(cos beta, 0, sin beta; 0, 1, 0; -sin beta, 0, cos beta) \ &= C_j (beta) $ | $ u_2 (beta) = mat(cos beta / 2, -sin beta / 2; sin beta / 2, cos beta / 2) $ |
+]
+
+用 Euler 角所描述的旋转操作为
+$
+  R_u = C_k (alpha) C_j (beta) C_k (gamma) = g (alpha, beta, gamma)
+$
+把与 $C_k (alpha), C_j (beta), C_k (gamma)$ 对应的 $u_1, u_2$ 相乘有
+$
+  u_1 (alpha) u_2 (beta) u_1 (gamma) = mat(cos beta / 2 e^(-i / 2 (alpha + gamma)), -sin beta / 2 e^(-i / 2 (alpha - gamma)); sin beta / 2 e^(i / 2 (alpha - gamma)), cos beta / 2 e^(i / 2 (alpha + gamma))) = u(alpha, beta, gamma)
+$
+容易验证 $u(alpha,beta,gamma)$ 满足么正条件和 $det u(alpha,beta,gamma)=1$，所以 $u(alpha,beta,gamma) in "SU"(2)$，$phi: R_u -> u$ 是一个满射。对比还有
+$
+  a = cos beta / 2 e^(-i / 2 (alpha + gamma)), b = -sin beta / 2 e^(-i / 2 (alpha - gamma))
+$
+上式给出了Cayley-Klien参数和Euler角的关系。
+
+最后讨论对应关系的多重性问题。
+
+由同态核定理知，只需讨论$"SO"(3)$群的单位元素$E_(3times 3)$ 所对应的$"SU"(2)$群元素的个数即可。
+
+利用对应关系，解出$R_u_0 = E_(3 times 3)$所对应的$alpha = 0, 2pi$，从而
+$
+  R_(u_0) = E_(3 times 3) = mat(1, 0, 0; 0, 1, 0; 0, 0, 1)=> cases(display(mat(e^(-i / 2), 0; 0, e^(i / 2)) = mat(1, 0; 0, 1)), display(mat(e^(-i pi), 0; 0, e^(i pi)) = - mat(1, 0; 0, 1)))
+$
+这里
+$
+  H = {E_(2 times 2), -E_(2 times 2)}
+$
+为$"SU"(2)$的同态核。因此对任意$u in "SU"(2)$其陪集
+$
+  u H = {u, -u}
+$
+对应同一个旋转操作$R_u in "SO"(3)$。
+
+#proposition(subname: [$"SU"(2)$和$"SO"(3)$的同态关系])[
+  $
+    "SU"(2) tilde^(2:1) "SO"(3)
+  $
+]
+
 
 #note[
   按参数空间看$"SU"(2)$的参数$a=x_1 + x_2 i, b = x_3 + x_4 i$就有$sum_(i=1)^4 x_i^2 = 1$是一个球面；$"O"(3)$的参数分两叶。
 ]
 
-$E^3$上：
-$
-  g (alpha, beta, gamma) = g (alpha + 2pi, beta, gamma)
-$
-$CC^2$上：
-$
-  u(alpha, beta, gamma) = - u(alpha + 2pi, beta, gamma) = u(alpha + 4pi, beta, gamma)
-$
+#newpara()
+
+几何意义：在三维欧氏空间，绕某一轴旋转$alpha$角与旋转$alpha + 2pi$角，其效果是一样的。但在二维酉空间，情况就不一样了。
+- $E^3$上：
+  $
+    g (alpha, beta, gamma) = g (alpha + 2pi, beta, gamma)
+  $
+- $CC^2$上：
+  $
+    u(alpha, beta, gamma) = - u(alpha + 2pi, beta, gamma) = u(alpha + 4pi, beta, gamma)
+  $
+这说明在二维酉空间中，转角为$alpha$与$alpha + 2pi$的旋转操作是不同的，$alpha$和$alpha + 4pi$的“旋转”效果才相同。所以二维酉空间中的“旋转”是一种非真实旋转。
+
+在量子力学范畴中，就存在两种不同的旋转概念：真实旋转和非真实旋转。例如，*自旋*就是非真实旋转，常称之为*内秉旋转*，以区别（真实的）*轨道旋转*。
 
 == SU(2)群的表示
 
