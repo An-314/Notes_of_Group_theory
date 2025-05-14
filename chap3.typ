@@ -571,7 +571,7 @@ $
 $
 可以验证：$V_i$在$"SU"(2)$作用下是封闭的。而且每个$V_i$不再含有$"SU"(2)$的不变子空间。把$u$作用到$V_i$上，就可得到$"SU"(2)$群的一个$i$维不可约表示。
 
-我们知道$u$是$"SU"(2)$的一个忠实表示
+我们知道$u$是$"SU"(2)$的一个忠实表示，我们希望可以通过$u$来构造出其他的表示，考虑到
 #note[
   注意到$D_3$有
   $
@@ -681,9 +681,44 @@ $
 $
 引入$m'=j-k-k'$，则
 $
-  P(u) f_m^j (vb(r))
+  P(u) f_m^j (vb(r)) = sum_(m'=-j)^(j) sum_k ((-)^(k-m+m')sqrt((j+m)! (j-m)! (j+m')! (j-m')!)) / ((j+m-k)! (j-m'-k)! k! (k-m+m')!) \ a^(j+m-k) a^(* j-m'-k) b^(k) (b^*)^(j-m+m') f_m'^j (vb(r))\
 $
-完备性由特征标给出$A^((j)) (u)$。
+即
+$
+  P(u) f_m^j (vb(r)) = sum_(m'=-j)^(j) A_(m m')^((j)) f_m'^j (vb(r))\
+$
+其中有
+$
+  A_(m m')^((j)) = ((-)^(k-m+m') sqrt((j+m)! (j-m)! (j+m')! (j-m')!)) / ((j+m-k)! (j-m'-k)! k! (k-m+m')!) a^(j+m-k) a^(* j-m'-k) b^(k) (b^*)^(j-m+m')\
+$
+其中$k$满足
+$
+  max(0, m-m') <= k <= min(j+m, j-m')\
+$
+$A^((j))$给出了$"SU"(2)$群的全部不等价不可约的幺正表示。
+
+下表是一些实例
+#three-line-table[
+  | $j$ | 基函数 | 表示矩阵$A^((j))$ |
+  | --- | --- | --- |
+  | $0$ | $ f^0_0 (vb(r)) = 1 $ | $ A^((0)) (u) = 1 $ |
+  | $1 / 2$ | $ f^1 / 2_(1 / 2) (vb(r)) = x_1, f^1 / 2_(-1 / 2) (vb(r)) = x_2 $ | $ A^((1 / 2)) (u) = mat(a, b; -b^*, a^*) $ |
+  | $1$ | $ f^1_1 (vb(r)) = x_1^2, \ f^1_0 (vb(r)) = x_1 x_2,\ f^1_-1 (vb(r)) = x_2^2 $ | $ A^((1)) (u) = \ mat(a^2, sqrt(2)a b, b^2; -sqrt(2) a b^*, a^* a - b^* b, sqrt(2) a^* b; b^(*2), -sqrt(2) a^* b^*, a^(*2)) $ |
+]
+
+下面分析表示的*奇偶性*，$u$和$- u$是$"SU"(2)$群的两个不同元素，
+- $j="整数"$
+  $
+    A^((j)) (-u) = A^((j)) (u)
+  $
+  表明$u,-u$有相同的表示矩阵，称$j$为非负整数的表示为*偶表示*。
+- $j="半整数"$
+  $
+    A^((j)) (-u) = - A^((j)) (u)
+  $
+  表明$u,-u$的表示矩阵相反，称$j$为半整数的表示为*奇表示*。
+
+下面可以用特表来说明其完备性。
 
 === SU(2)群的特征标
 
@@ -719,15 +754,6 @@ $
   braket(chi^((j)), chi^((j))) = 1 / 2pi integral_0^(2pi) chi^((j)*) (phi) chi^((j)) (phi) dd(phi) = 1
 $
 
-奇偶性
-- $j="整数"$
-  $
-    A^((j)) (-u) = A^((j)) (u)
-  $
-- $j="半整数"$
-  $
-    A^((j)) (-u) = - A^((j)) (u)
-  $
 
 == SO(3) 群的不可约表示
 
@@ -740,43 +766,64 @@ $
   (a b) <-> (alpha beta gamma)\
   A^((j)) (a b) -> D^((j)) (alpha beta gamma)\
 $
-的关系，再将$D$构造成表示。
+的关系，再将$D$构造成表示，运用对应关系：
+$
+  D^((j))_(m m') (alpha, beta, gamma) = sum_k (-1)^k sqrt((j+m)! (j-m)! (j+m')! (j-m')!) / ((j+m-k)! (j-m'-k)! k! (k-m+m')!) \ e^(-i m alpha) (cos beta / 2)^(2j + m - m'- 2k) (sin beta / 2)^(2k - m + m') e^(-i m' gamma)\
+$
+其中$j$和k的取值都不变：$j = 0, 1 / 2, 1, 3 / 2, ...$，$m, m' = -j, -j+1, ..., j$，$k = max(0, m-m') <= k <= min(j+m, j-m')$。
 
-当$j$为整数的时候
+现在分析$D^((j))$是否为表示。
 
-#diagram($
-  & u edge(->) & A^((j)) (u) edge("dr", ->)&\
-  g(alpha, beta, gamma)edge("ur", ->)edge("dr", ->) & && D(alpha, beta, gamma)\
-  & u edge(->) & A^((j)) (u) edge("ur", ->)&\
-$)
+1. 当$j$为非负整数的时候
 
-可以给出一个$D$
-$
-  {D^((j)), j = 0,1,2,...}
-$
-也有
-$
-  chi^((j)) (alpha beta gamma) = sum_(m=-j)^j e^(-i m alpha), j = 0,1,2,...\
-$
-$
-  {chi^((0)), chi^((1)), ...} = {1, cos alpha, cos 2 alpha, ...}\
-$
-在$alpha in [0,pi)$是一套完备的Fourier基，从而得到了完备性。
-$
-  D_(m m')^((j)) (alpha beta gamma) = e^(-i m alpha) d_(m m')^((j)) (beta) e^(-i m' gamma)\
-$
-$d_(m m')^((j))$有对称性：
+  #diagram($
+    & u edge(->) & A^((j)) (u) edge("dr", ->)&\
+    g(alpha, beta, gamma)edge("ur", ->)edge("dr", ->) & && D(alpha, beta, gamma)\
+    & - u edge(->) & A^((j)) (u) edge("ur", ->)&\
+  $)
 
+  可以给出一个$D$
+  $
+    {D^((j)), j = 0,1,2,...}
+  $
+  即旋转$g(alpha,beta,gamma)$与$D^((j))(alpha,beta,gamma)$是一一对应的，所以非负整数时的$D^((j))$是$"SO"(3)$的表示，称之为*单值表示*。
+  $
+    chi^((j)) (alpha, beta, gamma) = sum_(m=-j)^j e^(-i m alpha), j = 0,1,2,...\
+  $
+  $
+    {chi^((0)), chi^((1)), ...} = {1, cos alpha, cos 2 alpha, ...}\
+  $
+  在$alpha in [0,pi)$是一套完备的Fourier基，从而得到了完备性。
 
-当$j$为半整数的时候
+  另外，还可以得到$D_(m m')^((j))$的分解：
+  $
+    D_(m m')^((j)) (alpha beta gamma) = e^(-i m alpha) d_(m m')^((j)) (beta) e^(-i m' gamma)\
+  $
+  $d_(m m')^((j))$为
+  $
+    d_(m m')^((j)) (beta) = sum_k (-1)^k sqrt((j+m)! (j-m)! (j+m')! (j-m')!) / ((j+m-k)! (j-m'-k)! k! (k-m+m')!) \ (cos beta / 2)^(2j + m - m' - 2k) (sin beta / 2)^(2k - m + m')
+  $
+  有对称性：
+  - $d^((j))_(m m') (beta) = (-1)^(m - m')) d^((j))_(m' m) (beta)$
+  - $d^((j))_(m m') (beta) = d^((j))_(-m' -m) (beta)$
+  - $d^((j))_(m m') (-beta) = d^((j))_(m' m) (beta)$
+  - $d^((j))_(m m') (pi - beta) = (-1)^(j - m') d^((j))_(-m' m) (beta)$
 
-#diagram($
-  & u edge(->) & A^((j)) (u) edge(->)&D^((j)) (alpha beta gamma) \
-  g(alpha, beta, gamma)edge("ur", ->)edge("dr", ->) & &&\
-  & u edge(->) & A^((j)) (-u) edge(->)& - A^((j)) (u) = - D^((j)) (alpha beta gamma) \
-$)
+2. 当$j$为半整数的时候
 
-这就是双值表示。
+  #diagram($
+    & u edge(->) & A^((j)) (u) edge(->)& A^((j)) (u) = D^((j)) (alpha, beta, gamma) \
+    g(alpha, beta, gamma)edge("ur", ->)edge("dr", ->) & &&\
+    & u edge(->) & A^((j)) (-u) edge(->)& - A^((j)) (u) = - D^((j)) (alpha, beta, gamma) \
+  $)
+
+  $D^((j))(u)$和$D^((j))(-u)$差一个负号，因此，$g(alpha, beta, gamma)$对应到两个不同的矩阵$plus.minus D^((j)) (alpha, beta, gamma)$，不满足群表示的定义，所以$j$为半整数时的$D^((j))$不是$"SO"(3)$的表示。
+
+  例如$g(alpha,beta,gamma)=g(alpha+2pi,beta,gamma)$ 代表同一个旋转，但它们对应的矩阵却不相等（相
+差一个负号），$D^((j))(alpha+2pi,beta,gamma)=-D^((j))(alpha,beta,gamma)$。
+
+如果我们推广群表示的定义，即允许群元素与矩阵的对应关系可以相差一个正负号（乘法规律也会相差一个负号），那么$j$为半整数时的$D^((j))$也可以看作是$"SO"(3)$的一个广义表示。我们称这种表示为*双值表示*。
+
 #note[
   双值表示的双由$2:1$的同态给出。
 
@@ -811,23 +858,24 @@ $)
 ]
 
 #note[
-  Lie群是群和流形的结合。是线性空间加上Lie积的结构。
+  Lie群是群和流形的结合。Lie代数是线性空间加上Lie积的结构。
 ]
 
-Lie代数的线性空间的积称为其*生成元*${X_1, X_2, ..., X_n}$
-$
-  g = {sum_i alpha_i X_i | alpha_i in KK, i = 1, 2, ..., n}
-$
-独立的基矢量的个数 $n$ 称为Lie代数 $g$ 的*维数*。称Lie积
-$
-  [X_i,X_j] = sum_(k=1)^n C_(i j)^k X_k
-$
-为$g$的*代数结构*，其中$C_(i j)^k$是*结构系数*，共$n^3$个，决定了Lie代数的分类。
+#definition(subname: [Lie代数的生成元])[
+  Lie代数的线性空间的基称为其*生成元*${X_1, X_2, ..., X_n}$
+  $
+    g = {sum_i alpha_i X_i | alpha_i in KK, i = 1, 2, ..., n}
+  $
+  独立的基矢量的个数 $n$ 称为Lie代数 $g$ 的*维数*。称Lie积
+  $
+    [X_i,X_j] = sum_(k=1)^n C_(i j)^k X_k
+  $
+  为$g$的*代数结构*，其中$C_(i j)^k$是*结构系数*，共$n^3$个，决定了Lie代数的分类。
+]
+
 
 #note[
-  回顾：群的代数结构是Cayley表。
-
-  Lie代数的代数结构是Lie积，事实上也是一个乘法表。
+  回顾：群的代数结构是Cayley表。Lie代数的代数结构是Lie积，事实上也是一个乘法表。
 ]
 
 #proposition(subname: [Lie群结构系数的性质])[
@@ -843,7 +891,22 @@ $
   类似Taylor展开的分析手段，从整体到局部，按此方法可以从Lie群得到Lie代数：研究*单位元邻域中的群结构*，即线性化。
 ]
 
-Lie代数理论是以Lie三定理为基础的。此三定理表明：Lie群的无穷小群元素满足上述Lie代数的定义。实际上，李代数刻画的是李群在单位元邻域的性质。李代数的生成元的个数等于相应李群的群参数个数。
+#newpara()
+
+Lie代数理论是以Lie三定理为基础的。此三定理表明：Lie群的无穷小群元素满足上述Lie代数的定义。实际上，Lie代数刻画的是Lie群在单位元邻域的性质。Lie代数的生成元的个数等于相应Lie群的群参数个数。
+
+#proposition(subname: [Lie群的生成元])[
+  对于一般的Lie群$G$，其群元和群参数是
+  $
+    g(vb(alpha)) = g(a_1, a_2, ..., a_n), g(0) = e
+  $
+  可以用Taylor展开
+  $
+    f(x) = f(x_0) + f'(x_0) (x - x_0) + ...\
+    g(vb(alpha)) = g(0) + sum_r alpha_r X_r + ... , X_r = eval(pdv(g(vb(alpha)), alpha_r))_(vb(alpha)=0)
+  $
+  这就得到了生成元$X_r$。
+]
 
 === $"SU"(2)$ 群的Lie代数结构
 
@@ -937,6 +1000,8 @@ $
   #diagram($
     "SU"(2) edge("r", #[Taylor], ->, bend: #10deg) &edge("l", #[Exp], ->, bend: #10deg) "su"(2)\
   $)
+
+  一般地，一个Lie群进行线性化就给出了一个Lie代数，反之一个Lie代数也可以通过指数映射给出一个Lie群。
 ]
 
 考虑到
@@ -1005,12 +1070,163 @@ $
 $
   "su"(2) tilde.equiv "o"(3)
 $
+#note[
+  #diagram($
+    "SU"(2)"单连通" edge("d", approx, <->) edge("r", tilde^(2:1), <-->)& "SO"(3)"多联通" edge("dl", approx, <-->) \
+    "su"(2) tilde.equiv "so"(3)\
+  $)
 
+  事实上，一般的Lie群有这样的性质，对于同一个Lie代数，诱导出的Lie群只有唯一一个单连通的，其他都是多连通的。
+
+  也就是说，虽然拓扑不同，但是在0附近的性质是一样的。
+]
 === $"o"(3)$ 的不可约表示
 
-与Lie群的任务类似，研究Lie代数主要任务也是计算Lie代数的不可约表示。
+与Lie群的任务类似，研究Lie代数主要任务也是计算Lie代数的不可约Hermitian表示。
+$
+  U = e^(- i vb(r) dot vb(J))\
+$
+如果$U$是酉的，$J$就是Hermitian的。所以我们对于Lie代数，要求其不等价的不可约的Hermitian表示。
 
 ==== 角动量方法
+
+已知 $"o"(3)$ 的生成元为Hermitian算符$J_i$
+$
+  [J_i, J_j] = i epsilon_(i j k) J_k
+$
+引入角动量算符
+$
+  vb(J)^2 = J_x^2 + J_y^2 + J_z^2
+$
+其特点是与$J_i$都对易
+$
+  [vb(J)^2, J_i] = 0
+$
+称为$"o"(3)$的 Casimir 算符。以及升降算符
+$
+  J_(plus.minus 1) = minus.plus 1 / sqrt(2) (J_x plus.minus i J_y)\
+  J_0 = J_z\
+$
+对易关系变成（球谐形式）
+$
+  [J_0, J_(plus.minus 1)] = plus.minus J_(plus.minus 1)\
+  [J_(plus 1), J_(minus 1)] = - J_0\
+$
+以及
+$
+  J_0^dagger = J_0, J_(plus.minus 1)^dagger = J_(minus.plus 1)\
+$
+#newpara()
+${vb(J)^2,J_z}$是一个完备集，存在共同本征态
+$
+  ket(phi m)\
+$
+有
+$
+  vb(J)^2 ket(phi m) &= phi ket(phi m)\
+  J_z ket(phi m) &= m ket(phi m)\
+$
+作用为$J_i (i=0,plus.minus 1)$，考虑到
+$
+  [J_0, J_(plus.minus 1)] ket(phi m) &= plus.minus J_(plus.minus 1) ket(phi m)\
+  J_0 J_(plus.minus 1) ket(phi m) &= (m plus.minus 1) J_0 ket(phi m)\
+$
+从而
+$
+  J_(plus.minus 1) ket(phi m) tilde ket(m plus.minus 1)
+$
+因 $J_(plus.minus)$ 只改变 $J_0$ 的本征值 $m$ ，而不改变 $vb(J)^2$ 的本征值 $phi$，所以称 $J_(+1)$ 为*升算符*，$J_(-1)$ 为*降算符*。
+
+又考虑到
+$
+  braket(phi m, J_(+1) J_(-1), phi m) &= braket(phi m, J_(-1) J_(+1), phi m) - m\
+  &= braket(phi m, J_(+1), phi m-1) braket(phi m-1, J_(-1), phi m)\
+  &= braket(phi m, J_(-1), phi m+1) braket(phi m+1, J_(+1), phi m) - m
+$
+利用厄米共轭条件
+
+可得 $J_(plus.minus 1)$ 的矩阵元满足如下递推关系：
+$
+  abs(braket(phi m-1, J_(-1), phi m))^2 = abs(braket(phi m, J_(-1), phi m+1))^2 + m\
+  abs(braket(phi m+1, J_(+1), phi m))^2 = abs(braket(phi m, J_(+1), phi m-1))^2 - m\
+$
+由于是有限维不可约表示空间，故$m$有最大值（最高权）$overparen(m)$和最小值（最低权）$underparen(m)$。当 $m$ 取最大值 $overparen(m)$ 时，有
+$
+  braket(phi overparen(m), J_(-1), phi overparen(m) + 1) = 0\
+$
+以及
+$
+  abs(braket(phi overparen(m) - 1, J_(-1), phi overparen(m)))^2 = overparen(m)\
+  abs(braket(phi overparen(m)-2, J_(-1), phi overparen(m) -1))^2 = 2 overparen(m) - 1\
+  abs(braket(phi overparen(m)-3, J_(-1), phi overparen(m) -2))^2 = 3 overparen(m) - 3\
+$
+得到
+$
+  abs(braket(phi overparen(m) - (i+1), J_(-1), phi overparen(m) - i))^2 = (i+1) (overparen(m) - i / 2)
+$
+设 $m$ 是最小值 $underparen(m) = overparen(m) - i_0$，则
+$
+  abs(braket(phi overparen(m) - (i_0 + 1), J_(-1), phi overparen(m) - i_0))^2 =0
+$
+得到
+$
+  i_0 = 2 overparen(m), underparen(m) = - overparen(m)\
+$
+同理，对升算符有
+$
+  abs(braket(phi underparen(m) + (i+1), J_(+1), phi underparen(m) + i))^2 = - (i+1) (underparen(m) + i / 2)\
+$
+通常记最高权为$j = overparen(m)$，最低权为$-j = underparen(m)$，$i_0$为整数则有$j$为半整数
+$
+  j = 0, 1 / 2, 1, 3 / 2, 2, ...\
+$
+对于给定的$j$，$m$的取值范围为
+$
+  m = -j, -j+1, ..., j
+$
+矩阵元可以写为
+$
+  abs(braket(phi m - 1, J_(-1), phi m))^2 = 1 / 2 (j+m) (j-m + 1)\
+  abs(braket(phi m + 1, J_(+1), phi m))^2 = 1 / 2 (j-m) (j+m + 1)\
+$
+但上两式只能决定到平方项，还有相因子不能确定。通常选取 Conden-Shortley 惯例，于是得到
+$
+  braket(phi m - 1, J_(-1), phi m) = sqrt(1 / 2 (j+m) (j-m + 1))\
+  braket(phi m + 1, J_(+1), phi m) = sqrt(1 / 2 (j-m) (j+m + 1))\
+$
+最后计算 $vb(J)^2$ 在基 $ket(phi m)$ 上的本征值。有
+$
+  phi &= braket(phi m, vb(J)^2, phi m) = braket(phi m, -J_(+1) J_(-1) - J_(-1) J_(+1) + J_0^2, phi m)\
+  &= (j-m) (j+m + 1) + m (m + 1) \
+  &= j (j + 1)\
+$
+$phi$ 只与最高权 $j$ 有关，而与 $m$ 无关。$j$决定了不可约表示，所以可以用$j$来标记$"o"(3)$的不可约表示。相应的不可约表示空间$V^j$的基矢量为
+$
+  ket(j m) = ket(phi m)\
+$
+其维数是 $2j+1$。
+
+所有的结果总结为
+$
+  vb(J)^2 ket(j m) = j (j + 1) ket(j m)\
+  J_0 ket(j m) = m ket(j m)\
+  braket(j m-1, J_(-1), j m) = sqrt(1 / 2 (j+m) (j-m + 1))\
+  braket(j m + 1, J_(+1), j m) = sqrt(1 / 2 (j-m) (j+m + 1))\
+$
+这样就得到了 $"o"(3)$ 在基 $ket(j m)$ 上的不可约表示。
+
+
+不可约可以用不变子空间验证。对$j$相同的基向量，$J_(plus.minus)$作用下，最小的非平凡不变子空间就是${ket(j m) | m = -j, -j+1, ..., j}$，所以$j$是不可约的。
+
+#note[
+  由于$"SU"(2)$的群表示为$A^((j)), j=0,1 / 2,1,...$，并且$"su"(2)$的表示$j =0,1 / 2,1,...$，二者一一对应，似乎$j$就给出所有$"su"(2)$的不可约表示。
+
+  物理上，$"so"(3)$的表示为$j=0,1,2,...$和$"SO"(3)$进行对应。
+]
+
+我们说$j$是不可约表示的标记：
+- $j$是一个数
+- 每一个表示和$j$一一对应
 
 ==== Boson方法
 
