@@ -939,7 +939,7 @@ $
   $
     [sigma_i, sigma_j] = 2 i epsilon_(i j k) sigma_k
   $
-  考虑公式
+  或者考虑公式
   $
     (vb(r) dot vb(sigma))(vb(r)' dot vb(sigma)) = vb(r) dot vb(r)' + i (vb(r) times vb(r') dot vb(sigma))\
   $
@@ -1228,6 +1228,184 @@ $
 - $j$是一个数
 - 每一个表示和$j$一一对应
 
-==== Boson方法
+#figure(
+  image("pic/2025-05-16-08-06-48.png", width: 50%),
+  caption: [升算子$J_(+1)$和降算子$U_(-1)$在基$ket(j m)$上的而作用行为。每一行代表一个不可约表示$j$，最右端的点该表最高权态$ket(j j)$，最左端的点代表最低权态$ket(j -j)$。],
+)
+
+称氢原子/在中心势场中运动的粒子为*角动量系统*，
+$
+  Psi_(n,j,m)
+$
+这是由于角动量守恒$J_i$，$"so"(3)$的不可约表示为角动量的不可约表示，不可约表示的标记$j$就是角动量的量子数。
+
+#figure(
+  three-line-table[
+    | 角动量 | Lie代数 |
+    | --- | --- |
+    | 三个分量$J_i$ | 生成元 $X_i$ |
+    | 角动量的对易关系 $[J_i, J_j] = i epsilon_(i j k) J_k$ | 代数结构 $[X_i, X_j] = C_(i j)^k X_k$ |
+    | 角动量平方 $J^2$，$[J^2,J_i]=0$ | Casimir算符 $C_g$，$[C_g,X_i]=0$ |
+    | 升降算符 $J_(plus.minus) = J_1 plus.minus i J_2$ | 升降算符 $E_(plus.minus q) = sum C_i X_i$|
+    | 完备集 ${J^2, J_3}$ | 完备集 ${C_g^((1)), C_g^((2)), ..., underbrace(#[$H_1, H_2, ...$], [H_1, H_j] = 0) }$ Cartan算符$H_i$ |
+    | 共同本征态 ${ket(j m)}$ | 共同本征态 ${ket(vb(alpha))}$ |
+    | 作用 $expval(J_(plus.minus))$ | 作用 $expval(E_(plus.minus q))$ |
+  ],
+  caption: [角动量和 Lie 代数的关系],
+)
+
+#figure(
+  three-line-table[
+    | Lie 群 | Lie 代数 |
+    | --- | --- |
+    | $U_n$ | $A_(n-1)$ |
+    | $"SO"$ | $B_n$ , $D_n$ Gelfond|
+    | $S_P_(2n)$ | $C_n$ |
+  ],
+  caption: [Lie 群和 Lie 代数的关系],
+)
+
+==== Boson实现方法
+
+*Heisenberg代数*：Boson算符$a$与其Hermitian共轭算符$a^dagger$满足对易关系
+$
+  [a, a^dagger] = 1\
+  [N,a^dagger] = a^dagger\
+  [N,a] = - a\
+$
+#note[
+  Heisenberg代数${1,a,a^dagger,n}$是一个特殊的Lie代数。
+
+  $N$不是Casimir算符，因为$[N,a]!=0$
+]
+其表示${ket(n) | n=0,1,...}$
+$
+  N ket(n) = n ket(n)\
+  ket(n) = (a^dagger)^n / sqrt(n!) ket(0)\
+$
+产生湮灭算符。作用为
+$
+  a ket(n) = sqrt(n) ket(n-1)\
+  a^dagger ket(n) = sqrt(n+1) ket(n+1)\
+$
+#newpara()
+
+做二次量子化，力学量用Boson子展开。Schwinger发现：角动量算符$vb(J)$的三个分量可以用两组不同的Boson子算符$a_i, a_i^dagger$描述
+$
+  vb(J) = 1 / 2 A^dagger vb(sigma) A
+$
+其中
+$
+  A = mat(a_1; a_2), vb(sigma) = mat(sigma_x; sigma_y; sigma_z)\
+$
+$vb(sigma)$为Pauli矩阵。展开上式，并写成升降算符的形式
+$
+  J_(+1) = - 1 / sqrt(2) J_+ = - 1 / sqrt(2) (a_1^dagger a_2)\
+  J_(-1) = 1 / sqrt(2) J_- = 1 / sqrt(2) (a_2^dagger a_1)\
+  J_0 = 1 / 2 (a_1^dagger a_1 - a_2^dagger a_2) = 1 / 2 (N_1 - N_2)\
+  vb(J)^2 = 1 / 4 (N_1 + N_2) (N_1 + N_2 + 2)\
+$
+不难验证它们满足 $"o"(3)$ 的对易关系式，称之为*角动量算符的Boson子实现*。
+
+设$ket(n_1 n_2)$为总粒子数算符$N=N_1+N_2$的属于本征值$n=n_1+n_2$的本征态
+$
+  ket(n_1 n_2) = ((a_1^dagger)^(n_1) (a_2^dagger)^(n_2)) / sqrt(n_1! n_2!) ket(0 0)\
+$
+由于$N$与$vb(J)^2$和$J_0$对易，所以$ket(n_1 n_2)$也是 $vb(J)^2$和$J_0$的共同本征态，有
+$
+  J_0 ket(n_1 n_2) = 1 / 2 (n_1 - n_2) ket(n_1 n_2)\
+  vb(J)^2 ket(n_1 n_2) = 1 / 4 (n_1 + n_2) (n_1 + n_2 + 2) ket(n_1 n_2)\
+$
+就有量子数对应关系
+$
+  m = 1 / 2 (n_1 - n_2), j = 1 / 2 (n_1 + n_2)\
+$
+这样
+$
+  ket(j m) = ((a_1^dagger)^(j+m) (a_2^dagger)^(j-m)) / sqrt((j+m)! (j-m)!) ket(0 0)\
+$
+把$J_(plus.minus 1)$的Boson实现作用在$ket(j m)$上
+$
+  J_(-1) ket(j m) &= 1 / sqrt(2) (a_2^dagger a_1) ket(j m)\
+  &= 1 / sqrt(2) sqrt((j-m+1)(j+m)) ((a_1^dagger)^(j+m-1) (a_2^dagger)^(j-m+1)) / sqrt((j+m-1)! (j-m+1)!) ket(0 0)\
+  &= 1 / sqrt(2) sqrt((j-m+1)(j+m)) ket(j m-1)\
+$
+$
+  J_(+1) ket(j m) &= 1 / sqrt(2) (a_1^dagger a_2) ket(j m)\
+  &= - 1 / sqrt(2) sqrt((j+m+1)(j-m)) ((a_1^dagger)^(j+m+1) (a_2^dagger)^(j-m-1)) / sqrt((j+m+1)! (j-m-1)!) ket(0 0)\
+  &= - 1 / sqrt(2) sqrt((j+m+1)(j-m)) ket(j m+1)\
+$
+其中用到了
+$
+  [a_i,(a_j^dagger)^k] = delta_(i j) k (a_j^dagger)^(k-1)\
+$
+这样，利用 $"o"(3)$ Boson子实现的方法，再次得到了$"o"(3)$在基$ket(j m)$上的不可约表示。
+
+#note[
+  Holstein-Primakoff实现
+  $
+    J_+ = sqrt(2j - N) a\
+    J_- = a^dagger sqrt(2j-N)\
+    J_z = j- N
+  $
+  但一组Boson子给出的本征值无法满足角动量的$j,m$的条件。（$n$组Boson子实现：$n=1$欠，$n>=3$过）
+]
 
 ==== 微分方法
+
+Boson子算符与微分算符之间存在对应关系。例如，对一维情况，有
+$
+  a <-> pdv(, x); a^dagger <-> x
+$
+因为它们满足相同的对易关系
+$
+  [a, a^dagger] = 1 <-> [pdv(, x),x] = 1\
+$
+但这种对应关系不是唯一的。
+
+这样可以从角动量算符$vb(J)$的Boson子实现直接得到其微分实现
+$
+  J_(+1) = - 1 / sqrt(2) x_1 pdv(, x_2)\
+  J_(-1) = 1 / sqrt(2) x_2 pdv(, x_1)\
+  J_0 = 1 / 2 (x_1 pdv(, x_1) - x_2 pdv(, x_2))\
+$
+容易验证它们也满足 $"o"(3)$ 的对易关系式。
+
+#remark(subname: [角动量的微分实现])[
+  $
+    vb(L) = vb(r) times vb(p) = vb(r) times (-i hbar vb(x))\
+    L_z = - i hbar (x pdv(, y) - y pdv(, x))\
+  $
+]
+
+角动量的微分实现的作用空间应该是坐标函数空间：
+$
+  ket(j m) = (x_1^(j+m) x_2^(j-m)) / sqrt((j+m)! (j-m)!) = f_m^j (x_1, x_2)\
+$
+把$J_0,J_(plus.minus 1)$的微分实现分别作用到$ket(j m)$上，可以得到
+$
+  J_0 ket(j m) &= 1 / 2 (x_1 pdv(, x_1) - x_2 pdv(, x_2)) ket(j m) \
+  &= m (x^(j+m) x_2^(j-m)) / sqrt((j+m)! (j-m)!)\
+  &= m ket(j m)
+$
+$
+  J_(+1) ket(j m) &= - 1 / sqrt(2) x_1 pdv(, x_2) ket(j m)\
+  &= - 1 / sqrt(2) sqrt((j+m+1)(j-m)) (x_1^(j+m+1) x_2^(j-m-1)) / sqrt((j+m+1)! (j-m-1)!)\
+  &= - 1 / sqrt(2) sqrt((j+m+1)(j-m)) ket(j m + 1)\
+$
+$
+  J_(-1) ket(j m) &= 1 / sqrt(2) x_2 pdv(, x_1) ket(j m)\
+  &= 1 / sqrt(2) sqrt((j-m+1)(j+m)) (x_1^(j+m-1) x_2^(j-m+1)) / sqrt((j+m-1)! (j-m+1)!)\
+  &= 1 / sqrt(2) sqrt((j-m+1)(j+m)) ket(j m - 1)\
+$
+利用$"o"(3)$的微分算符实现也得到了$"o"(3)$的在基矢量$ket(j m)$上的不可约表示。
+
+=== $"o"(3)$不可约表示与$"SO"(3)$不可约表示的关系
+
+从微分实现的角度已经看到，基 $ket(j m)$ 与函数基 $f_m^j$ 是一样的，所以 $"SO"(3)$ 群的表示为
+$
+  D_(m' m)^j (alpha,beta,gamma) &= braket(j m'; , R(alpha, beta, gamma), j m)\
+  &= braket(j m'; , e^(- i alpha J_z) e^(- i beta J_y) e^(- i gamma J_z), j m)\
+  &= e^(- i m' alpha) braket(j m'; , e^(- i beta J_y), j m) e^(- i m gamma)\
+  &= e^(- i m' alpha) d_(m' m)^j (beta) e^(- i m gamma)\
+$
