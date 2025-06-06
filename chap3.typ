@@ -1404,8 +1404,531 @@ $
 
 从微分实现的角度已经看到，基 $ket(j m)$ 与函数基 $f_m^j$ 是一样的，所以 $"SO"(3)$ 群的表示为
 $
-  D_(m' m)^j (alpha,beta,gamma) &= braket(j m'; , R(alpha, beta, gamma), j m)\
-  &= braket(j m'; , e^(- i alpha J_z) e^(- i beta J_y) e^(- i gamma J_z), j m)\
-  &= e^(- i m' alpha) braket(j m'; , e^(- i beta J_y), j m) e^(- i m gamma)\
+  D_(m' m)^j (alpha,beta,gamma) &= braket(j m', R(alpha, beta, gamma), j m)\
+  &= braket(j m', e^(- i alpha J_z) e^(- i beta J_y) e^(- i gamma J_z), j m)\
+  &= e^(- i m' alpha) braket(j m', e^(- i beta J_y), j m) e^(- i m gamma)\
   &= e^(- i m' alpha) d_(m' m)^j (beta) e^(- i m gamma)\
+$
+
+== $"SO"(3)$ 群表示的直积
+
+=== 两个不可约表示的直积
+
+一个群$cal(G)$的不可约的酉表示$A^((s))$就有
+$
+  A^((i)) times.circle A^((j)) = sum_l plus.circle a_k A^((k))
+$
+可以利用特征标求出其系数。
+
+$"SO"(3)$群的不可约表示$D^((j))$是一个酉表示，所以其两个不可约表示$D^((j_1)), D^((j_2))$的直积$D^((j_1)) times.circle D^((j_2))$也是一个酉表示，但一般是可约的。
+
+可以进一步分解为不可约表示的直和
+$
+  D^((j_1)) times.circle D^((j_2)) = sum_(j) plus.circle a_j D^((j))\
+$
+
+#note[物理上的理解是，两个有对称性的群表示的直积一般无对称性。]
+
+$D^((j))$的特征标是
+$
+  chi^((j)) (phi) = Tr D^((j)) (phi,0,0) = sum_(m=-j)^j e^(- i m phi)\
+$
+从而直积的特征标为
+$
+  chi^((j_1 times j_2)) (phi) &= chi^((j_1)) (phi) chi^((j_2)) (phi)\
+  &= sum_(m_1=-j_1)^(j_1) e^(- i m_1 phi) sum_(m_2=-j_2)^(j_2) e^(- i m_2 phi)\
+  &= sum_(m_1 =-j_1)^(j_1) sum_(m_2=-j_2)^(j_2) e^(- i (m_1+m_2) phi)\
+  &= sum_(j=abs(j_1-j_2))^(j_1+j_2) sum_(m=-j)^(j) e^(- i m phi)\
+  &= sum_(j=abs(j_1-j_2))^(j_1+j_2) chi^((j)) (phi)\
+$
+式中求和指标替换的简单解释见 @直积指标变换。
+
+上式表明 $j$ 只能取如下$2 min(j_1, j_2) + 1$个值
+$
+  j = abs(j_1-j_2), abs(j_1-j_2)+1, ..., j_1+j_2
+$
+其中每个值出现的次数均为$1$，即$a_j = 1$。
+
+也就是说，$D^((j_1)) times.circle D^((j_2))$的不可约表示为
+$
+  D^((j_1)) times.circle D^((j_2)) = sum_(j=abs(j_1-j_2))^(j_1+j_2) plus.circle D^((j))\
+$
+称此式为 *Clebsch-Gordon 定理*。
+
+#figure(
+  image("pic/2025-05-21-10-06-23.png", width: 80%),
+  caption: [直积的特征标的求和指标替换],
+)<直积指标变换>
+
+#note[
+  在物理中，这事实上就是LS耦合和JJ耦合：
+  $
+    cases(j = abs(j_1-j_2) \, dots\, j_1+j_2, m = m_1 + m_2)\
+  $
+]
+
+#remark(subname: [一个检验])[
+  我们用维度来检验该分解
+  $
+    (2j_1 + 1)(2j_2 + 1) = sum_(j=abs(j_1-j_2))^(j_1+j_2) (2j + 1)\
+  $
+]
+
+=== Clebsch-Gordon 系数
+
+$D^((j_1)) times.circle D^((j_2))$是酉的，即存在酉矩阵$S$
+$
+  S (D^((j_1)) times.circle D^((j_2))) S^dagger = mat(
+    D^(j_1+j_2), O, ..., O;
+    O, D^(abs(j_1-j_2)), ..., O;
+    O, dots.v, dots.down, O;
+    O, O, ..., D^(abs(j_1-j_2)+1);
+  )\
+$
+
+从表示空间的角度看。
+
+$psi_(j_1 m_1)$和$psi_(j_2 m_2)$是分别是荷载 $"SO"(3)$ 群的不可约表示 $D^((j_1))$和$D^((j_2))$的基，这样
+$
+  psi_(j_1 m_1 j_2 m_2) = psi_(j_1 m_1) psi_(j_2 m_2)\
+$
+就是荷载直积表示$D^((j_1)) times.circle D^((j_2))$的基。再设$psi_(j m)$是载荷$"SO"(3)$群相应不可约表示$D^((j))$的基（耦合基）。
+
+那么，矩阵$S$的作用就是把非耦合基线性组合为耦合基，即
+$
+  psi_(j m) = sum_(m_1 m_2) S^*_(m_1 m_2, j m) psi_(j_1 m_1 j_2 m_2)\
+$
+利用 $S$ 的么正性，上式还可以写成
+$
+  psi_(j_1 m'_1 j_2 m'_2) = sum_(j' m') S_(j' m', m'_1 m'_2) psi_(j' m')\
+$
+利用 $D^((j))$的表达式，经过复杂的计算，可得到 $S$ 的显式为
+$
+  S_(j m, m_1 m_2) = delta_(m, m_1 + m_2)
+$
+在计算过程中，我们选择了 *Condon-Shortly 相因子*，即
+$
+  S_(j,j_1 - j_2,j_1,-j_2) = abs(S_(j,j_1 - j_2,j_1,-j_2))
+$
+所以矩阵 $S$ 是实么正的。
+
+== 直积群的表示/耦合系统的角动量（角动量的耦合）
+
+=== 两个角动量系统的耦合
+
+考虑两个系统，他们有各自的旋转：
+$
+  P_i (alpha_i, beta_i, gamma_i) = e^(- i alpha_i J_(i z)) e^(- i beta_i J_(i y)) e^(- i gamma_i J_(i z))\
+$
+或者
+$
+  P_i (vb(n)_i, phi_i) = e^(- i phi_i vb(n)_i dot vb(J)_i)\
+$
+其中$vb(J)_1$和$vb(J)_2$是两个角动量系统的角动量算符。
+
+系统 1 的旋转算符$P_1$和系统 2 的旋转算符$P_2$都构成旋转群$"SO"(3)_1, "SO"(3)_2$。$psi_(j_1 m_1) (vb(r)_1)$荷载$"SO"(3)_1$的$D^((j_1))$变换，$psi_(j_2 m_2) (vb(r)_2)$荷载$"SO"(3)_2$的$D^((j_2))$变换。有
+$
+  P_1 (alpha_1, beta_1, gamma_1) psi_(j_1 m_1) (vb(r)_1) = sum_(m'_1) D^((j_1))_(m'_1 m_1) (g_1) psi_(j_1 m'_1) (vb(r)_1)\
+  P_2 (alpha_2, beta_2, gamma_2) psi_(j_2 m_2) (vb(r)_2) = sum_(m'_2) D^((j_2))_(m'_2 m_2) (g_2) psi_(j_2 m'_2) (vb(r)_2)\
+$
+如果这两个系统之间没有相互作用，那么描述该总系统的群应该是直积群
+$
+  "SO"(3)_1 times.circle "SO"(3)_2 (="SO"(4))
+$
+其元素为
+$
+  P (alpha_1, beta_1, gamma_1) times.circle P (alpha_2, beta_2, gamma_2)\
+$
+它有 6 个群参数：$alpha_1, beta_1, gamma_1, alpha_2, beta_2, gamma_2$。直积表示$D^((j_1)) times.circle D^((j_2))$是$"SO"(3)_1 times.circle "SO"(3)_2$的不可约么正表示。相应地，非耦合本征函数$psi_(j_1 m_1 j_2 m_2) (vb(r)_1, vb(r)_2) = psi_(j_1 m_1) (vb(r)_1) psi_(j_2 m_2) (vb(r)_2)$是按$D^((j_1)) times.circle D^((j_2))$变换的。
+
+如果这两个系统之间有相互作用，使得它们*耦合*在一起作同样的旋转（$alpha_1=alpha_2$，$beta_1=beta_2$，$gamma_1=gamma_2$），那么描述该总系统的群应该是$"SO"(3)$，其元素为
+$
+  P (alpha, beta, gamma) = P_1 (alpha, beta, gamma) times.circle P_2 (alpha, beta, gamma) = e^(- i alpha J_(z)) e^(- i beta J_(y)) e^(- i gamma J_(z))\
+$
+其中
+$
+  vb(J) = vb(J)_1 + vb(J)_2\
+$
+是耦合系统的总角动量。称$P(alpha, beta, gamma)$为总旋转算符，有3个群参数。
+
+#note[
+  耦合成$"SO"(3)$是规定的。除此之外也可以耦合成${e}$，点群等等。这里我们讨论的是$"SO"(3)$的耦合。
+
+  例如可以取$alpha_1=alpha_2, beta_1=beta_2=gamma_1=gamma_2=0$，就得到了$"SO"(2)$同样可以分解
+  $
+    D^((j_1)) times.circle D^((j_2)) = sum plus.circle C_m A^((m))
+  $
+]
+
+由 $vb(J)$ 生成的 $"SO"(3)$ 群（总旋转群）是 $"SO"(3)_1 times.circle "SO"(3)_2$ 群（非耦合旋转群）的子群。
+$
+  "SO"(3) subset "SO"(3)_1 times.circle "SO"(3)_2\
+$
+从而$"SO"(3)_1 times.circle "SO"(3)_2$的不可约表示$D^((j_1)) times.circle D^((j_2))$也是$"SO"(3)$的一个表示，一般是可约的。
+
+利用群表示直积的矩阵$S$，可将$D^((j_1)) times.circle D^((j_2))$的不可约表示分解为$"SO"(3)$的不可约表示
+$
+  psi_(j m) (vb(r)_1, vb(r)_2) = sum_(m_1 m_2) S_(m_1 m_2, j m) psi_(j_1 m_1 j_2 m_2) (vb(r)_1, vb(r)_2)\
+$
+
+#note[
+  这两个公式长得一样。但事实上他们的物理含义不同。一个是不可约表示的直积，一个是两个群的耦合。
+]
+
+=== 计算 CG 系数的代数方法
+
+#figure(
+  three-line-table[
+    | \ | 群 | 代数 |
+    | --- | --- | --- |
+    | 非耦合 | $"SO"(3)_1 times.circle "SO"(3)_2$ |$"so"(3)_1 plus.circle "so"(3)_2$ |
+    | 耦合 | $"SO"(3)$ | $"so"(3)$ |
+  ],
+  caption: [耦合和非耦合的关系],
+)
+
+#note[
+  由于群元$e^(- i vb(J)_1 dot vb(r)) times e^(- i vb(J)_2 dot vb(r)) = e^(- i vb(J) dot vb(r))$。从而对于群是直积，而对于群代数是直和。
+]
+系统 1 的角动量$vb(J)_1$生成李代数（角动量代数）$"so"(3)_1$，系统 2 的角动量$vb(J)_2$生成李代数（角动量代数）$"so"(3)_2$，并且有对易关系
+$
+  [vb(J)_1, vb(J)_2] = 0\
+$
+#newpara()
+
+非耦合的力学量完备集
+$
+  {vb(J)_1^2, J_(1z), vb(J)_2^2, J_(2z)}\
+$
+本征态为
+$
+  ket(j_1 m_1 j_2 m_2)
+$
+若这两个体 系耦合在一起作同样的旋转，那么耦合系统的总角动量
+$
+  vb(J) = vb(J)_1 + vb(J)_2\
+$
+生成的李代数$"so"(3)$，有力学量完备集
+$
+  {vb(J)^2, J_z, vb(J)_1^2, vb(J)_2^2}\
+$
+
+
+设非耦合本征态与耦合本征态间由下式联系起来
+$
+  ket(j m) = sum_(m_1 m_2) S_(m_1 m_2, j m) ket(j_1 m_1 j_2 m_2)\
+  S_(m_1 m_2, j m) = braket(j_1 m_1 j_2 m_2, j m)\
+$
+其中$braket(j_1 m_1 j_2 m_2, j m)$就是$"o"(3)$的 CG 系数，因为把上式投影到坐标空间，有
+$
+  braket(vb(r_1) vb(r_2), j m) = sum_(m_1 m_2) braket(j_1 m_1 j_2 m_2, j m) braket(vb(r_1), j_1 m_1) braket(vb(r_2), j_2 m_2)\
+$
+
+#remark(subname: [Racah系数])[
+  三个角动量的耦合给出了 Racah 系数
+  $
+    vb(J)_1 times.circle vb(J)_2 times.circle vb(J)_3
+  $
+  不可约表示$j_i$以及本征态$ket(j_i m_i)$。先将$j_1,j_2$耦合再和$j_3$耦合，与$j_1$与$j_2,j_3$耦合的结果耦合的两种结果之间的耦合系数为
+  $
+    braket((j_1 j_2)j_12\,j_3\,J, j_1 \, (j_2 j_3)j_23\,J)\
+  $
+  也有符号，6-j系数
+  $
+    mat(j_1, j_2, j_3; j_12, J, j_23; delim: "{")
+  $
+  可以写成四个CG系数的乘积。
+
+  这样的系数可以推广到$3n(n>=3)$-$j$系数。
+
+  例如双电子系统，分别有轨道和自旋角动量
+  $
+    l_1,s_1;l_2,s_2
+  $
+  在非耦合的情况下，力学量完备集为
+  $
+    {vb(L)_1^2, L_(1z), vb(S)_1^2, S_(1z), vb(L)_2^2, L_(2z), vb(S)_2^2, S_(2z)}\
+  $
+  本征态记为
+  $
+    ket(l_1 m_1 s_1 m_(s 1) l_2 m_2 s_2 m_(s 2))\
+  $
+  先考虑LS耦合
+  $
+    vb(L) = vb(L)_1 + vb(L)_2, vb(S) = vb(S)_1 + vb(S)_2, vb(J) = vb(L) + vb(S)\
+  $
+  力学量完备集为
+  $
+    {vb(L)_1^2, vb(L)_2^2, vb(S)_1^2, vb(S)_2^2, vb(L)^2, vb(S)^2, vb(J)^2, J_z}\
+  $
+  本征态为
+  $
+    ket(l_1 l_2 s_1 s_2 L S J M)
+  $
+  再考虑JJ耦合
+  $
+    vb(J)_1 = vb(L)_1 + vb(S)_1, vb(J)_2 = vb(L)_2 + vb(S)_2, vb(J) = vb(J)_1 + vb(J)_2\
+  $
+  力学量完备集为
+  $
+    {vb(L)_1^2, vb(L)_2^2, vb(S)_1^2, vb(S)_2^2, vb(J)_1^2, vb(J)_2^2, vb(J)^2, J_z}\
+  $
+  本征态为
+  $
+    ket(l_1 s_1 l_2 s_2 J_1 J_2 J M)
+  $
+  两者之间的耦合系数是
+  $
+    braket(l_1 l_2 s_1 s_2 L S J M, l_1 s_1 l_2 s_2 J_1 J_2 J M)\
+  $
+  一个9-j系数
+  $
+    mat(l_1, s_1, J_1; l_2, s_2, J_2; L, S, J; delim: "{")\
+  $
+  为6个CG系数的乘积。
+]
+
+== 不可约张量算符
+
+引入不可约张量算符的原因有二：
++ 算符分类。在坐标发生变化时，不可约张量算符有确定的变换规则。
++ 可以简化不可约张量算符在角动量本征态之间的矩阵元的计算。
+
+#example(subname: [$D_3$的函数基])[
+  例如$D_3$的6维表示的约化为
+  $
+    mat(S, , , ; , A, , ; , , Gamma, ; , , , Gamma)
+  $
+  对应的基约化为
+  $
+    {phi.alt_i} -> {phi_i^((p))|p=S,A,Gamma}
+  $
+  有
+  $
+    P_g phi_i^Gamma = sum_j Gamma_(j i) (g) phi_j^Gamma\
+  $
+  其中$phi_j^Gamma$是按照不可约表示$Gamma$进行变换的，这就给出了一个分类：将原先基线性组合后得到新的基，这些基可以进行分类。
+]
+
+=== 算符变换
+
+在旧坐标中，一个函数$phi(vb(r))$经过算符$hat(T)(vb(r))$的作用后变成另一个函数$psi(vb(r))$
+$
+  psi(vb(r)) = hat(T)(vb(r)) phi(vb(r))\
+$
+同函数形式变换算符$P_g$
+$
+  g: vb(r) -> vb(r)' = g vb(r)\
+  phi(vb(r)) = phi' (vb(r)') = P_g phi(vb(r)) = phi(g^(-1) vb(r))\
+$
+同样地，我们有
+$
+  g: hat(T) (vb(r)) -> hat(T)' (vb(r)')\
+  phi'(vb(r)') = hat(T)' (vb(r)') phi(vb(r)')\
+  P_g phi(vb(r)) = T' (vb(r)) P_g phi(vb(r))\
+$
+从而
+$
+  phi(vb(r)) = P_g^(-1) T' (vb(r)) P_g phi(vb(r))\
+$
+我们称
+$
+  T'(vb(r)) = P_g T(vb(r)) P_g^dagger\
+$
+
+=== 不可约张量算符
+
+$
+  {V_q^k,(q=-k,...,k)}
+$
+是群的 $k$ 秩不可约张量算符
+$
+  P_g V_q^k P_g^dagger = sum_q D_(q' q)^((k)) V_q'^k
+$
+
+#newpara()
+
+考虑
+$
+  R phi_m (vb(r)) = sum_j D_(m' m)^((j)) phi_m' (vb(r))\
+$
+就说${phi_m}$是按照不可约张量算符$D^((j))$变换的，给出了表示的一个分类。
+
+==== 代数的观点
+
+称$V^k$为$"SO"(3)$群的$k$秩不可约张量算符，如果它的$2k+1$个分量算符$V_q^k$满足
+$
+  [J_z, V_q^k] = q V_q^k\
+  [J_(plus.minus), V_q^k] = sqrt((k minus.plus q)(k minus.plus q + 1)) V_(q plus.minus 1)^k\
+$
+
+#example()[
+  例如$H$的不可约张量算符$V^0$为0秩的。
+]
+
+#example(subname: [角动量算符$vb(J)$的笛卡尔分量])[
+  $
+    vb(J) = {J_1, J_2, J_3}\
+  $
+  ITO的1秩不可约张量算符$J_q^1$有*球谐形式*
+  $
+    J_0 = J_3,\
+    J_(plus.minus 1) = minus.plus 1 / sqrt(2) (J_1 plus.minus i J_2),\
+  $
+  这和量子力学中
+  $
+    J_0 \
+    J_(plus.minus) = J_1 plus.minus i J_2\
+  $
+  不一致，有
+  $
+    J_(plus.minus 1) = minus.plus 1 / sqrt(2) J_(plus.minus)\
+  $
+  #newpara()
+
+  在$"SO"(3)$的作用下，角动量算符的球谐分量（不可约张量）按$D^((1))$不可约表示进行变换。
+
+  而笛卡尔形式有变换
+  $
+    mat(J_1'; J_2'; J_3') = mat(R(alpha,beta,gamma))mat(J_1; J_2; J_3)\
+  $
+]
+
+对一般的矢量$vb(r), vb(p)$，也可以化成球谐的形式，将基
+$
+  {vu(e)_i} => {vu(epsilon)_mu | mu = plus.minus 1, 0}\
+$
+有
+$
+  vu(epsilon)_0 = vu(e)_3,\
+  vu(epsilon)_(plus.minus 1) = minus.plus 1 / sqrt(2) (vu(e)_1 plus.minus i vu(e)_2)\
+$
+定义了三维Euclidean空间的球谐基。有
+$
+  vu(e)_i dot vu(e)_j = delta_(i j)
+$
+以及
+$
+  vu(epsilon)_mu^* vu(epsilon)_nu = delta_(mu nu)\
+$
+其中有
+$
+  vu(epsilon)_mu^* = (-)^(mu) vu(epsilon)_(- mu)\
+$
+对于矢量积
+$
+  vu(e)_i times vu(e)_j = vu(e)_k\
+$
+对于球谐基
+$
+  vu(epsilon)_mu times vu(epsilon)_nu &= i sgn(mu - nu) vu(epsilon)_(mu plus nu)\
+  &= i sqrt(2) braket(1 mu 1 nu, 1 mu + nu) vu(epsilon)_(mu plus nu)\
+$
+对于
+$
+  vb(A) &= sum_i A_i vu(e)_i\
+  &= sum_mu A_mu vu(epsilon)^*_mu = sum_mu (-)^mu A_mu vu(epsilon)_(- mu)\
+$
+就有
+$
+  A_0 = A_3\
+  A_(plus.minus 1) = minus.plus 1 / sqrt(2) (A_1 plus.minus i A_2)\
+$
+内积为
+$
+  vb(A) dot vb(B) &= sum_i A_i B_i\
+  &= sum_mu A_mu B_mu^* = sum_mu_mu (-1)^(mu) A_mu B_(- mu)\
+$
+外积为
+$
+  vb(A) times vb(B) &= sum_i sum_j A_i B_j vu(e)_i times vu(e)_j\
+  &= sum_mu sum_nu A_mu B_nu vu(epsilon)_mu^* times vu(epsilon)_nu\
+$
+
+=== 不可约张量算符的厄米共轭运算
+
+下面我们希望有Hermitian共轭的不可约张量算符$V_q^k$，即
+$
+  (V_q^k)^dagger = V_(-q)^k\
+$
+对多分量的不可约张量算符$vb(V)^k(k != 0)$其Hermitian共
+轭$vb(V)^(k dagger)$一般不再是不可约张量算符了。
+
+对于
+$
+  P_g V_q^k P_g^dagger = sum_q' D_(q' q)^((k)) V_q'^k\
+$
+取共轭
+$
+  P_g V_q^(k dagger) P_g^dagger &= sum_q' D_(q' q)^((k)*) (V_(q')^k)^dagger\
+  &= sum_q' (-)^(q-q') D_(-q' -q)^((k)) (V_(q')^k)^dagger\
+$
+作替换 $q->-q, q'->-q'$变为
+$
+  P_g ((-1)^q (V_(-q)^k)^dagger) P_g^dagger = sum_q' D_(q' q)^((k)) ((-1)^q (V_(- q')^k)^dagger)\
+$
+此式说明 $(-1)^q (V_(-q)^k)^dagger$也是不可约张量算符。定义
+$
+  V_q^(k dagger) = (-)^(q) (V_(-q)^k)^dagger\
+$
+这样$vb(V)^(k dagger)$是一个不可约张量算符。
+
+这样定义有
+$
+  (V_q^k)^dagger = (-1)^q V_(-q)^k\
+  V_q^(k dagger) = V_q^k
+$
+这意味着$vb(V)^k$是 Hermitian 的。
+
+有
+$
+  J_0^dagger = J_0,\
+  J_(+1)^dagger = J_(-1),\
+$
+
+=== 不可约张量算符的张量积（耦合）
+
+对于$A,B$的张量积
+$
+  mat(A_1 B_1, A_1 B_2, A_1 B_3; A_2 B_1, A_2 B_2, A_2 B_3; A_3 B_1, A_3 B_2, A_3 B_3)
+$
+其中迹为
+$
+  S = sum_i A_i B_i
+$
+一共1个，反对称化为
+$
+  A_i B_j - A_j B_i
+$
+一共有3个，做无迹对称化
+$
+  a (A_i B_j + A_j B_i) - b S delta_(i j)
+$
+一共5个。这样就得到了9个分量。
+
+不可约张亮算符的耦合
+$
+  V^(k_1) times.circle V^(k_2) = V^k
+$
+其中有
+$
+  V^k_q = sum_(q_1 q_2) braket(k_1 q_1 k_2 q_2, k q) V^((k_1))_(q_1) V^((k_2))_(q_2)\
+$
+这里的$braket(k_1 q_1 k_2 q_2, k q)$是 Clebsch-Gordon 系数，使得$V^k$拥有对称性。
+
+对于
+$
+  [vb(J)_1 times.circle vb(J)_2]^k = sum_(q_1,q_2) braket(1 q_1 1 q_2, k q) J_(q_1)^k_1 J_(q_2)^k_2\
+$
+因此$k=0,1,2$
+$
+  [vb(J)_1 times.circle vb(J)_2]^0 = vb(J)_1 dot vb(J)_2\
+  [vb(J)_1 times.circle vb(J)_2]^1 = vb(J)_1 times vb(J)_2\
+$
+
+=== Wigner-Eckart 定理
+
+不可约张量算符在标准角动量本征态间的矩阵元可以分成两个因子的乘积
+$
+  braket(j' m', V_q^k, j m) = braket(j, abs(V^k), j') braket(j' m', k q j m) \
 $
