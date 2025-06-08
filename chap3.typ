@@ -1163,9 +1163,9 @@ $
 
 === $"su"(2)$和$"o"(3)$的同构
 
-与群的同构概念类似，李代数也可以定义同构的概念：若两个李代数 $g$ 与 $g'$ 的生成元之间存在一一对应关系，且此对应关系保持李积不变，则称 $g$ 与 $g'$ 是同构的，记作 $g tilde.equiv g'$。
+与群的同构概念类似，Lie代数也可以定义同构的概念：若两个Lie代数 $g$ 与 $g'$ 的生成元之间存在一一对应关系，且此对应关系保持Lie积不变，则称 $g$ 与 $g'$ 是同构的，记作 $g tilde.equiv g'$。
 
-个同构的李代数从抽象数学的角度讲是完全一样的。
+两个同构的Lie代数从抽象数学的角度讲是完全一样的。
 
 重新标度$"su"(2)$的生成元
 $
@@ -1178,6 +1178,29 @@ $
     "su"(2) tilde.equiv "o"(3)
   $
 ]
+
+Lie代数 $"su"(2)$ 和 $"o"(3)$ 的生成元通过指数映射将分别得到Lie群 $"SU"(2)$ 和 $"SO"(3)$ 的元素，且形式上很像
+
+#figure(
+  three-line-table[
+    | Lie代数 | 生成元 | Lie群 | 群元素 |
+    | --- | --- | --- | --- |
+    | $"su"(2)$ | $vb(sigma)$ | $"SU"(2)$ | $e^(- i vb(r) dot vb(sigma)) = e^(- i vb(r)' dot vb(J)')$ |
+    | $"o"(3)$ | $vb(J)$ | $"SO"(3)$ | $e^(- i vb(r) dot vb(J))$ |
+  ],
+  caption: "su(2)与o(3)的同构关系",
+)
+
+$"su"(2)$的$vb(r)'$的参数空间是$RR^3$中的一个半径为$2 pi$的球。
+- 球心在原点，$r=0$对应$"SU"(2)$的单位元
+- 球内每一点与$"SU"(2)$群元有一一对应关系
+- 球面上的所有点$2 pi vu(r)'$都和$"SU"(2)$的$-E$对应
+$"o"(3)$的$vb(psi)$的参数空间是$RR^3$中的一个半径为$pi$的球。
+- 球心在原点，$psi=0$对应$"SO"(3)$的单位元
+- 球内每一点与$"SO"(3)$群元有一一对应关系
+- 球面上的所有点$pi vb(n)$和$-pi vb(n)$对应同一个元素
+
+尽管它们在单位元邻域同构，但它们各自映射参数的取值范围不同，所以由它们生成的$"SU"(2)$和$"SO"(3)$的群元素是不同的。
 
 #note[
   #diagram($
@@ -1197,6 +1220,12 @@ $
 $
 如果$U$是酉的，$J$就是Hermitian的。所以我们对于Lie代数，要求其不等价的不可约的Hermitian表示。
 
+Lie群与其Lie代数的关系告诉我们：只要计算出Lie代数表示（即生成元的矩阵表示），原则上就可以利用指数映射得到相应的Lie群表示。
+
+求表示的基本步骤：
+- 选择一组基；
+- 把Lie代数的生成元作用到基上，再用基展开。
+
 ==== 角动量方法
 
 已知 $"o"(3)$ 的生成元为Hermitian算符$J_i$
@@ -1211,7 +1240,7 @@ $
 $
   [vb(J)^2, J_i] = 0
 $
-称为$"o"(3)$的 Casimir 算符。以及升降算符
+称为$"o"(3)$的 *Casimir 算符*。以及升降算符（$J_i$的*球谐形式*）
 $
   J_(plus.minus 1) = minus.plus 1 / sqrt(2) (J_x plus.minus i J_y)\
   J_0 = J_z\
@@ -1226,7 +1255,7 @@ $
   J_0^dagger = J_0, J_(plus.minus 1)^dagger = J_(minus.plus 1)\
 $
 #newpara()
-${vb(J)^2,J_z}$是一个完备集，存在共同本征态
+${vb(J)^2,J_z}$是一个*完备集*，存在*共同本征态*
 $
   ket(phi m)\
 $
@@ -1249,11 +1278,12 @@ $
 又考虑到
 $
   braket(phi m, J_(+1) J_(-1), phi m) &= braket(phi m, J_(-1) J_(+1), phi m) - m\
-  &= braket(phi m, J_(+1), phi m-1) braket(phi m-1, J_(-1), phi m)\
-  &= braket(phi m, J_(-1), phi m+1) braket(phi m+1, J_(+1), phi m) - m
+  braket(phi m, J_(+1), phi m-1) braket(phi m-1, J_(-1), phi m) &= braket(phi m, J_(-1), phi m+1) braket(phi m+1, J_(+1), phi m) - m
 $
 利用厄米共轭条件
-
+$
+  braket(phi m, J_(+1), phi m-1) = braket(phi m-1, J_(+1)^dagger, phi m)^* = - braket(phi m-1, J_(-1), phi m)^*\
+$
 可得 $J_(plus.minus 1)$ 的矩阵元满足如下递推关系：
 $
   abs(braket(phi m-1, J_(-1), phi m))^2 = abs(braket(phi m, J_(-1), phi m+1))^2 + m\
@@ -1298,10 +1328,10 @@ $
   abs(braket(phi m - 1, J_(-1), phi m))^2 = 1 / 2 (j+m) (j-m + 1)\
   abs(braket(phi m + 1, J_(+1), phi m))^2 = 1 / 2 (j-m) (j+m + 1)\
 $
-但上两式只能决定到平方项，还有相因子不能确定。通常选取 Conden-Shortley 惯例，于是得到
+但上两式只能决定到平方项，还有相因子不能确定。通常选取* Conden-Shortley 惯例*，于是得到
 $
   braket(phi m - 1, J_(-1), phi m) = sqrt(1 / 2 (j+m) (j-m + 1))\
-  braket(phi m + 1, J_(+1), phi m) = sqrt(1 / 2 (j-m) (j+m + 1))\
+  braket(phi m + 1, J_(+1), phi m) = - sqrt(1 / 2 (j-m) (j+m + 1))\
 $
 最后计算 $vb(J)^2$ 在基 $ket(phi m)$ 上的本征值。有
 $
@@ -1309,23 +1339,26 @@ $
   &= (j-m) (j+m + 1) + m (m + 1) \
   &= j (j + 1)\
 $
-$phi$ 只与最高权 $j$ 有关，而与 $m$ 无关。$j$决定了不可约表示，所以可以用$j$来标记$"o"(3)$的不可约表示。相应的不可约表示空间$V^j$的基矢量为
+$phi$ 只与最高权 $j$ 有关，而与 $m$ 无关。$j$决定了不可约表示，所以*可以用$j$来标记$"o"(3)$的不可约表示*。相应的不可约表示空间$V^j$的基矢量为
 $
   ket(j m) = ket(phi m)\
 $
 其维数是 $2j+1$。
 
 所有的结果总结为
-$
-  vb(J)^2 ket(j m) = j (j + 1) ket(j m)\
-  J_0 ket(j m) = m ket(j m)\
-  braket(j m-1, J_(-1), j m) = sqrt(1 / 2 (j+m) (j-m + 1))\
-  braket(j m + 1, J_(+1), j m) = sqrt(1 / 2 (j-m) (j+m + 1))\
-$
+#proposition(subname: [o(3)的不可约表示])[
+  $"o"(3)$的不可约表示为
+  - 基矢量 $ket(j m)$，其中 $j = 0, 1 / 2, 1, 3 / 2, 2, ...$，$m = -j, -j+1, ..., j$
+  $
+    vb(J)^2 ket(j m) = j (j + 1) ket(j m)\
+    J_0 ket(j m) = m ket(j m)\
+    braket(j m-1, J_(-1), j m) = sqrt(1 / 2 (j+m) (j-m + 1))\
+    braket(j m + 1, J_(+1), j m) = - sqrt(1 / 2 (j-m) (j+m + 1))\
+  $
+]
 这样就得到了 $"o"(3)$ 在基 $ket(j m)$ 上的不可约表示。
 
-
-不可约可以用不变子空间验证。对$j$相同的基向量，$J_(plus.minus)$作用下，最小的非平凡不变子空间就是${ket(j m) | m = -j, -j+1, ..., j}$，所以$j$是不可约的。
+不可约可以用不变子空间验证。对$j$相同的基向量，$J_(plus.minus 1)$作用下，最小的非平凡不变子空间就是${ket(j m) | m = -j, -j+1, ..., j}$，所以$j$是不可约的。
 
 #note[
   由于$"SU"(2)$的群表示为$A^((j)), j=0,1 / 2,1,...$，并且$"su"(2)$的表示$j =0,1 / 2,1,...$，二者一一对应，似乎$j$就给出所有$"su"(2)$的不可约表示。
@@ -1333,7 +1366,7 @@ $
   物理上，$"so"(3)$的表示为$j=0,1,2,...$和$"SO"(3)$进行对应。
 ]
 
-我们说$j$是不可约表示的标记：
+我们说*$j$是不可约表示的标记*：
 - $j$是一个数
 - 每一个表示和$j$一一对应
 
@@ -1376,7 +1409,8 @@ $
 
 ==== Boson实现方法
 
-*Heisenberg代数*：Boson算符$a$与其Hermitian共轭算符$a^dagger$满足对易关系
+*Heisenberg代数*：Boson算符$a$与其Hermitian共轭算符$a^dagger$与粒子数算符$N=
+a^dagger a$满足对易关系
 $
   [a, a^dagger] = 1\
   [N,a^dagger] = a^dagger\
@@ -1425,7 +1459,7 @@ $
   J_0 ket(n_1 n_2) = 1 / 2 (n_1 - n_2) ket(n_1 n_2)\
   vb(J)^2 ket(n_1 n_2) = 1 / 4 (n_1 + n_2) (n_1 + n_2 + 2) ket(n_1 n_2)\
 $
-就有量子数对应关系
+就有*量子数对应关系*
 $
   m = 1 / 2 (n_1 - n_2), j = 1 / 2 (n_1 + n_2)\
 $
@@ -1462,7 +1496,7 @@ $
 
 ==== 微分方法
 
-Boson子算符与微分算符之间存在对应关系。例如，对一维情况，有
+Boson子算符与*微分算符*之间存在对应关系。例如，对一维情况，有
 $
   a <-> pdv(, x); a^dagger <-> x
 $
@@ -1515,9 +1549,31 @@ $
 $
   D_(m' m)^j (alpha,beta,gamma) &= braket(j m', R(alpha, beta, gamma), j m)\
   &= braket(j m', e^(- i alpha J_z) e^(- i beta J_y) e^(- i gamma J_z), j m)\
+  &= braket(j m', e^(- i alpha J_z), j m') braket(j m', e^(- i beta J_y), j m) braket(j m, e^(- i gamma J_z), j m)\
   &= e^(- i m' alpha) braket(j m', e^(- i beta J_y), j m) e^(- i m gamma)\
   &= e^(- i m' alpha) d_(m' m)^j (beta) e^(- i m gamma)\
 $
+因此利用$"o"(3)$的不可约表示，即 $J_y$ 的矩阵表示，就可以得到$"SO"(3)$群的不可约表示。
+
+#example(subname: [$j=1 / 2$的表示])[
+  不可约表示空间$V^(1 / 2)$是二维的，其基矢量为
+  $
+    ket(1 / 2 1 / 2), ket(1 / 2 -1 / 2)
+  $
+  $"o"(3)$ 的不可约矩阵
+  $
+    J_(+1) = - 1 / sqrt(2) mat(0, 1; 0, 0), J_(-1) = - 1 / sqrt(2) mat(0, 0; 1, 0)
+  $
+  将它们组合成$J_y$的表示矩阵
+  $
+    J_y = i / 2 mat(0, 1; -1, 0)\
+  $
+  于是计算可得
+  $
+    e^(i beta J_y) = e^(beta / 2 mat(0, -1; 1, 0)) = mat(cos(beta / 2), -sin(beta / 2); sin(beta / 2), cos(beta / 2))\
+  $
+  这就是$d^((1 / 2))(beta)$矩阵。
+]
 
 == $"SO"(3)$ 群表示的直积
 
@@ -1552,6 +1608,11 @@ $
 $
 式中求和指标替换的简单解释见 @直积指标变换。
 
+#figure(
+  image("pic/2025-05-21-10-06-23.png", width: 80%),
+  caption: [直积的特征标的求和指标替换],
+)<直积指标变换>
+
 上式表明 $j$ 只能取如下$2 min(j_1, j_2) + 1$个值
 $
   j = abs(j_1-j_2), abs(j_1-j_2)+1, ..., j_1+j_2
@@ -1559,15 +1620,12 @@ $
 其中每个值出现的次数均为$1$，即$a_j = 1$。
 
 也就是说，$D^((j_1)) times.circle D^((j_2))$的不可约表示为
-$
-  D^((j_1)) times.circle D^((j_2)) = sum_(j=abs(j_1-j_2))^(j_1+j_2) plus.circle D^((j))\
-$
-称此式为 *Clebsch-Gordon 定理*。
-
-#figure(
-  image("pic/2025-05-21-10-06-23.png", width: 80%),
-  caption: [直积的特征标的求和指标替换],
-)<直积指标变换>
+#theorem(subname: [Clebsch-Gordon 定理])[
+  对于$"SO"(3)$群的不可约表示$D^((j_1))$和$D^((j_2))$，它们的直积表示为
+  $
+    D^((j_1)) times.circle D^((j_2)) = sum_(j=abs(j_1-j_2))^(j_1+j_2) plus.circle D^((j))\
+  $
+]
 
 #note[
   在物理中，这事实上就是LS耦合和JJ耦合：
@@ -1588,12 +1646,22 @@ $
 $D^((j_1)) times.circle D^((j_2))$是酉的，即存在酉矩阵$S$
 $
   S (D^((j_1)) times.circle D^((j_2))) S^dagger = mat(
-    D^(j_1+j_2), O, ..., O;
-    O, D^(abs(j_1-j_2)), ..., O;
-    O, dots.v, dots.down, O;
-    O, O, ..., D^(abs(j_1-j_2)+1);
-  )\
+    D^((j_1+j_2)), O, ..., O;
+    O, D^((j_1+j_2-1)), ..., O;
+    O, dots.v, dots.down, dots.v;
+    O, O, ..., D^((abs(j_1-j_2)));
+  ) = M\
 $
+
+由于$D^((j_1)) times.circle D^((j_2))$的行和列是用两个指标$m_1, m_2$来标记的，所以矩阵$S$和$M$的行和列也都需要两个指标，它们分别是
+$
+  S_(j m, m_1 m_2)^(j_1 j_2) = S_(j m, m_1 m_2), M_(j' m', j m) = delta_(j' j) D_(m' m)^((j))\
+$
+分量形式为
+$
+  sum_(m_1' m_2' m_1 m_2) S_(j' m', m'_1 m'_2) (D^((j_1)) times.circle D^((j_2)))_(m_1' m_2', m_1 m_2) S^*_(j m, m_1 m_2) = delta_(j' j) D_(m' m)^((j))\
+$
+矩阵元$S_(j m, m_1 m_2)$称为$"SO"(3)$群的*Clebsch-Gordon系数*，简称*CG系数*。
 
 从表示空间的角度看。
 
@@ -1613,7 +1681,7 @@ $
 $
 利用 $D^((j))$的表达式，经过复杂的计算，可得到 $S$ 的显式为
 $
-  S_(j m, m_1 m_2) = delta_(m, m_1 + m_2)
+  S_(j m, m_1 m_2) = delta_(m, m_1 + m_2) sqrt(((2j+1)(j+j_1-j_2)!(j-j_1+j_2)!(-j+j_1+j_2)!(j+m)!(j-m)!) / ((j+j_1+j+2+1)!(j_1+m_1)!(j_1-m_1)!(j_2+m_2)!(j_2-m_2)!)) \ times sum_k ((-1)^(j_1-m_!+k)(j+j_1-m_2-k)!(j_2_m_2+k)!) / (k!(j-m-k)!(j+j_1-j_2-k)!(k-j_1+j_2+m)!)\
 $
 在计算过程中，我们选择了 *Condon-Shortly 相因子*，即
 $
@@ -1648,7 +1716,7 @@ $
 $
   P (alpha_1, beta_1, gamma_1) times.circle P (alpha_2, beta_2, gamma_2)\
 $
-它有 6 个群参数：$alpha_1, beta_1, gamma_1, alpha_2, beta_2, gamma_2$。直积表示$D^((j_1)) times.circle D^((j_2))$是$"SO"(3)_1 times.circle "SO"(3)_2$的不可约么正表示。相应地，非耦合本征函数$psi_(j_1 m_1 j_2 m_2) (vb(r)_1, vb(r)_2) = psi_(j_1 m_1) (vb(r)_1) psi_(j_2 m_2) (vb(r)_2)$是按$D^((j_1)) times.circle D^((j_2))$变换的。
+它有 6 个群参数：$alpha_1, beta_1, gamma_1, alpha_2, beta_2, gamma_2$。直积表示$D^((j_1)) times.circle D^((j_2))$是$"SO"(3)_1 times.circle "SO"(3)_2$的*不可约么正表示*。相应地，非耦合本征函数$psi_(j_1 m_1 j_2 m_2) (vb(r)_1, vb(r)_2) = psi_(j_1 m_1) (vb(r)_1) psi_(j_2 m_2) (vb(r)_2)$是按$D^((j_1)) times.circle D^((j_2))$变换的。
 
 如果这两个系统之间有相互作用，使得它们*耦合*在一起作同样的旋转（$alpha_1=alpha_2$，$beta_1=beta_2$，$gamma_1=gamma_2$），那么描述该总系统的群应该是$"SO"(3)$，其元素为
 $
@@ -1681,7 +1749,7 @@ $
 $
 
 #note[
-  这两个公式长得一样。但事实上他们的物理含义不同。一个是不可约表示的直积，一个是两个群的耦合。
+  这个公式和上一小节的长得一样。但事实上他们的物理含义不同。一个是不可约表示的直积，一个是两个群的耦合。
 ]
 
 === 计算 CG 系数的代数方法
@@ -1713,7 +1781,14 @@ $
 $
   ket(j_1 m_1 j_2 m_2)
 $
-若这两个体 系耦合在一起作同样的旋转，那么耦合系统的总角动量
+满足
+$
+  vb(J)_1^2 ket(j_1 m_1 j_2 m_2) = j_1 (j_1 + 1) ket(j_1 m_1 j_2 m_2)\
+  J_(1z) ket(j_1 m_1 j_2 m_2) = m_1 ket(j_1 m_1 j_2 m_2)\
+  vb(J)_2^2 ket(j_1 m_1 j_2 m_2) = j_2 (j_2 + 1) ket(j_1 m_1 j_2 m_2)\
+  J_(2z) ket(j_1 m_1 j_2 m_2) = m_2 ket(j_1 m_1 j_2 m_2)\
+$
+若这两个体系*耦合在一起作同样的旋转*，那么耦合系统的总角动量
 $
   vb(J) = vb(J)_1 + vb(J)_2\
 $
@@ -1721,8 +1796,13 @@ $
 $
   {vb(J)^2, J_z, vb(J)_1^2, vb(J)_2^2}\
 $
-
-
+共同本征态为$ket(j m j_1 j_2) = ket(j m)$，满足
+$
+  vb(J)^2 ket(j m) = j (j + 1) ket(j m)\
+  J_z ket(j m) = m ket(j m)\
+  vb(J)_1^2 ket(j m) = j_1 (j_1 + 1) ket(j m)\
+  vb(J)_2^2 ket(j m) = j_2 (j_2 + 1) ket(j m)\
+$
 设非耦合本征态与耦合本征态间由下式联系起来
 $
   ket(j m) = sum_(m_1 m_2) S_(m_1 m_2, j m) ket(j_1 m_1 j_2 m_2)\
@@ -1732,6 +1812,66 @@ $
 $
   braket(vb(r_1) vb(r_2), j m) = sum_(m_1 m_2) braket(j_1 m_1 j_2 m_2, j m) braket(vb(r_1), j_1 m_1) braket(vb(r_2), j_2 m_2)\
 $
+#newpara()
+
+与量子力学中波函数的物理意义类似CG系数为某一时刻$ket(j_1 m_1)$和$ket(j_2 m_2)$耦合成$ket(j m)$的概率振幅，CG系数的平方为相应的概率。
+
+下面来计算CG系数的显式。
+1. 确定非零 CG 系数的选择定则
+  - $m$ 的取值
+    $
+      J_z ket(j m) &= m ket(j m) = sum_(m_1 m_2) m ket(j_1 m_1 j_2 m_2) braket(j_1 m_1 j_2 m_2, j m)\
+      J_z ket(j m) &= (J_(1z) + J_(2z)) sum_(m_1 m_2) ket(j_1 m_1 j_2 m_2) braket(j_1 m_1 j_2 m_2, j m)\
+      &= sum_(m_1, m_2)(m_1 + m_2) ket(j_1 m_1 j_2 m_2) braket(j_1 m_1 j_2 m_2, j m)\
+    $
+    比较系数得
+    $
+      m = m_1 + m_2\
+    $
+  - $j$ 的取值
+    $
+      (2j_1 + 1)(2j_2 + 1) = sum_(j=abs(j_1-j_2))^(j_1+j_2) (2j + 1)\
+    $
+    其实就给出了$j$的取值范围
+    $
+      j = abs(j_1-j_2), abs(j_1-j_2)+1, ..., j_1+j_2\
+    $
+2. 计算 CG 系数
+基本思路：将算符 $J_(plus.minus), J_(1 plus.minus), J_(2 plus.minus)$ 作用到$ket(j m)$式两边，可以得到 CG 系数满足的递推方程。之后化简即可，这里略去。
+
+#note[
+  CG系数有许多不同的名称和符号，如，*Wigner系数*或 *3j系数*
+  $
+    mat(j_1, j_2, j; m_1, m_2, m)\
+  $
+]
+
+#proposition(subname: [CG系数的正交归一性])[
+  $
+    sum_(m_1, m_2) braket(j m, j_1 m_1 j_2 m_2) braket(j_1 m_1 j_2 m_2, j' m') = delta_(j j') delta_(m m')\
+  $
+  $
+    sum_(j, m) braket(j_1 m_1 j_2 m_2, j m) braket(j m, j_1 m_1' j_2 m_2') = delta_(m_1 m_1') delta_(m_2 m_2')\
+  $
+  或者用3j系数
+  $
+    sum_(m_1, m_2) (2j + 1) mat(j_1, j_2, j; m_1, m_2, m) mat(j_1, j_2, j'; m_1, m_2, m') = delta_(j j') delta_(m m') delta(j_1 j_2 j)
+  $
+]
+
+#proposition(subname: [Wigner 系数展现出的对称性])[
+  $
+    mat(j_1, j_2, j; m_1, m_2, m) = (-1)^(j_1+j_2+j) mat(j_2, j_1, j; m_2, m_1, m) = (-1)^(j_1+j_2+m) mat(j_1, j_2, j; -m_1, -m_2, -m)\
+  $
+  明显地，列的一次偶置换不改变3j系数的值。
+]
+
+#proposition(subname: [Wigner 符号与 Regge 符号的关系])[
+  $
+    mat(j_1, j_2, j; m_1, m_2, m) = mat(-j_1 + j_2 + j, j_1 - j_2 +j, j_1 + j_2 - j; j_1 + m_1, j_2 + m_2, j + m; j_1 - m_1, j_2 - m_2, j - m; delim: "[")\
+  $
+]
+
 
 #remark(subname: [Racah系数])[
   三个角动量的耦合给出了 Racah 系数
@@ -1747,7 +1887,23 @@ $
     mat(j_1, j_2, j_3; j_12, J, j_23; delim: "{")
   $
   可以写成四个CG系数的乘积。
+  #figure(
+    diagram(
+      spacing: 8em,
+      node((0, 0)),
+      node((1, 0)),
+      node((0, 1)),
+      node((1, 1)),
 
+      edge((0, 0), (1, 0), $j_3$),
+      edge((0, 1), (1, 1), $j_1$),
+      edge((0, 0), (0, 1), $J$),
+      edge((1, 0), (1, 1), $j_2$),
+      edge((0, 0), (1, 1), $j_23$),
+      edge((0, 1), (1, 0), $j_12$),
+    ),
+    caption: [6j系数],
+  )
   这样的系数可以推广到$3n(n>=3)$-$j$系数。
 
   例如双电子系统，分别有轨道和自旋角动量
