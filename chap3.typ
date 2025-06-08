@@ -193,9 +193,11 @@ $
 所以用 $C_(vb(n) (theta,phi))(psi)$ 来表示不是唯一的。
 
 *固定坐标轴描述*：任意旋转操作$C_n (psi)$可以仅用绕 $k$ 轴的旋转操作和绕 $j$ 轴的旋转操作的组合来描述，即
-$
-  C_(vb(n)(theta,phi))(psi)= C_k (phi) C_j (theta) C_k (psi) C_j^(-1) (theta) C_k^(-1) (phi)
-$
+#proposition(subname: [$"SO"(3)$的固定坐标轴描述])[
+  $
+    C_(vb(n)(theta,phi))(psi) = C_k (phi) C_j (theta) C_k (psi) C_j^(-1) (theta) C_k^(-1) (phi)
+  $
+]
 此式表明：绕空间某一给定转轴的旋转与连续五次绕固定轴旋转的最后效果是相同的。
 
 矩阵表示为
@@ -245,7 +247,7 @@ Euler 角是由三个连续操作的旋转角 $alpha, beta, gamma$ 来定义的�
   $
     C_(k'') (gamma) : {i'', j'', k''} -> {I, J, K}
   $
-  $k''=K$，$j=J$，即$k$在$C_(k'')(gamma)$下不变。
+  $k'''=k''=K$，$j'''=J$，即$k$在$C_(k'')(gamma)$下不变。
 
 合成后得
 $
@@ -256,9 +258,11 @@ $
   alpha in [0, 2pi), beta in [0, pi], gamma in [0, 2pi)
 $
 这样的变换一共有三个坐标系，我们希望可以通过同一个坐标系${i,j,k}$描述
-$
-  g(alpha, beta, gamma) = C_(k) (alpha) C_(j) (beta) C_(k) (gamma)
-$
+#proposition(subname: [$"SO"(3)$的Euler角的矩阵表示])[
+  $
+    g(alpha, beta, gamma) = C_(k) (alpha) C_(j) (beta) C_(k) (gamma)
+  $
+]
 这事实上是利用若干相似变换得到的，考虑相似变换的坐标变换有：
 $
   C_(j') (beta) = C_(k) (alpha) C_(j) (beta) C_(k)^(-1) (alpha)\
@@ -297,7 +301,21 @@ $
 $
   g C_(vb(n)(theta,phi))(psi) g^(-1) = C_(g vb(n)(theta,phi))(psi)
 $
-由于 $g$ 是任意的，所以用转角 $psi$ 来描述 $"SO"(3)$ 群的类——*所有转角$psi$相同的旋转构成一个类*，因此有无穷多个类，而且每个类中的元素个数也为无穷多。
+由于 $g$ 是任意的，所以用转角 $psi$ 来描述 $"SO"(3)$ 群的类
+#proposition(subname: [$"SO"(3)$ 群的类])[
+  $"SO"(3)$ 群的类是由转角 $psi$ 来描述的，即
+  $
+    "SO"(3) = {C_(vb(n)(theta,phi))(psi) | psi in [0, pi]}
+  $
+]
+*所有转角$psi$相同的旋转构成一个类*，因此有无穷多个类，而且每个类中的元素个数也为无穷多。
+
+#note[
+  到此，我们已经得到了 $"SO"(3)$ 群的两种表示：
+  - 方位角表示：$C_(vb(n)(theta,phi))(psi)$
+  - Euler角表示：$g(alpha, beta, gamma)$
+  都可以写成三维正交矩阵的形式。
+]
 
 == SU(2)群与SO(3)群的同态关系
 
@@ -389,6 +407,10 @@ $
     abs(a)^2 + abs(b)^2 = 1
   $
   参数$a,b$称为*Cayley-Klien参数*。
+]
+
+#note[
+  这里由Cayley-Klien参数给出了$"SU"(2)$群的一个二维表示$u(a,b)$。
 ]
 
 === SU(2)和SO(3)的同态关系
@@ -502,10 +524,16 @@ $
   u_1 (alpha) u_2 (beta) u_1 (gamma) = mat(cos beta / 2 e^(-i / 2 (alpha + gamma)), -sin beta / 2 e^(-i / 2 (alpha - gamma)); sin beta / 2 e^(i / 2 (alpha - gamma)), cos beta / 2 e^(i / 2 (alpha + gamma))) = u(alpha, beta, gamma)
 $
 容易验证 $u(alpha,beta,gamma)$ 满足么正条件和 $det u(alpha,beta,gamma)=1$，所以 $u(alpha,beta,gamma) in "SU"(2)$，$phi: R_u -> u$ 是一个满射。对比还有
-$
-  a = cos beta / 2 e^(-i / 2 (alpha + gamma)), b = -sin beta / 2 e^(-i / 2 (alpha - gamma))
-$
-上式给出了Cayley-Klien参数和Euler角的关系。
+#proposition(subname: [Cayley-Klien参数和Euler角的关系])[
+  $
+    u(alpha, beta, gamma) = mat(cos beta / 2 e^(-i / 2 (alpha + gamma)), -sin beta / 2 e^(-i / 2 (alpha - gamma)); sin beta / 2 e^(i / 2 (alpha - gamma)), cos beta / 2 e^(i / 2 (alpha + gamma)))
+  $
+  其中
+  $
+    a = cos beta / 2 e^(-i / 2 (alpha + gamma)), b = -sin beta / 2 e^(-i / 2 (alpha - gamma))
+  $
+]
+上式给出*了Cayley-Klien参数和Euler角的关系*。
 
 最后讨论对应关系的多重性问题。
 
@@ -513,7 +541,7 @@ $
 
 利用对应关系，解出$R_u_0 = E_(3 times 3)$所对应的$alpha = 0, 2pi$，从而
 $
-  R_(u_0) = E_(3 times 3) = mat(1, 0, 0; 0, 1, 0; 0, 0, 1)=> cases(display(mat(e^(-i / 2), 0; 0, e^(i / 2)) = mat(1, 0; 0, 1)), display(mat(e^(-i pi), 0; 0, e^(i pi)) = - mat(1, 0; 0, 1)))
+  R_(u_0) = E_(3 times 3) = mat(1, 0, 0; 0, 1, 0; 0, 0, 1)=> cases(display(mat(e^(-i / 2 0), 0; 0, e^(i / 2 0)) = mat(1, 0; 0, 1)), display(mat(e^(-i pi), 0; 0, e^(i pi)) = - mat(1, 0; 0, 1)))
 $
 这里
 $
@@ -571,15 +599,15 @@ $
 $
 可以验证：$V_i$在$"SU"(2)$作用下是封闭的。而且每个$V_i$不再含有$"SU"(2)$的不变子空间。把$u$作用到$V_i$上，就可得到$"SU"(2)$群的一个$i$维不可约表示。
 
-我们知道$u$是$"SU"(2)$的一个忠实表示，我们希望可以通过$u$来构造出其他的表示，考虑到
-#note[
+我们知道*$u$是$"SU"(2)$的一个忠实表示*，我们希望可以通过$u$来构造出其他的表示，考虑到
+#example(subname: [$D_3$表示的直积])[
   注意到$D_3$有
   $
     Gamma times.circle Gamma = S plus.circle A plus.circle Gamma
   $
   可以用一个已知表示$Gamma$的表示来构造出新的表示$S, A$。
 ]
-对于紧致Lie群$"SU"(2)$，有
+按照同样的方式，对于紧致Lie群$"SU"(2)$，有
 $
   u times.circle u = sum plus.circle c_n A^((n))
 $
@@ -608,16 +636,14 @@ $
     {x_1 times.circle x_1, x_1 times.circle x_2, x_2 times.circle x_1, x_2 times.circle x_2}\
     x_1 times.circle x_2 plus.minus x_2 times.circle x_1 = cases(2 x_1 x_2, 0)\
   $
-  投影到函数空间$V^((3))$上时，我们可以只选择一个。
-
-  事实上这是由于这是同一个矢量的张量，反对称化一定是0。事实上对称化就是投影。
+  投影到函数空间$V^((3))$上时，我们可以只选择一个。由于这是同一个矢量的张量，反对称化一定是0。事实上对称化就是投影。
 
   对称化之后给出的基，当然是不可约的。
 ]
 一般地，
 $
   underbrace(u times.circle u times.circle ... times.circle u, k) = sum plus.circle c_n A^((n))\
-  underbrace(u times.circle u times.circle ... times.circle u, k) = sum plus.circle c_n V^((n))\
+  underbrace(CC^2 times.circle CC^2 times.circle ... times.circle CC^2, k) = sum plus.circle c_n V^((n))\
 $
 事实上，统一的表达式便是$x_1^(j+m) x_2^(j-m)$，为了幺正化
 $
@@ -657,7 +683,7 @@ $
   $
     A^((j)) (u v) = A^((j)) (u) A^((j)) (v)\
   $
-  但事实上由$u$和$u^(-1)$给出的函数形式变换都能给出一个表示。事实上由函数形式变换
+  由$u$和$u^(-1)$给出的函数形式变换都能给出一个表示。事实上由函数形式变换
   $
     P_(g_alpha) f_m (vb(r)) = f_m (g_alpha^(-1) vb(r)) = sum A_(m' m) f_m' (vb(r))\
     P(u) f_m (vb(r)) = f_m (u vb(r)) = sum A_(m m') f_m' (vb(r))\
@@ -690,19 +716,31 @@ $
 其中有
 $
   A_(m m')^((j)) = ((-)^(k-m+m') sqrt((j+m)! (j-m)! (j+m')! (j-m')!)) / ((j+m-k)! (j-m'-k)! k! (k-m+m')!) a^(j+m-k) a^(* j-m'-k) b^(k) (b^*)^(j-m+m')\
-$
+$<SU2>
 其中$k$满足
 $
   max(0, m-m') <= k <= min(j+m, j-m')\
 $
 $A^((j))$给出了$"SU"(2)$群的全部不等价不可约的幺正表示。
 
+#proposition(subname: [SU(2)群的不可约表示])[
+  对于$"SU"(2)$群的任意元素$u$，在函数基
+  $
+    f^j (vb(r)) = {f_m^j (x_1, x_2) | m = -j, -j+1, ..., j}\
+    f_m^j (x_1, x_2) = (x_1^(j+m) x_2^(j-m)) / sqrt((j+m)! (j-m)!)
+  $
+  下的表示为
+  $
+    P(u) f_m^j (vb(r)) = sum_(m'=-j)^(j) A_(m m')^((j))(u) f_m'^j (vb(r))
+  $
+]
+
 下表是一些实例
 #three-line-table[
   | $j$ | 基函数 | 表示矩阵$A^((j))$ |
   | --- | --- | --- |
   | $0$ | $ f^0_0 (vb(r)) = 1 $ | $ A^((0)) (u) = 1 $ |
-  | $1 / 2$ | $ f^1 / 2_(1 / 2) (vb(r)) = x_1, f^1 / 2_(-1 / 2) (vb(r)) = x_2 $ | $ A^((1 / 2)) (u) = mat(a, b; -b^*, a^*) $ |
+  | $1 / 2$ | $ f^(1 / 2)_(1 / 2) (vb(r)) = x_1, f^(1 / 2)_(-1 / 2) (vb(r)) = x_2 $ | $ A^((1 / 2)) (u) = mat(a, b; -b^*, a^*) $ |
   | $1$ | $ f^1_1 (vb(r)) = x_1^2, \ f^1_0 (vb(r)) = x_1 x_2,\ f^1_-1 (vb(r)) = x_2^2 $ | $ A^((1)) (u) = \ mat(a^2, sqrt(2)a b, b^2; -sqrt(2) a b^*, a^* a - b^* b, sqrt(2) a^* b; b^(*2), -sqrt(2) a^* b^*, a^(*2)) $ |
 ]
 
@@ -724,9 +762,20 @@ $A^((j))$给出了$"SU"(2)$群的全部不等价不可约的幺正表示。
 
 首先来确定表示$A^((j))$的特征标。因为任何一个酉矩阵可以通过么正变换对角化，所以任意$u in "SU"(2)$均可以和一个对角矩阵等价
 $
-  S u S^dagger = u_3 (phi) = mat(e^(-i / 2 phi), 0; 0, e^(i / 2 phi))
+  S u S^dagger = u_3 (phi) = mat(e^(-i / 2 phi), 0; 0, e^(i / 2 phi)), phi in [0, 4pi)
 $
-因为每个类中的元素有相同的特征标，故可以用$u_3 (phi)$来表示$"SU"(2)$的类。可以得到表示矩阵
+因为每个类中的元素有相同的特征标，故可以用$u_3 (phi)$来表示$"SU"(2)$的类。
+
+#proposition(subname: [SU(2)群的类])[
+  $"SU"(2)$群的类是由对角化后的转角 $phi$ 来描述的，即
+  $
+    "SU"(2) = {u_3 (phi) | phi in [0, 2pi)}
+  $
+]
+
+#newpara()
+
+利用 @SU2 ，可以得到$u_3 (phi)$表示矩阵
 $
   A^((j)) (u_3 (phi)) = mat(e^(-i j phi), 0, ..., 0; 0, e^(-i (j-1) phi), ..., 0; dots.v, dots.v, dots.down, dots.v; 0, 0, ..., e^(i j) phi)
 $
@@ -738,9 +787,17 @@ $
 $
   u' (phi) tilde u' (-phi)
 $
+
+#proposition(subname: [SU(2)群的特征标])[
+  $"SU"(2)$群的特征标为
+  $
+    chi^((j)) (phi) = sin(((2j+1)phi) / 2) / sin(phi / 2), j = 0, 1 / 2, 1, 3 / 2, ...
+  $
+]
+
 事实上特征标
 $
-  chi^((0)), chi^((1 / 2)), ... -> {1, cos(phi / 2), cos(phi) ...}\
+  chi^((0)), chi^((1 / 2)), chi^((1)) - chi^((0)), chi^((3 / 2)) - chi^((1 / 2)) ... \ -> {1, cos(phi / 2), cos(phi), cos(3 / 2 phi), ...}, phi in [0,2pi)\
 $
 是一套完备的Fourier基；从而得到了完备性。
 
@@ -753,7 +810,7 @@ $
 $
   braket(chi^((j)), chi^((j))) = 1 / 2pi integral_0^(2pi) chi^((j)*) (phi) chi^((j)) (phi) dd(phi) = 1
 $
-
+这也说明了$A^((j))$是*不可约*的。
 
 == SO(3) 群的不可约表示
 
@@ -804,10 +861,23 @@ $
     d_(m m')^((j)) (beta) = sum_k (-1)^k sqrt((j+m)! (j-m)! (j+m')! (j-m')!) / ((j+m-k)! (j-m'-k)! k! (k-m+m')!) \ (cos beta / 2)^(2j + m - m' - 2k) (sin beta / 2)^(2k - m + m')
   $
   有对称性：
-  - $d^((j))_(m m') (beta) = (-1)^(m - m')) d^((j))_(m' m) (beta)$
+  - $d^((j))_(m m') (beta) = (-1)^(m - m') d^((j))_(m' m) (beta)$
   - $d^((j))_(m m') (beta) = d^((j))_(-m' -m) (beta)$
   - $d^((j))_(m m') (-beta) = d^((j))_(m' m) (beta)$
   - $d^((j))_(m m') (pi - beta) = (-1)^(j - m') d^((j))_(-m' m) (beta)$
+
+#proposition(subname: [SO(3)群的单值表示])[
+  对于$"SO"(3)$群的任意元素$g(alpha, beta, gamma)$，在函数基
+  $
+    f^j (vb(r)) = {f_m^j (x_1, x_2) | m = -j, -j+1, ..., j}\
+    f_m^j (x_1, x_2) = (x_1^(j+m) x_2^(j-m)) / sqrt((j+m)! (j-m)!)
+  $
+  其中$j$为非负整数，下的表示为
+  $
+    D^((j))_(m m') (alpha, beta, gamma) = e^(-i m alpha) d_(m m')^((j)) (beta) e^(-i m' gamma)
+  $
+  是$"SO"(3)$的表示。
+]
 
 2. 当$j$为半整数的时候
 
@@ -832,7 +902,7 @@ $
   称覆盖群为$"SU"(2)$，称被覆盖群为$"SO"(3)$。
 ]
 
-== SU(2) 与 O(3) 群的李代数方法
+== SU(2) 与 O(3) 群的Lie代数方法
 
 === Lie代数的定义
 
@@ -873,10 +943,7 @@ $
   为$g$的*代数结构*，其中$C_(i j)^k$是*结构系数*，共$n^3$个，决定了Lie代数的分类。
 ]
 
-
-#note[
-  回顾：群的代数结构是Cayley表。Lie代数的代数结构是Lie积，事实上也是一个乘法表。
-]
+群的代数结构是Cayley表；而Lie代数的代数结构是Lie积，事实上也是一个乘法表。
 
 #proposition(subname: [Lie群结构系数的性质])[
   - $
@@ -893,7 +960,7 @@ $
 
 #newpara()
 
-Lie代数理论是以Lie三定理为基础的。此三定理表明：Lie群的无穷小群元素满足上述Lie代数的定义。实际上，Lie代数刻画的是Lie群在单位元邻域的性质。Lie代数的生成元的个数等于相应Lie群的群参数个数。
+Lie代数理论是以Lie三定理为基础的。此三定理表明：*Lie群的无穷小群元素满足上述Lie代数的定义。*实际上，Lie代数刻画的是Lie群在单位元邻域的性质。Lie代数的生成元的个数等于相应Lie群的群参数个数。
 
 #proposition(subname: [Lie群的生成元])[
   对于一般的Lie群$G$，其群元和群参数是
@@ -907,6 +974,10 @@ Lie代数理论是以Lie三定理为基础的。此三定理表明：Lie群的�
   $
   这就得到了生成元$X_r$。
 ]
+
+#newpara()
+
+本章的任务是以最简单的Lie群$"SU"(2)$与$"O"(3)$为例，寻找它们的Lie代数结构，并研究Lie代数的表示，以及与各自群表示的联系等。
 
 === $"SU"(2)$ 群的Lie代数结构
 
@@ -966,12 +1037,12 @@ $
   E - i vb(delta) dot vb(sigma)
 $
 从而
-#proposition(subname: [$"SU"(2)$的Lie代数与代数结构])[
-  容易验证$sigma_i$在Lie积下满足满足双线性，反对易性和 Jacobi 恒等式，$"SU"(2)$的代数是
+#proposition(subname: [$"SU"(2)$的Lie代数$"su"(2)$与代数结构])[
+  容易验证$sigma_i$在Lie积下满足满足双线性，反对易性和 Jacobi 恒等式，$"SU"(2)$的*代数*是
   $
     "su"(2) = {sigma_x, sigma_y, sigma_z}\
   $
-  其代数结构是
+  其*代数结构*是
   $
     [sigma_i, sigma_j] = 2 i epsilon_(i j k) sigma_k
   $
@@ -985,7 +1056,7 @@ $
 
 现在考虑 $"su"(2)$ 的生成元与 $"SU"(2)$ 群的元素间联系。
 
-考虑到无穷小线性变换的无穷多次乘积为一有限变换，并利用极限定义
+考虑到*无穷小线性变换*的无穷多次乘积为一有限变换，并利用极限定义
 $
   lim_(n->oo) (1 + T / n)^n = e^T
 $
@@ -996,6 +1067,14 @@ $
 $
 此二阶方阵满足幺正条件，且其行列式为 1，所以 $e^(- i vb(r) dot vb(sigma))in"SU"(2)$ 群元素。
 
+#proposition(subname: [SU(2)群元素与$"su"(2)$的关系])[
+  $"SU"(2)$ 群的任意元素 $u$ 可以用指数映射
+  $
+    u = e^(- i vb(r) dot vb(sigma))\
+  $
+  来表示，其中 $vb(r) = mat(x; y; z)$。
+]
+
 #note[
   #diagram($
     "SU"(2) edge("r", #[Taylor], ->, bend: #10deg) &edge("l", #[Exp], ->, bend: #10deg) "su"(2)\
@@ -1004,20 +1083,20 @@ $
   一般地，一个Lie群进行线性化就给出了一个Lie代数，反之一个Lie代数也可以通过指数映射给出一个Lie群。
 ]
 
-考虑到
+有
 $
-  g(alpha beta gamma) = C_k (alpha) C_j (beta) C_k (gamma) = u_1 (alpha) u_2 (beta) u_1 (gamma) = U(alpha beta gamma)
+  g(alpha beta gamma) = C_k (alpha) C_j (beta) C_k (gamma) = u_1 (alpha) u_2 (beta) u_1 (gamma) = e^(- i alpha sigma_z) e^(- i beta sigma_y) e^(- i gamma sigma_z) = U(alpha beta gamma)
 $
 以及
 $
-  g(theta phi psi) = C_k (theta) C C C C = U(theta phi psi) = cos psi / 2 - i (vb(r) dot vb(sigma)) sin psi / 2
+  g(theta phi psi) = C_k (phi) C_j (theta) C_k (psi) C_j^(-1) (theta) C_k^(-1) (phi) = U(theta phi psi) = cos psi / 2 - i (vb(r) dot vb(sigma)) sin psi / 2
 $
 
 === $"SO"(3)$的代数结构
 
 $"SO"(3)$的定义为
 $
-  "SO"(3) = {A in "GL"(3,RR) | A^T A = A A^T = E, det(A) = 1}
+  "SO"(3) = {A in "GL"(3,RR) | A^TT A = A A^TT = E, det(A) = 1}
 $
 在单位元邻域的群元素可以写成三阶单位矩阵 $E$ 与无穷小矩阵 $M$ 之和，即
 $
@@ -1025,7 +1104,7 @@ $
 $
 由正交条件，并略去二阶及二阶以上无穷小量，得到
 $
-  M^T + M = 0
+  M^TT + M = 0
 $
 即要求 $M$ 是一个反对称矩阵。
 
@@ -1037,7 +1116,7 @@ $
 $
   M = delta vb(psi) dot vb(I) = delta psi vb(n) dot vb(I)
 $
-其中$delta vb(psi) = mat(delta psi_x; delta psi_y; delta psi_z)$，$vb(n) = mat(cos theta sin phi; sin theta sin phi; cos phi)$，$I = mat(I_x; I_y; I_z)$。所以，与 $"SO"(3)$ 的单位元无限接近的群元素写为
+其中$delta vb(psi) = mat(delta psi_x; delta psi_y; delta psi_z)$是一阶无穷小矢量，$vb(n) = mat(cos theta sin phi; sin theta sin phi; cos phi)$，$I = mat(I_x; I_y; I_z)$。所以，与 $"SO"(3)$ 的单位元无限接近的群元素写为
 $
   E + delta vb(psi) dot vb(I)
 $
@@ -1058,18 +1137,48 @@ $
 $
   C_vb(n) (psi) = e^(- i psi vb(n) dot vb(J))
 $
+
+#proposition(subname: [SO(3)的Lie代数])[
+  $"SO"(3)$的*Lie代数*是
+  $
+    "so"(3) = {J_x, J_y, J_z}\
+  $
+  其*代数结构*是
+  $
+    [J_i, J_j] = i epsilon_(i j k) J_k
+  $
+]
+
 $
   g(alpha beta gamma) = e^(- i alpha J_z) e^(- i beta J_y) e^(- i gamma J_z) = C_k (alpha) C_j (beta) C_k (gamma)\
 $
 
+实际上，$J_i$就是量子力学中我们熟知的角动量算符 $vb(J)$ 的三个分量，所以有的文献上也称$"o"(3)$ 为角动量代数。
+
+同样可以证明：把绕 $vb(n)$ 轴的无穷小旋转连续操作无穷多次将给出绕 $vb(n)$ 轴的一个有限旋转
+$
+  lim_(n->oo) (E - i (vb(psi) dot vb(J)) / m)^m = e^(- i psi vb(n) dot vb(J)) = C_vb(n) (psi)
+$
+和前面的矩阵一致。
+
 === $"su"(2)$和$"o"(3)$的同构
 
+与群的同构概念类似，李代数也可以定义同构的概念：若两个李代数 $g$ 与 $g'$ 的生成元之间存在一一对应关系，且此对应关系保持李积不变，则称 $g$ 与 $g'$ 是同构的，记作 $g tilde.equiv g'$。
+
+个同构的李代数从抽象数学的角度讲是完全一样的。
+
+重新标度$"su"(2)$的生成元
 $
-  vb(J) = 1 / 2 vb(sigma)
+  vb(J)' = 1 / 2 vb(sigma)
 $
-$
-  "su"(2) tilde.equiv "o"(3)
-$
+那么$vb(J)'$满足与 $"o"(3)$ 的生成元 $vb(J)$ 相同的对易关系，从而
+#proposition(subname: [su(2)与o(3)的同构])[
+  $"su"(2)$与$"o"(3)$是同构的，记作
+  $
+    "su"(2) tilde.equiv "o"(3)
+  $
+]
+
 #note[
   #diagram($
     "SU"(2)"单连通" edge("d", approx, <->) edge("r", tilde^(2:1), <-->)& "SO"(3)"多联通" edge("dl", approx, <-->) \
@@ -1590,7 +1699,7 @@ $
 #note[
   由于群元$e^(- i vb(J)_1 dot vb(r)) times e^(- i vb(J)_2 dot vb(r)) = e^(- i vb(J) dot vb(r))$。从而对于群是直积，而对于群代数是直和。
 ]
-系统 1 的角动量$vb(J)_1$生成李代数（角动量代数）$"so"(3)_1$，系统 2 的角动量$vb(J)_2$生成李代数（角动量代数）$"so"(3)_2$，并且有对易关系
+系统 1 的角动量$vb(J)_1$生成Lie代数（角动量代数）$"so"(3)_1$，系统 2 的角动量$vb(J)_2$生成Lie代数（角动量代数）$"so"(3)_2$，并且有对易关系
 $
   [vb(J)_1, vb(J)_2] = 0\
 $
@@ -1608,7 +1717,7 @@ $
 $
   vb(J) = vb(J)_1 + vb(J)_2\
 $
-生成的李代数$"so"(3)$，有力学量完备集
+生成的Lie代数$"so"(3)$，有力学量完备集
 $
   {vb(J)^2, J_z, vb(J)_1^2, vb(J)_2^2}\
 $
