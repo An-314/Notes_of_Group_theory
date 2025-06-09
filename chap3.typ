@@ -1837,7 +1837,11 @@ $
       j = abs(j_1-j_2), abs(j_1-j_2)+1, ..., j_1+j_2\
     $
 2. 计算 CG 系数
-基本思路：将算符 $J_(plus.minus), J_(1 plus.minus), J_(2 plus.minus)$ 作用到$ket(j m)$式两边，可以得到 CG 系数满足的递推方程。之后化简即可，这里略去。
+基本思路：将算符 $J_(plus.minus), J_(1 plus.minus), J_(2 plus.minus)$ 作用到$ket(j m)$式两边，可以得到 CG 系数满足的递推方程。
+$
+  &sqrt((j plus.minus m + 1)(j minus.plus m)) braket(j_1 m_1 j_2 m_2, j m plus.minus 1)\ = &sqrt((j_1 minus.plus m_1)(j_1 plus.minus m_1 + 1)) braket(j_1 m_1 minus.plus 1 j_2 m_2, j m) + sqrt((j_2 minus.plus m_2)(j_2 plus.minus m_2 + 1)) braket(j_1 m_1 j_2 m_2 minus.plus 1, j m)
+$
+之后化简即可，这里略去。
 
 #note[
   CG系数有许多不同的名称和符号，如，*Wigner系数*或 *3j系数*
@@ -2027,7 +2031,7 @@ $
   称$V^k$为$"SO"(3)$群的$k$秩*不可约张量算符*，如果它的$2k+1$个分量算符$V_q^k$满足
   $
     [J_z, V_q^k] = q V_q^k\
-    [J_(plus.minus), V_q^k] = sqrt((k minus.plus q)(k minus.plus q + 1)) V_(q plus.minus 1)^k\
+    [J_(plus.minus), V_q^k] = sqrt((k minus.plus q)(k plus.minus q + 1)) V_(q plus.minus 1)^k\
   $
   其中
   $
@@ -2249,7 +2253,7 @@ $
   $V^k_q$是$k$秩不可约张量算符，满足
   $
     P(g) V_q^k P^dagger(g) = sum_q' V_q'^k D_(q' q)^((k))(g)\
-    P(g) V_q^k = sum_q' V_q'^k D_(q' q)^((k))(g) P(g\
+    P(g) V_q^k = sum_q' V_q'^k D_(q' q)^((k))(g) P(g)\
   $
   计算上式在基$bra(j m)$和$ket(j_1 m_1)$之间的矩阵元
   $
