@@ -1996,42 +1996,76 @@ $
 $
   phi(vb(r)) = P_g^(-1) T' (vb(r)) P_g phi(vb(r))\
 $
-我们称
+可以得到算符$T(vb(r))$在坐标变换前后的不同形式之间的关系
 $
   T'(vb(r)) = P_g T(vb(r)) P_g^dagger\
 $
 
 === 不可约张量算符
 
-$
-  {V_q^k,(q=-k,...,k)}
-$
-是群的 $k$ 秩不可约张量算符
-$
-  P_g V_q^k P_g^dagger = sum_q D_(q' q)^((k)) V_q'^k
-$
+#definition(subname: [不可约张量算符])[
+  称$vb(V)^k$为$"SO"(3)$群的$k$秩*不可约张量算符*如果它的$2k+1$个分量算符$V^k_q (q=k, k-1, ..., -k)$按$"SO"(3)$群的不可约表示$D^((k))_(q' q)(alpha beta gamma)$变换
+  $
+    {V_q^k,(q=-k,...,k)}
+  $
+  满足
+  $
+    P(alpha beta gamma) V_q^k P^dagger (alpha beta gamma) = sum_q' D_(q' q)^((k)) (alpha beta gamma) V_q'^k
+  $<ITO>
+]
+
 
 #newpara()
 
 考虑
 $
-  R phi_m (vb(r)) = sum_j D_(m' m)^((j)) phi_m' (vb(r))\
+  R phi_m (vb(r)) = sum_m' D_(m' m)^((j)) phi_m' (vb(r))\
 $
 就说${phi_m}$是按照不可约张量算符$D^((j))$变换的，给出了表示的一个分类。
 
-==== 代数的观点
-
-称$V^k$为$"SO"(3)$群的$k$秩不可约张量算符，如果它的$2k+1$个分量算符$V_q^k$满足
-$
-  [J_z, V_q^k] = q V_q^k\
-  [J_(plus.minus), V_q^k] = sqrt((k minus.plus q)(k minus.plus q + 1)) V_(q plus.minus 1)^k\
-$
-
-#example()[
-  例如$H$的不可约张量算符$V^0$为0秩的。
+#definition(subname: [不可约张量算符])[
+  称$V^k$为$"SO"(3)$群的$k$秩*不可约张量算符*，如果它的$2k+1$个分量算符$V_q^k$满足
+  $
+    [J_z, V_q^k] = q V_q^k\
+    [J_(plus.minus), V_q^k] = sqrt((k minus.plus q)(k minus.plus q + 1)) V_(q plus.minus 1)^k\
+  $
+  其中
+  $
+    J_plus.minus = J_x plus.minus i J_y\
+  $
+  和前面的$J_(plus.minus 1)$定义不同。
 ]
 
-#example(subname: [角动量算符$vb(J)$的笛卡尔分量])[
+这两个定义是完全等价的。
+
+#proof[
+  在 @ITO 中取$P(00gamma), P(0beta 0), P(-pi / 2 alpha pi / 2)$有
+  $
+    P(00gamma) V_q^k P^dagger (00gamma) = sum_(q') D_(q' q)^((k)) (00gamma) V_q'^k\
+    P(0beta 0) V_q^k P^dagger (0beta 0) = sum_(q') D_(q' q)^((k)) (0beta 0) V_q'^k\
+    P(-pi / 2 alpha pi / 2) V_q^k P^dagger (-pi / 2 alpha pi / 2) = sum_(q') D_(q' q)^((k)) (-pi / 2 alpha pi / 2) V_q'^k\
+  $
+  对上述三式两边分别对参数$gamma , beta ,alpha$ 作微商，然后取$gamma , beta ,alpha$ 为 0，化简即得
+  $
+    [J_z, V_q^k] = q V_q^k\
+    [J_y, V_q^k] = - i / 2 sqrt((k - q)(k + q + 1)) V_(q + 1)^k + i / 2 sqrt((k + q)(k - q + 1)) V_(q - 1)^k\
+    [J_x, V_q^k] = 1 / 2 sqrt((k - q)(k + q + 1)) V_(q + 1)^k + 1 / 2 sqrt((k + q)(k - q + 1)) V_(q - 1)^k\
+  $
+]
+
+如果 $vb(V)^k$ 代表一个物理量，那么 $k$ 必须是整数；否则，由 $D^((k))$ 的性质推知 $vb(V)^k$ 是双值的，即旋转 $2pi$ 后，该量将要乘上一个负号。
+
+#example(subname: [标量算符])[
+  例如$H$的不可约张量算符$V^0$为0秩的。
+
+  标量算符是 0 秩不可约张量算符。它只有 1 个分量，且在空间旋转下不变
+  $
+    P(alpha beta gamma) V^0_0 P^dagger (alpha beta gamma) = D^((0))_(q' q) (alpha beta gamma) V^0_0 = V^0_0\
+  $
+  例如在量子力学系统中，各向同性系统的Hamilton算符$H$是一个标量算符，自旋轨道相互作用算符$vb(S) dot vb(L)$也是一个标量算符。
+]
+
+#example(subname: [角动量算符$vb(J)$的Descartes分量])[
   $
     vb(J) = {J_1, J_2, J_3}\
   $
@@ -2051,15 +2085,15 @@ $
   $
   #newpara()
 
-  在$"SO"(3)$的作用下，角动量算符的球谐分量（不可约张量）按$D^((1))$不可约表示进行变换。
+  在$"SO"(3)$的作用下，角动量算符的*球谐分量（不可约张量）*按$D^((1))$不可约表示进行变换。
 
-  而笛卡尔形式有变换
+  而Descartes形式有变换
   $
     mat(J_1'; J_2'; J_3') = mat(R(alpha,beta,gamma))mat(J_1; J_2; J_3)\
   $
 ]
 
-对一般的矢量$vb(r), vb(p)$，也可以化成球谐的形式，将基
+对一般的矢量$vb(r), vb(p)$，也可以化成*球谐的形式*，将基
 $
   {vu(e)_i} => {vu(epsilon)_mu | mu = plus.minus 1, 0}\
 $
@@ -2112,12 +2146,9 @@ $
 
 === 不可约张量算符的厄米共轭运算
 
-下面我们希望有Hermitian共轭的不可约张量算符$V_q^k$，即
-$
-  (V_q^k)^dagger = V_(-q)^k\
-$
-对多分量的不可约张量算符$vb(V)^k(k != 0)$其Hermitian共
-轭$vb(V)^(k dagger)$一般不再是不可约张量算符了。
+下面我们希望有Hermitian共轭的不可约张量算符$V_q^k$。
+
+若只对不可约张量算符$vb(V)^k$的某一个分量$V_q^k$做厄米共轭运算$(V_q^k)^dagger$。对多分量的不可约张量算符$vb(V)^k (k != 0)$其Hermitian共轭$vb(V)^(k dagger)$一般不再是不可约张量算符了。
 
 对于
 $
@@ -2125,14 +2156,14 @@ $
 $
 取共轭
 $
-  P_g V_q^(k dagger) P_g^dagger &= sum_q' D_(q' q)^((k)*) (V_(q')^k)^dagger\
+  P_g (V_q^(k))^dagger P_g^dagger &= sum_q' D_(q' q)^((k)*) (V_(q')^k)^dagger\
   &= sum_q' (-)^(q-q') D_(-q' -q)^((k)) (V_(q')^k)^dagger\
 $
 作替换 $q->-q, q'->-q'$变为
 $
   P_g ((-1)^q (V_(-q)^k)^dagger) P_g^dagger = sum_q' D_(q' q)^((k)) ((-1)^q (V_(- q')^k)^dagger)\
 $
-此式说明 $(-1)^q (V_(-q)^k)^dagger$也是不可约张量算符。定义
+此式说明 $(-1)^q (V_(-q)^k)^dagger$*也是不可约张量算符*。定义
 $
   V_q^(k dagger) = (-)^(q) (V_(-q)^k)^dagger\
 $
@@ -2144,6 +2175,10 @@ $
   V_q^(k dagger) = V_q^k
 $
 这意味着$vb(V)^k$是 Hermitian 的。
+
+#note[
+  注意$V^(k dagger)_q = (vb(V)^(k dagger))_q$和$(V^k_q)^dagger$的区别。前者代表张量算符的Hermitian共轭，后者代表张量算符的某个分量的Hermitian共轭。
+]
 
 有
 $
@@ -2171,29 +2206,107 @@ $
 $
 一共5个。这样就得到了9个分量。
 
-不可约张亮算符的耦合
+不可约张量算符的耦合
 $
-  V^(k_1) times.circle V^(k_2) = V^k
+  vb(V)^(k_1) times.circle vb(V)^(k_2) = vb(V)^k
 $
 其中有
 $
-  V^k_q = sum_(q_1 q_2) braket(k_1 q_1 k_2 q_2, k q) V^((k_1))_(q_1) V^((k_2))_(q_2)\
+  V^k_q = sum_(q_1 q_2) braket(k_1 q_1 k_2 q_2, k q) V^(k_1)_(q_1) V^(k_2)_(q_2)\
 $
-这里的$braket(k_1 q_1 k_2 q_2, k q)$是 Clebsch-Gordon 系数，使得$V^k$拥有对称性。
+这里的$braket(k_1 q_1 k_2 q_2, k q)$是 Clebsch-Gordon 系数，使得$vb(V)^k$拥有对称性。可以证明$V^k_q$满足不可约张量算符的定义
+$
+  P_g V^k_q P_g^dagger &= sum_(q_1 q_2) braket(k_1 q_1 k_2 q_2, k q) P_g V^(k_1)_(q_1) V^(k_2)_(q_2) P_g^dagger \
+  &= sum_(q_1 q_2) braket(k_1 q_1 k_2 q_2, k q) (P_g V^(k_1)_(q_1) P_g^dagger)(P_g V^(k_2)_(q_2) P_g^dagger)\
+  &= sum_(q_1 q_2 q'_1 q'_2) braket(k_1 q_1 k_2 q_2, k q) D_(q'_1 q_1)^((k_1)) D_(q'_2 q_2)^((k_2)) V^(k_1)_(q'_1) V^(k_2)_(q'_2)\
+  &= sum_q' D_(q' q)^((k)) V^k_q\
+$
 
-对于
-$
-  [vb(J)_1 times.circle vb(J)_2]^k = sum_(q_1,q_2) braket(1 q_1 1 q_2, k q) J_(q_1)^k_1 J_(q_2)^k_2\
-$
-因此$k=0,1,2$
-$
-  [vb(J)_1 times.circle vb(J)_2]^0 = vb(J)_1 dot vb(J)_2\
-  [vb(J)_1 times.circle vb(J)_2]^1 = vb(J)_1 times vb(J)_2\
-$
+#example(subname: [两个角动量的耦合])[
+  对于
+  $
+    [vb(J)_1 times.circle vb(J)_2]^k = sum_(q_1,q_2) braket(1 q_1 1 q_2, k q) J_(q_1)^k_1 J_(q_2)^k_2\
+  $
+  因此$k=0,1,2$。这些张量的分量是由角动量的球谐分量表达出来的。另外，我们注意到$0$秩$1$ 秩张量就是通常的点积和叉积，
+  $
+    [vb(J)_1 times.circle vb(J)_2]^0 = vb(J)_1 dot vb(J)_2\
+    [vb(J)_1 times.circle vb(J)_2]^1 = vb(J)_1 times vb(J)_2\
+  $
+  现在知道，点积和叉积这两个定义是有确定对称性的。
+]
 
 === Wigner-Eckart 定理
 
-不可约张量算符在标准角动量本征态间的矩阵元可以分成两个因子的乘积
-$
-  braket(j' m', V_q^k, j m) = braket(j, abs(V^k), j') braket(j' m', k q j m) \
-$
+#theorem(subname: [Wigner-Eckart 定理])[
+  不可约张量算符在标准角动量本征态间的矩阵元可以分成两个因子的乘积
+  $
+    braket(j' m', V_q^k, j m) = braket(j, abs(V^k), j') braket(j' m', k q j m) \
+  $
+  其中$braket(j, abs(V^k), j')$称为*约化矩阵元*。在旋转操作下，$braket(j, abs(V^k), j')$不变，从而与$m', q, m$无关。约化矩阵元包含系统的动力学性质。矩阵元$braket(j' m', V_q^k, j m)$对坐标系转动的依赖性反映在CG系数上。CG系数表示体系的几何性质。
+]
+
+#proof[
+  $V^k_q$是$k$秩不可约张量算符，满足
+  $
+    P(g) V_q^k P^dagger(g) = sum_q' V_q'^k D_(q' q)^((k))(g)\
+    P(g) V_q^k = sum_q' V_q'^k D_(q' q)^((k))(g) P(g\
+  $
+  计算上式在基$bra(j m)$和$ket(j_1 m_1)$之间的矩阵元
+  $
+    sum_m' braket(j m, P(g), j m') braket(j m', V_q^k, j_1 m_1) = sum_(m'_1, q') braket(j m, V_q'^k, j_1 m'_1) braket(j_1 m'_1, P(g), j_1 m_1) D_(q' q)^((k))(g)\
+  $
+  得
+  $
+    sum_m' D_(m m')^((j)) (g) braket(j m', V_q^k, j_1 m_1) = sum_(m'_1, q') braket(j m, V_q'^k, j_1 m'_1) D_(m'_1 m_1)^((j_1)) (g) D_(q' q)^((k))(g)\
+  $
+  这正是 CG 系数 $braket(j m', k q j_1 m_1)$ 满足相同的方程（相差一个与 $m' q m_1$ 和 $m q' m'_1$ 无关的数）
+  $
+    D^((j))_(m' m)(g) braket(j m', k q j_1 m_1) = sum_q' braket(j m, k q' j_1 m'_1) D^((j_1))_(m'_1 m_1)(g) D^((k))_(q' q)(g)\
+  $
+  于是有
+  $
+    braket(j' m', V_q^k, j m) = braket(j, abs(V^k), j') braket(j' m', k q j m)
+  $
+]
+
+Wigner-Eckart 定理告诉我们：
+- 如果只是判断 $braket(j' m', V_q^k, j m)$ 对指标 $m, q, m'$的依赖关系，那么只需考虑 CG 系数，而把约化因子看成共同的未知常数。
+- 如果计算矩阵元 $braket(j' m', V_q^k, j m)$ 那么只需有选择性地（特殊的 $m, q, m'$）计算约化矩阵元
+  $
+    braket(j, abs(V^k), j') = braket(j' m', V_q^k, j m) / braket(j' m', k q j m)\
+  $
+
+#example(subname: [标量算符的矩阵元])[
+  标量算符是 0 秩不可约张量，利用 Wigner-Eckart 定理，有
+  $
+    braket(j' m', V^0_0, j m) &= braket(j, abs(V^0), j') braket(j' m', 0 0 j m)\
+    &= delta_(j' j) braket(j, abs(V^0), j')
+  $
+]
+
+#example(subname: [求$k$秩不可约张量算符$V_q^k$的迹])[
+  $
+    Tr V^k_q &= sum_(j m) braket(j m, V^k_q, j m) \
+    &= sum_(j m) braket(j, abs(V^k), j) braket(j m, k q j m)\
+  $
+  利用 CG 系数的三角条件知：只有当$k = 0$时，$V^k_q$的迹才不为零。故*只有标量算符的迹才有可能不为零*。
+]
+
+#example(subname: [角动量算符$vb(J)$的球谐形式$J_0,J_(plus.minus 1)$的矩阵元])[
+  前面已经证明，角动量$vb(J)$是1 秩不可约张量。利用 Wigner-Eckart 定理，$vb(J)$的三个球谐分量$J_q^1$的矩阵元写成
+  $
+    braket(j' m', J_q^1, j m) = braket(j, abs(J^1), j') braket(j' m', 1 q j m)\
+  $
+  现在只需要通过某一已知算符的矩阵元来确定约化矩阵元$braket(j, abs(J^1), j')$。例如，$J^1_0$的矩阵元
+  $
+    m' delta_(j' j) delta_(m' m) = braket(j' m', J^1_0, j m) = braket(j, abs(J^1), j') braket(j' m', 1 0 j m)\
+  $
+  并利用 CG 系数的解析表达式，可以推出
+  $
+    braket(j, abs(J^1), j') = (m delta_(j' j)) / braket(j' m', 1 0 j m) = - delta_(j' j) sqrt(2j + 1)\
+  $
+  于是有
+  $
+    braket(j' m', J_q^1, j m) = - m delta_(j' j) sqrt(2j + 1) braket(j' m', 1 q j m)\
+  $
+]
