@@ -1017,17 +1017,126 @@ $
 
 == $S_n$ 的单纯特征标
 
-$S_n$ 的不可约表示的特征标称为*单纯特征标*，记为$chi^[lambda]$。
+$S_n$ 的不可约表示的特征标称为*单纯特征标*，记为$Chi^[nu]_[a]$，其中$[nu]=[nu_1,nu_2,...,nu_m]$是$S_n$的不可约表示$[nu]$的标记，$[a]=[a_1,a_2,...,a_m]$是$S_n$的类。此处的类是按长度排的，它与之前常用的分割$[lambda]$是互为转置关系，即$[a]=[lambda]^TT$
 
-按轮换长度
+$S_n$的单纯特征标可用如下规则方便地求出。
+
+先在杨图$[a]$的格子里填入数字：第$i$行$a_i$个格子都填上$i$。
+
+$Chi^[nu]_[a]$的计算方法为：
+$
+  Chi^[nu]_[a] = sum_i (-1)^t_i
+$
+式中的求和是指把$a_1,a_2,...,a_m$个格子中的数字依次填入$[nu]$格子的所有可能途径；$t_i$为在第$i$个已填入数字的$[nu]$中标号为$1，2，...，m$的格子的“距”之和，各标号的“距”为该标号格子中最长一列的格子数减 1。
+
+把$[a]$格子中的数字填入$[nu]$格子的规则为：
+- 每组相同数字填完后，所填格子不能间断，即数字相同的格子在杨图$[nu]$上是一个连续段；
+- 每一步填入都要使所得到的方格图为一杨图，且从上向下或从左向右看，数字是不减的；
+- 每一步填入相同数字的格子都须形成该步的杨图的一个阶梯连续段。阶梯连续段是指由该填数的最左下方格子出发，仅沿向右或向上两个方向（即阶梯方向），便可走完该填数的全部格子。
+
+当不能按上述规则来填加时，
+$
+  Chi^[nu]_[a] = 0
+$
+
+#example(subname: [])[
+  求$S_8$的属于类$[4,2,2]$的元素在不可约表示$[4,2,2]$中的特征标$Chi^[4,2,2]_[4,2,2]$。
+
+  先把类$[422]$中的格子做上标记：四个格子标记为1，两个格子标记为2，两个格子标记为 3。然后把这些数字连续地填加（即先添四个1，再添两个2，...）到不可约表示$[422]$的格子里，共有四种方法构成不可约表示$[422]$的图，它们是
+  #grid(columns: (1fr,) * 2, row-gutter: 1em)[
+    - $(-1)^(0+0+0) = 1$
+      #let tab = (
+        (vlinex(end: 3), vlinex(end: 3), vlinex(end: 3), vlinex(end: 1), vlinex(end: 1)),
+        (hlinex()),
+        ([1], [1], [1], [1]),
+        (hlinex(),),
+        ([2], [2], [], []),
+        (hlinex(end: 2),),
+        ([3], [3], [], []),
+        (hlinex(end: 2),),
+      )
+      #gridx(
+        columns: (2em,) * 4,
+        rows: (2em,) * 3,
+        align: center,
+        ..tab.flatten(),
+      )
+  ][
+    - $(-1)^(0+1+1) = 1$
+      #let tab = (
+        (vlinex(end: 3), vlinex(end: 3), vlinex(end: 3), vlinex(end: 1), vlinex(end: 1)),
+        (hlinex()),
+        ([1], [1], [1], [1]),
+        (hlinex(),),
+        ([2], [3], [], []),
+        (hlinex(end: 2),),
+        ([2], [3], [], []),
+        (hlinex(end: 2),),
+      )
+      #gridx(
+        columns: (2em,) * 4,
+        rows: (2em,) * 3,
+        align: center,
+        ..tab.flatten(),
+      )
+  ][
+    - $(-1)^(2+1+0) = -1$
+      #let tab = (
+        (vlinex(end: 3), vlinex(end: 3), vlinex(end: 3), vlinex(end: 1), vlinex(end: 1)),
+        (hlinex()),
+        ([1], [1], [3], [3]),
+        (hlinex(),),
+        ([1], [2], [], []),
+        (hlinex(end: 2),),
+        ([1], [2], [], []),
+        (hlinex(end: 2),),
+      )
+      #gridx(
+        columns: (2em,) * 4,
+        rows: (2em,) * 3,
+        align: center,
+        ..tab.flatten(),
+      )
+  ][
+    - $(-1)^(2+0+1) = -1$
+      #let tab = (
+        (vlinex(end: 3), vlinex(end: 3), vlinex(end: 3), vlinex(end: 1), vlinex(end: 1)),
+        (hlinex()),
+        ([1], [1], [2], [2]),
+        (hlinex(),),
+        ([1], [3], [], []),
+        (hlinex(end: 2),),
+        ([1], [3], [], []),
+        (hlinex(end: 2),),
+      )
+      #gridx(
+        columns: (2em,) * 4,
+        rows: (2em,) * 3,
+        align: center,
+        ..tab.flatten(),
+      )
+  ]
+  其中幂次上的第一、二、三个数分别是标号 1、2、3 的距。于是有
+  $
+    Chi^[4,2,2]_[4,2,2] = 1 + 1 - 1 - 1 = 0
+  $
+]
+
+#example()[
+  求$S_n$的类$[n]$在不可约表示$[p,1^q]$（其中 $p+q=n$）中的特征标$Chi^[p, 1^q]_[n]$
+]
 
 == $S_n$ 到 $S_(n-1)$ 的分支律
 
-$S_(n-1)$是$S_n$的子群，所以$S_n$的不可约表示$[lambda]_n$作为$S_(n-1)$的表示一般是可约的。利用特征标方法可以确定$S_{n-1}$的哪些不可约表示$[lambda']_{n-1}$包含在$S_n$的$[lambda]_n$中，即
+#definition(subname: [分支律])[
+  *分支律*是指从一个群到其子群的不可约表示的直和分解。
+]
+
+$S_(n-1)$是$S_n$的子群，所以$S_n$的不可约表示$[lambda]_n$作为$S_(n-1)$的表示一般是可约的。利用特征标方法可以确定$S_{n-1}$的哪些不可约表示$[lambda']_(n-1)$包含在$S_n$的$[lambda]_n$中，即
 $
   [lambda]_n -> sum_(lambda') plus.circle [lambda']_(n-1)
 $
-称为$S_n$到$S_(n-1)$的分支律，记为$S_n arrow.b S_(n-1)$
+称为$S_n$到$S_(n-1)$的*分支律*，记为$S_n arrow.b S_(n-1)$。
 
 事实上分支律是直和分解。
 
@@ -1045,30 +1154,149 @@ $
   从群链中的不可约表示的标记可以构造出量子数的系统。
 ]
 
+#proposition(subname: [分支律])[
+  若将$S_n$的杨图$[lambda]_n$的某一个方格去掉后仍然是一个允许的杨图$[lambda']_(n-1)$，那么$[lambda']_(n-1)$必包含在$S_n$到$S_(n-1)$的约化中。
+]
+
+#example(subname: [$S_4 arrow.b S_3$])[
+  已知$S_4$有如下 5 个杨图，在每一个杨图中标记有“\*”号的方格可以被分别去掉
+  #grid(columns: (1fr,) * 2, row-gutter: 1em)[
+    - $[4]$
+      #let tab = (
+        (vlinex(), vlinex(), vlinex(), vlinex(), vlinex()),
+        (hlinex()),
+        ([], [], [], [\*]),
+        (hlinex()),
+      )
+      #gridx(
+        columns: (2em,) * 4,
+        rows: (2em,) * 1,
+        align: center,
+        ..tab.flatten(),
+      )
+  ][
+    - $[3,1]$
+      #let tab = (
+        (vlinex(end: 3), vlinex(end: 3), vlinex(end: 1), vlinex(end: 1)),
+        (hlinex()),
+        ([], [], [\*]),
+        (hlinex()),
+        ([\*], [], []),
+        (hlinex(end: 1),),
+      )
+      #gridx(
+        columns: (2em,) * 3,
+        rows: (2em,) * 2,
+        align: center,
+        ..tab.flatten(),
+      )
+  ][
+    - $[2,2]$
+      #let tab = (
+        (vlinex(end: 2), vlinex(end: 2), vlinex(end: 2)),
+        (hlinex()),
+        ([], []),
+        (hlinex()),
+        ([], [\*]),
+        (hlinex()),
+      )
+      #gridx(
+        columns: (2em,) * 2,
+        rows: (2em,) * 2,
+        align: center,
+        ..tab.flatten(),
+      )
+  ][
+    - $[2,1,1]$
+      #let tab = (
+        (vlinex(end: 3), vlinex(end: 3), vlinex(end: 1)),
+        (hlinex()),
+        ([], [\*]),
+        (hlinex()),
+        ([], []),
+        (hlinex(end: 1),),
+        ([\*], []),
+        (hlinex(end: 1),),
+      )
+      #gridx(
+        columns: (2em,) * 2,
+        rows: (2em,) * 3,
+        align: center,
+        ..tab.flatten(),
+      )
+  ][
+    - $[1,1,1,1]$
+      #let tab = (
+        (vlinex(end: 4), vlinex(end: 4)),
+        (hlinex()),
+        [],
+        (hlinex()),
+        [],
+        (hlinex()),
+        [],
+        (hlinex()),
+        [\*],
+        (hlinex()),
+      )
+      #gridx(
+        columns: (2em,) * 1,
+        rows: (2em,) * 4,
+        align: center,
+        ..tab.flatten(),
+      )
+  ]
+  于是，$S_4 arrow.b S_3$的分支律为
+  $
+    [4] &-> [3]\
+    [3,1] &-> [2,1] plus.circle [3]\
+    [2,2] &-> [2,1]\
+    [2,1,1] &-> [2,1] plus.circle [1,1,1]\
+    [1,1,1,1] &-> [1,1,1]
+  $
+]
+
+#proposition(subname: [分支律])[
+  $S_(n-1)$ 的不可约表示$[lambda']_{n-1}$在$S_n$到$S_(n-1)$的约化中只出现一次。
+]
 
 == $S_n$ 的两个不可约表示的直积分解
 
-没有一般性的结果
+$S_n$的两个不可约表示$[lambda_1]$和$[lambda_2]$的直积$[lambda_1] times.circle [lambda_2]$一般是可约的，它可以约化为$S_n$的不可约表示的直和，即
+$
+  [lambda_1] times.circle [lambda_2] = sum_lambda plus.circle a_lambda [lambda]
+$
+其中$a_lambda$为$[lambda]$出现的次数。没有一般性的结果。
 
+#proposition(subname: [对偶])[
+  对于两个表示$[lambda], [mu]$，若在它们的直积分解中包含一次且只有一次的不可约的全反表示$[1^n]$
+  $
+    C_[1^n] = 1
+  $
+  则有
+  $
+    [lambda] = [mu]^TT
+  $
+  即$[lambda]$是$[mu]$的对偶表示。
+]
 
-对于两个表示$[lambda], [mu]$，若在它们的直积分解中包含一次且只有一次的不可约的全反表示$[1^n]$
+== 两个对称群的不可约表示的外积分解
+
+考虑两个量子多体系统，其中系统 1 有$n_1$个粒子，系统 2 有$n_2$ 个粒子，并设描述它们的置换对称性的群分别是$S_(n_1)$和$S_(n_2)$。现在的问题是：若系统 1 在$S_(n_1)$变换下具有置换对称性$[lambda]$，而系统 2 在$S_(n_2)$变换下具有置换对称性$[mu]$，那么将这两个系统合二为一（共有$n_1 + n_2$个粒子）后，该系统在$S_(n_1 + n_2)$变换下会有哪些置换对称性？
+
+设${psi_i^[lambda] | i = 1,2,...,n_lambda}$是荷载$S_n_1$的不可约表示$[lambda]$的一组基，${psi_j^[mu] | j = 1,2,...,n_mu}$是荷载$S_n_2$的不可约表示$[mu]$的一组基。则合并后的系统的波函数可以写成
 $
-  C_[1^n] = 1
-$
-则有
-$
-  [lambda] = [mu]^TT
+  {psi_i^[lambda] (underbrace(..., n_1)) psi_j^[mu] (underbrace(..., n_2)) | i = 1, 2, ..., n_lambda; j = 1, 2, ..., n_mu }
 $
 
 #example()[
   三个Fermi子
   $
-    phi_i^[21] (i=1,2)\
-    Theta_i^[21]^TT (i=1,2)\
+    phi_i^[2,1] (i=1,2)\
+    Theta_i^[2,1]^TT (i=1,2)\
   $
   有波函数
   $
-    psi^[1^3] = sum_(i,j) N_(i j) phi_i^[21] Theta_j^[21]^TT\
+    psi^[1^3] = sum_(i,j) N_(i j) phi_i^[2,1] Theta_j^[2,1]^TT\
   $
   就有
   $
@@ -1094,7 +1322,7 @@ $
 $
 如果直积群中的因子群的表示都是不可约的，那么该直积群的表示也是不可约的。
 
-如果我们继续考虑耦合
+如果我们继续考虑*耦合*
 $
   S_n times.circle S_m subset S_(n+m)
 $
@@ -1106,7 +1334,7 @@ $
 $
   psi_i^[lambda] (underbrace(..., n_1)) psi_j^[mu] (underbrace(..., n_2))
 $
-一共
+考虑所有$n_1 + n_2$个粒子的置换，就可以形成荷载$S_(n_1 + n_2)$的表示的一组基其分量的数目为
 $
   (n_1 + n_2)! / (n_1! n_2!) f^[lambda] f^[mu]
 $
@@ -1122,8 +1350,58 @@ $
     [1] times.circle [1] = [2] plus.circle [1,1]
   $
   用Young图来说就是
+  #let tab1 = (
+    (vlinex(), vlinex()),
+    (hlinex()),
+    ([],),
+    (hlinex()),
+  )
+  #let tab2 = (
+    (vlinex(), vlinex()),
+    (hlinex()),
+    ([$alpha$],),
+    (hlinex()),
+  )
+  #let tab3 = (
+    (vlinex(), vlinex(), vlinex()),
+    (hlinex()),
+    ([], [$alpha$]),
+    (hlinex()),
+  )
+  #let tab4 = (
+    (vlinex(), vlinex()),
+    (hlinex()),
+    ([],),
+    (hlinex()),
+    ([$alpha$],),
+    (hlinex()),
+  )
   $
-    [] times.circle [alpha] = [,alpha] plus.circle [, alpha]^TT
+    gridx(
+      columns: #((2em,) * 1),
+      rows: #((2em,) * 1),
+      align: #center,
+      ..tab1.flatten(),
+    )
+    times.circle
+    gridx(
+      columns: #((2em,) * 1),
+      rows: #((2em,) * 1),
+      align: #center,
+      ..tab2.flatten(),
+    ) =
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 1),
+      align: #center,
+      ..tab3.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 1),
+      rows: #((2em,) * 2),
+      align: #center,
+      ..tab4.flatten(),
+    )
   $
 ]
 
@@ -1136,15 +1414,69 @@ $
   $
   就有
   $
-    Psi^[3] = psi^[2] (1,2) psi^[1] (3) + psi^[2] (1,3) psi^[1] (2) + psi^[2] (2,3) psi^[1] (1)
+    Psi^[3] = psi^[2] (1,2) psi^[1] (3) + psi^[2] (1,3) psi^[1] (2) + psi^[2] (2,3) psi^[1] (1)\
+    Psi^[2,1]_1 = psi^[2] (1,2) psi^[1] (3) - psi^[2] (1,3) psi^[1] (2) + psi^[2] (2,3) psi^[1] (1)\
+    Psi^[2,1]_2 = psi^[2] (1,3) psi^[1] (2) - psi^[2] (1,2) psi^[1] (3) + psi^[2] (2,3) psi^[1] (1)\
   $
   对应表示
   $
     [2] times.circle [1] = [3] plus.circle [2,1]
   $
   用Young图来说就是
+
+  #let tab1 = (
+    (vlinex(), vlinex(), vlinex()),
+    (hlinex()),
+    ([], []),
+    (hlinex()),
+  )
+  #let tab2 = (
+    (vlinex(), vlinex()),
+    (hlinex()),
+    ([$alpha$],),
+    (hlinex()),
+  )
+  #let tab3 = (
+    (vlinex(), vlinex(), vlinex(), vlinex()),
+    (hlinex()),
+    ([], [], [$alpha$]),
+    (hlinex()),
+  )
+  #let tab4 = (
+    (vlinex(), vlinex(), vlinex(end: 1)),
+    (hlinex()),
+    ([], []),
+    (hlinex()),
+    ([$alpha$], []),
+    (hlinex(end: 1)),
+  )
+
   $
-    [1] times.circle [alpha] = [,,alpha] plus.circle [1,alpha][alpha]
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 1),
+      align: #center,
+      ..tab1.flatten(),
+    )
+    times.circle
+    gridx(
+      columns: #((2em,) * 1),
+      rows: #((2em,) * 1),
+      align: #center,
+      ..tab2.flatten(),
+    ) =
+    gridx(
+      columns: #((2em,) * 3),
+      rows: #((2em,) * 1),
+      align: #center,
+      ..tab3.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 2),
+      align: #center,
+      ..tab4.flatten(),
+    )
   $
 ]
 
@@ -1154,4 +1486,316 @@ $
   [lambda]_n times.circle [1]_1 = sum plus.circle c_lambda' [lambda']_(n+1)
 $
 
-这就给出了 Littlewood 规则
+这就给出了*Littlewood 规则*。
+
+杨图$[nu]$是在杨图$[lambda]$上先添加$mu_1$个标有$alpha$的方格，再添加$mu_2$个标有 $beta$ 的方格，再添加$mu_3$ 个标有$gamma$的方格，……构成的。添加过程要受到下面两个条件的限制：
+- 在添加过程中每一步都要构成一个杨图，并且由相同标号的方格不能排在同一列。
+- 从第一行开始从右往左数，会得到$alpha, beta, gamma$的一个序列，要求在任意前$i$个序列段中$alpha$出现的次数$>= beta$出现的次数$>=gamma$出现的次数……。
+原则上，杨图$[lambda]$和$[mu]$中的任意一个都可以作为基图，而另一个作为添加图。一般选择较大的杨图作为基图会简单些。当两个杨图比较复杂时，利用 Littlewood 规则就显得笨拙。
+
+#example(subname: [$[2,1] times.circle [2,1]$的分解])[
+  - 先在第二个杨图$[2,1]$的第一行的方格中填上$alpha$，第二行的方格中填上$beta$。
+  - 第二步：先以各种可能的方式在基图上添加两个$alpha$方格（除了它们不能排在同一列），使它们成为允许的杨图。见下图中等号右边第一列（忽略$beta$方格）
+  - 再在第二步中的每一个杨图上添加$beta$方格
+
+  #let tab1 = (
+    (vlinex(), vlinex(), vlinex(end: 1)),
+    (hlinex()),
+    ([], []),
+    (hlinex()),
+    ([], []),
+    (hlinex(end: 1)),
+  )
+  #let tab2 = (
+    (vlinex(), vlinex(), vlinex(end: 1)),
+    (hlinex()),
+    ([$alpha$], [$alpha$]),
+    (hlinex()),
+    ([$beta$], []),
+    (hlinex(end: 1)),
+  )
+  #let tab3 = (
+    (vlinex(), vlinex(), vlinex(), vlinex(end: 1), vlinex(end: 1)),
+    (hlinex()),
+    ([], [], [$alpha$], [$alpha$]),
+    (hlinex()),
+    ([], [$beta$], [], []),
+    (hlinex(end: 2)),
+  )
+  #let tab4 = (
+    (vlinex(), vlinex(), vlinex(end: 1), vlinex(end: 1), vlinex(end: 1)),
+    (hlinex()),
+    ([], [], [$alpha$], [$alpha$]),
+    (hlinex()),
+    ([], [], [], []),
+    (hlinex(end: 1)),
+    ([$beta$], [], [], []),
+    (hlinex(end: 1)),
+  )
+  #let tab5 = (
+    (vlinex(), vlinex(), vlinex(end: 2), vlinex(end: 2)),
+    (hlinex()),
+    ([], [], [$alpha$]),
+    (hlinex()),
+    ([], [$alpha$], [$beta$]),
+    (hlinex(end: 3)),
+  )
+  #let tab6 = (
+    (vlinex(), vlinex(), vlinex(end: 2), vlinex(end: 1)),
+    (hlinex()),
+    ([], [], [$alpha$]),
+    (hlinex(end: 3)),
+    ([], [$alpha$], []),
+    (hlinex(end: 2)),
+    ([$beta$], [], []),
+    (hlinex(end: 1)),
+  )
+  #let tab7 = (
+    (vlinex(), vlinex(), vlinex(end: 2), vlinex(end: 1)),
+    (hlinex()),
+    ([], [], [$alpha$]),
+    (hlinex(end: 3)),
+    ([], [$beta$], []),
+    (hlinex(end: 2)),
+    ([$alpha$], [], []),
+    (hlinex(end: 1)),
+  )
+  #let tab8 = (
+    (vlinex(), vlinex(), vlinex(end: 1), vlinex(end: 1)),
+    (hlinex()),
+    ([], [], [$alpha$]),
+    (hlinex(end: 3)),
+    ([], [], []),
+    (hlinex(end: 1)),
+    ([$alpha$], [], []),
+    (hlinex(end: 1)),
+    ([$beta$], [], []),
+    (hlinex(end: 1)),
+  )
+  #let tab9 = (
+    (vlinex(), vlinex(), vlinex()),
+    (hlinex()),
+    ([], []),
+    (hlinex(end: 2)),
+    ([], [$alpha$]),
+    (hlinex(end: 2)),
+    ([$alpha$], [$beta$]),
+    (hlinex(end: 2)),
+  )
+  #let tab10 = (
+    (vlinex(), vlinex(), vlinex(end: 2)),
+    (hlinex()),
+    ([], []),
+    (hlinex(end: 2)),
+    ([], [$alpha$]),
+    (hlinex(end: 2)),
+    ([$alpha$], []),
+    (hlinex(end: 1)),
+    ([$beta$], []),
+    (hlinex(end: 1)),
+  )
+
+
+  $
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 2),
+      align: #center,
+      ..tab1.flatten(),
+    ) times.circle
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 2),
+      align: #center,
+      ..tab2.flatten(),
+    ) &= gridx(
+      columns: #((2em,) * 4),
+      rows: #((2em,) * 2),
+      align: #center,
+      ..tab3.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 4),
+      rows: #((2em,) * 3),
+      align: #center,
+      ..tab4.flatten(),
+    )\
+    & plus.circle
+    gridx(
+      columns: #((2em,) * 3),
+      rows: #((2em,) * 2),
+      align: #center,
+      ..tab5.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 3),
+      rows: #((2em,) * 3),
+      align: #center,
+      ..tab6.flatten(),
+    )\
+    & plus.circle
+    gridx(
+      columns: #((2em,) * 3),
+      rows: #((2em,) * 3),
+      align: #center,
+      ..tab7.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 3),
+      rows: #((2em,) * 4),
+      align: #center,
+      ..tab8.flatten(),
+    )\
+    & plus.circle
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 3),
+      align: #center,
+      ..tab9.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 4),
+      align: #center,
+      ..tab10.flatten(),
+    )
+  $
+]
+
+还有一种常用的杨图添加方法，它适用于添加图比较简单的情况，即该添加图可以由特殊的单行或单列杨图通过简单的组合（直积、加、减运算）得到。
+
+规则分两种情形：
+- 若$[lambda] times.circle [mu]$中的$[lambda]$是一般杨图，而$[mu]$是特殊的单行或单列杨图，那么这个外积分解的方法：首先画出杨图$[lambda]$，再把$[mu]$的所有方格以所有允许的方式加到$[lambda]$ 上。此处“允许”的含义是指：
+  - 得到的图形还是一个杨图$[nu]$，即满足分割条件。
+  - 如果$[mu]$由单行（列）方格组成，那么$[nu]$图形中的任意一列（行）不能有$[mu]$的两个方格。
+- 若$[lambda]$和$[mu]$都不是单行或单列杨图，那么先把其中较简单的一个杨图用单行或单列的杨图表示出来，再应用第一种情形的方法。这实际上是一种递推方法。
+
+#example(subname: [$[2,1] times.circle [1^3]$的分解])[
+  #let tab1 = (
+    (vlinex(), vlinex(), vlinex(end: 1)),
+    (hlinex()),
+    ([], []),
+    (hlinex()),
+    ([], []),
+    (hlinex(end: 1)),
+  )
+  #let tab2 = (
+    (vlinex(), vlinex()),
+    (hlinex()),
+    ([$alpha$],),
+    (hlinex()),
+    ([$beta$],),
+    (hlinex(end: 1)),
+    ([$gamma$],),
+    (hlinex(end: 1)),
+  )
+  #let tab3 = (
+    (vlinex(), vlinex(), vlinex(end: 1)),
+    (hlinex()),
+    ([], []),
+    (hlinex()),
+    ([], []),
+    (hlinex(end: 1)),
+    ([$alpha$], []),
+    (hlinex(end: 1)),
+    ([$beta$], []),
+    (hlinex(end: 1)),
+    ([$gamma$], []),
+    (hlinex(end: 1)),
+  )
+  #let tab4 = (
+    (vlinex(), vlinex(), vlinex(end: 2)),
+    (hlinex()),
+    ([], []),
+    (hlinex()),
+    ([], [$alpha$]),
+    (hlinex(end: 2)),
+    ([$beta$], []),
+    (hlinex(end: 1)),
+    ([$gamma$], []),
+    (hlinex(end: 1)),
+  )
+  #let tab5 = (
+    (vlinex(), vlinex(), vlinex(end: 1), vlinex(end: 1)),
+    (hlinex()),
+    ([], [], [$alpha$]),
+    (hlinex()),
+    ([], [], []),
+    (hlinex(end: 1)),
+    ([$beta$], [], []),
+    (hlinex(end: 1)),
+    ([$gamma$], [], []),
+    (hlinex(end: 1)),
+  )
+  #let tab6 = (
+    (vlinex(), vlinex(), vlinex(end: 2), vlinex(end: 1)),
+    (hlinex()),
+    ([], [], [$alpha$]),
+    (hlinex()),
+    ([], [$beta$], []),
+    (hlinex(end: 2)),
+    ([$gamma$], [], []),
+    (hlinex(end: 1)),
+  )
+
+  $
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 2),
+      align: #center,
+      ..tab1.flatten(),
+    ) times.circle
+    gridx(
+      columns: #((2em,) * 1),
+      rows: #((2em,) * 3),
+      align: #center,
+      ..tab2.flatten(),
+    ) =
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 5),
+      align: #center,
+      ..tab3.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 2),
+      rows: #((2em,) * 4),
+      align: #center,
+      ..tab4.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 3),
+      rows: #((2em,) * 4),
+      align: #center,
+      ..tab5.flatten(),
+    ) plus.circle
+    gridx(
+      columns: #((2em,) * 3),
+      rows: #((2em,) * 3),
+      align: #center,
+      ..tab6.flatten(),
+    )
+  $
+  从而有
+  $
+    [2,1] times.circle [1^3] = [2,1,1,1,1] plus.circle [2,2,1,1] plus.circle [3,1,1,1] plus.circle [3,2,1]
+  $
+]
+
+#example(subname: [$[2,1] times.circle [2,1]$的分解])[
+  分两步计算：先把$[2,1]$用单行或单列的杨图表示出来。由于
+  $
+    [2] times.circle [1] = [3] plus.circle [2,1]
+  $
+  或写成
+  $
+    [2,1] = [2] times.circle [1] minus.circle [3]
+  $
+  这样，$[2,1] times.circle [2,1]$就转化为
+  $
+    [2,1] times.circle [2,1] &= [2,1] times.circle ([2] times.circle [1] minus.circle [3])\
+    &= [2,1] times.circle [2] times.circle [1] -plus.circle [2,1] times.circle [3]\
+    &= [4,2] plus.circle [4,1,1] plus.circle [3,3] plus.circle 2 [2,3,1] plus.circle [3,1,1,1] plus.circle [2,2,2] plus.circle [2,2,1,1]
+  $
+
+]
