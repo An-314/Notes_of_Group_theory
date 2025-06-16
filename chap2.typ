@@ -1647,7 +1647,7 @@ $
   $
 ]
 
-#proposition(subname: [特征表的性质])[
+#proposition(subname: [特征标的性质])[
   对群的某一表示来说，其单位元的特征标就等于该表示的维数。
   $
     chi^A (e)=S_A
@@ -1661,7 +1661,7 @@ $
   $
 ]
 
-#proposition(subname: [特征表的性质])[
+#proposition(subname: [特征标的性质])[
   不可约幺正表示的特征标的模等于 1。
 ]
 
@@ -1677,7 +1677,7 @@ $
 ]
 这个性质可以作为*判断表示是否可约的判据*。显然，一维表示满足上式。
 
-#proposition(subname: [特征表的性质])[
+#proposition(subname: [特征标的性质])[
   不等价的不可约幺正表示的特征标正交，即第 $p$ 个和第 $r$ （$r != p$）不可约表示的特征标满足
   $
     braket(chi^((p)), chi^((r))) = 1 / n sum_(k=1)^n chi^((p)*) (g_k) chi^((r)) (g_k) = 0
@@ -1689,7 +1689,7 @@ $
 ]
 
 
-#proposition(subname: [特征表的性质])[
+#proposition(subname: [特征标的性质])[
   可约表示的特征标等于它所包含的不可约表示的特征标之和。
   $
     A(g_k) = sum_(i=1)^q plus.circle C_p A^((p))\
@@ -1703,13 +1703,13 @@ $
 这给出了约化技术$A = sum_p plus.circle C_p A^((p))$的$C_p$的计算。
 
 由此也可以给出
-#theorem(subname: [特征表的第一正交关系])[
+#theorem(subname: [特征标的第一正交关系])[
   $
     braket(chi^((p)), chi^((r))) = delta_(p r) \
   $
 ]
 
-#proposition(subname: [特征表的性质])[
+#proposition(subname: [特征标的性质])[
   可约表示的特征标等于它所包含的不可约表示的特征标之和。
 ]
 
@@ -1717,7 +1717,7 @@ $
   设 $A$ 是群 $cal(G)$ 的一个可约表示，那么它一定可以约化为 $cal(G)$ 的有限个不等价不可约表示（设为 $q$ 个）的直和，即
   $
     A(g) = sum_(i=1)^q plus.circle m_i A^((i)) (g), g in cal(G)
-  $<特征表约化>
+  $<特征标约化>
   其中 $m_i$ 是 $A^((i))$ 在 $A$ 中的重数。对上式两边的对角元求和，有
   $
     chi^A (g) = sum_(i=1)^q m_i chi^((i)) (g)
@@ -1725,23 +1725,23 @@ $
   其中 $chi^((i)) (g)$ 是 $A^((i))$ 的特征标。由正交关系有
   $
     m_i = braket(chi^((i)), chi^A) = 1 / n sum_(k=1)^n chi^((i)*) (g_k) chi^A (g_k)
-  $<特征表约化1>
+  $<特征标约化1>
 ]
-注意到 @特征表约化 中的 $m_i$ 可以由 @特征表约化1 给出，这样就知道一个可约表示是由哪些不可约表示直和而成的，随即就完成了表示的约化任务。对于给定的一个表示 $A$ ， $chi^A$ 是确定的，又因为有限群的不可约表示的特征标 $chi^((p))$ 是确定的，所以$m_i$也是唯一确定的。由此说明了*有限群可约表示的约化的唯一性*。
+注意到 @特征标约化 中的 $m_i$ 可以由 @特征标约化1 给出，这样就知道一个可约表示是由哪些不可约表示直和而成的，随即就完成了表示的约化任务。对于给定的一个表示 $A$ ， $chi^A$ 是确定的，又因为有限群的不可约表示的特征标 $chi^((p))$ 是确定的，所以$m_i$也是唯一确定的。由此说明了*有限群可约表示的约化的唯一性*。
 
 当然，与 $m_i$ 相应的不可约表示 $A^((i))$ 在表示 $A$ 的对角线上的排序是任意的，所以只能确定到等价的块结构。
 
-#corollary(subname: [特征表的性质])[
+#corollary(subname: [特征标的性质])[
   $
     A tilde A' <=> chi^A = chi^A'
   $
 ]
 
-#proposition(subname: [特征表的性质])[
+#proposition(subname: [特征标的性质])[
   可约表示的特征标的模大于 1。
 ]
 
-#proposition(subname: [特征表的性质])[
+#proposition(subname: [特征标的性质])[
   同类元素的特征标相等。
 ]
 
@@ -1946,7 +1946,7 @@ $
   $
     braket(chi^L (g), chi^L (g)) = 1 / n sum_(i=1)^n chi^L (g_i) chi^L (g_i) = n
   $
-  从而对于$n>1$，该表示是可约的。再利用特征表求约化
+  从而对于$n>1$，该表示是可约的。再利用特征标求约化
   $
     L(g) = sum_p plus.circle C_p A^((p)) (g) = sum_p plus.circle braket(chi^((i)), chi^L (g)) A^((i)) (g)
   $
@@ -2036,7 +2036,7 @@ $
 
 
 
-#proposition(subname: [特征表与直积])[
+#proposition(subname: [特征标与直积])[
   两个表示的直积的特征标等于这两个表示的特征标的乘积，即
   $
     chi^(A times.circle B) (g) = chi^A (g) chi^B (g)\
