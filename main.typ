@@ -24,3 +24,7 @@
 #pagebreak()
 
 #include "chap4.typ"
+
+#pagebreak()
+
+#include "appendix.typ"
